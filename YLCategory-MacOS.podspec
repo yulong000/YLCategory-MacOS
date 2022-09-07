@@ -10,12 +10,12 @@ Pod::Spec.new do |spec|
 
   spec.name         = "YLCategory-MacOS"
   spec.version      = "0.0.1"
-  spec.summary      = "mac os app开发常用分类"
-  spec.homepage     = "http://EXAMPLE/YLCategory-MacOS"
+  spec.summary      = "macos app开发常用分类"
+  spec.homepage     = "https://github.com/yulong000/YLCategory-MacOS"
   spec.license      = "MIT"
   spec.author       = { "魏宇龙" => "weiyulong1987@163.com" }
-  spec.platform     = :mac os, "10.13"
-  spec.source       = { :git => "http://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{spec.version}" }
+  spec.platform     = :macos, "10.13"
+  spec.source       = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{spec.version}" }
   spec.source_files  = "YLCategory/YLCategory.h"
   spec.public_header_files = "YLCategory/YLCategory.h"
   spec.requires_arc = true
