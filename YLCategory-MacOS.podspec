@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
   spec.platform     = :macos, "10.13"
   spec.source       = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{spec.version}" }
   spec.source_files  = "YLCategory-MacOS/YLCategory/YLCategory.h"
-  spec.public_header_files = "YLCategory/YLCategory.h"
+  spec.public_header_files = "YLCategory-MacOS/YLCategory/YLCategory.h"
   spec.requires_arc = true
   
 end
