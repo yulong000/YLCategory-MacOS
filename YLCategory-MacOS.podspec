@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "YLCategory-MacOS"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "macos app开发常用分类"
   spec.homepage     = "https://github.com/yulong000/YLCategory-MacOS"
   spec.license      = "MIT"
@@ -25,4 +25,4 @@ end
 
 # 升级时  1.add tag
 #        2.push tag
-#        3.pod trunk push YLCategory-MacOS.podspec --allow-warnings
+#        3.pod trunk push YLCategory-MacOS.podspec
