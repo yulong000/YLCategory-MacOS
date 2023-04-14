@@ -212,8 +212,8 @@
 		001F8D8728C882C6007A6F0F /* NSButton */ = {
 			isa = PBXGroup;
 			children = (
-				001F8D8828C882C6007A6F0F /* NSButton+category.m */,
 				001F8D8928C882C6007A6F0F /* NSButton+category.h */,
+				001F8D8828C882C6007A6F0F /* NSButton+category.m */,
 			);
 			path = NSButton;
 			sourceTree = "<group>";

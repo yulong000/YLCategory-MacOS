@@ -53,6 +53,7 @@ end
 
 s.subspec 'NSImage' do |ss|
 ss.source_files  =   'YLCategory/NSImage/*.{h,m}'
+ss.dependency         'YLCategory/Other'
 end
 
 s.subspec 'NSDate' do |ss|
@@ -65,6 +66,7 @@ end
 
 s.subspec 'NSButton' do |ss|
 ss.source_files  =   'YLCategory/NSButton/*.{h,m}'
+ss.dependency         'YLCategory/NSControl'
 end
 
 s.subspec 'NSAlert' do |ss|
@@ -76,4 +78,4 @@ end
 
 # 升级时  1.add tag
 #        2.push tag
-#        3.pod trunk push YLCategory-MacOS.podspec
+#        3.pod trunk push YLCategory-MacOS.podspec --allow-warnings
