@@ -6,7 +6,6 @@
 //
 
 #import "NSImage+category.h"
-#import "Macro.h"
 
 @implementation NSImage (category)
 
@@ -26,7 +25,7 @@
         return [[NSImage alloc] initWithSize:size];
     }
     NSImage *image = nil;
-    NSRect rect = NSMakeRect(0, 0, size.width * kScreenScale, size.height * kScreenScale);
+    NSRect rect = NSMakeRect(0, 0, size.width * [NSScreen mainScreen].backingScaleFactor, size.height * [NSScreen mainScreen].backingScaleFactor);
     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge  CFDataRef)self.TIFFRepresentation, NULL);
     if(source == nil) {
         return [[NSImage alloc] initWithSize:size];

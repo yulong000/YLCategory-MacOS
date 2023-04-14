@@ -53,7 +53,6 @@ end
 
 s.subspec 'NSImage' do |ss|
 ss.source_files  =   'YLCategory/NSImage/*.{h,m}'
-ss.dependency         'YLCategory/Other'
 end
 
 s.subspec 'NSDate' do |ss|
