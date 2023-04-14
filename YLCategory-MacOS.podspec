@@ -19,8 +19,8 @@ spec.source               = { :git => "https://github.com/yulong000/YLCategory-M
 spec.source_files         = "YLCategory/YLCategory.h"
 spec.requires_arc         = true
 
-s.subspec 'Others' do |ss|
-ss.source_files  =   'YLCategory/Others/*.{h,m}'
+s.subspec 'Other' do |ss|
+ss.source_files  =   'YLCategory/Other/*.{h,m}'
 end
 
 s.subspec 'NSWindow' do |ss|
