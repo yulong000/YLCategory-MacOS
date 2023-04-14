@@ -16,60 +16,60 @@ s.license               = { :type => 'MIT', :file => 'LICENSE'}
 s.author                = { "魏宇龙" => "weiyulong1987@163.com" }
 s.platform              = :macos, "10.13"
 s.source                = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{s.version}" }
-s.source_files          = "YLCategory/YLCategory.h"
+s.source_files          = "YLCategory-MacOS/YLCategory.h"
 s.requires_arc          = true
 
 s.subspec 'Other' do |ss|
-ss.source_files  =   'YLCategory/Other/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/Other/*.{h,m}'
 end
 
 s.subspec 'NSWindow' do |ss|
-ss.source_files  =    'YLCategory/NSWindow/*.{h,m}'
+ss.source_files  =    'YLCategory-MacOS/NSWindow/*.{h,m}'
 end
 
 s.subspec 'NSViewController' do |ss|
-ss.source_files  =    'YLCategory/NSViewController/*.{h,m}'
+ss.source_files  =    'YLCategory-MacOS/NSViewController/*.{h,m}'
 end
 
 s.subspec 'NSView' do |ss|
-ss.source_files  =    'YLCategory/NSView/*.{h,m}'
+ss.source_files  =    'YLCategory-MacOS/NSView/*.{h,m}'
 end
 
 s.subspec 'NSTextField' do |ss|
-ss.source_files  =    'YLCategory/NSTextField/*.{h,m}'
+ss.source_files  =    'YLCategory-MacOS/NSTextField/*.{h,m}'
 end
 
 s.subspec 'NSString' do |ss|
-ss.source_files  =   'YLCategory/NSString/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSString/*.{h,m}'
 end
 
 s.subspec 'NSObject' do |ss|
-ss.source_files  =   'YLCategory/NSObject/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSObject/*.{h,m}'
 end
 
 s.subspec 'NSImageView' do |ss|
-ss.source_files  =   'YLCategory/NSImageView/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSImageView/*.{h,m}'
 end
 
 s.subspec 'NSImage' do |ss|
-ss.source_files  =   'YLCategory/NSImage/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSImage/*.{h,m}'
 end
 
 s.subspec 'NSDate' do |ss|
-ss.source_files  =   'YLCategory/NSDate/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSDate/*.{h,m}'
 end
 
 s.subspec 'NSControl' do |ss|
-ss.source_files  =   'YLCategory/NSControl/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSControl/*.{h,m}'
 end
 
 s.subspec 'NSButton' do |ss|
-ss.source_files  =   'YLCategory/NSButton/*.{h,m}'
-ss.dependency         'YLCategory/NSControl'
+ss.source_files  =   'YLCategory-MacOS/NSButton/*.{h,m}'
+ss.dependency        'YLCategory-MacOS/NSControl'
 end
 
 s.subspec 'NSAlert' do |ss|
-ss.source_files  =   'YLCategory/NSAlert/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/NSAlert/*.{h,m}'
 end
   
 end
