@@ -6,18 +6,18 @@
 #  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
 #
 
-Pod::Spec.new do |spec|
+Pod::Spec.new do |s|
 
-spec.name                 = "YLCategory-MacOS"
-spec.version              = "0.0.3"
-spec.summary              = "macos app开发常用分类"
-spec.homepage             = "https://github.com/yulong000/YLCategory-MacOS"
-spec.license              = { :type => 'MIT', :file => 'LICENSE'}
-spec.author               = { "魏宇龙" => "weiyulong1987@163.com" }
-spec.platform             = :macos, "10.13"
-spec.source               = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{spec.version}" }
-spec.source_files         = "YLCategory/YLCategory.h"
-spec.requires_arc         = true
+s.name                  = "YLCategory-MacOS"
+s.version               = "0.0.3"
+s.summary               = "macos app开发常用分类"
+s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
+s.license               = { :type => 'MIT', :file => 'LICENSE'}
+s.author                = { "魏宇龙" => "weiyulong1987@163.com" }
+s.platform              = :macos, "10.13"
+s.source                = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{s.version}" }
+s.source_files          = "YLCategory/YLCategory.h"
+s.requires_arc          = true
 
 s.subspec 'Other' do |ss|
 ss.source_files  =   'YLCategory/Other/*.{h,m}'
