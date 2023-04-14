@@ -26,5 +26,6 @@
 #import "NSWindow+category.h"
 #import "NSWindow+frame.h"
 #import "NSImageView+category.h"
+#import "NSAlert+category.h"
 
 #endif /* YLCategory_h */

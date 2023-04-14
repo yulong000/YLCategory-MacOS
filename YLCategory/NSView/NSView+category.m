@@ -55,8 +55,15 @@
 }
 
 #pragma mark 监听鼠标的划入｜划出
-- (void)addMouseTrackingAreaWithRect:(NSRect)rect owner:(id)owner {
-    [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:rect options:NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited owner:owner userInfo:nil]];
+- (NSTrackingArea *)addMouseTrackingAreaWithRect:(NSRect)rect owner:(id)owner {
+    NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:rect options:NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited owner:owner userInfo:nil];
+    [self addTrackingArea:trackingArea];
+    return trackingArea;
+}
+
+#pragma mark 监听鼠标的划入｜划出整个区域
+- (NSTrackingArea *)addMouseTracking {
+    return [self addMouseTrackingAreaWithRect:self.bounds owner:self];
 }
 
 #pragma mark 移除所有的跟踪区域
@@ -99,6 +106,15 @@
     view.wantsLayer = YES;
     view.layer.backgroundColor = backgroundColor.CGColor;
     return view;
+}
+
+#pragma mark 截图
+- (NSImage *)thumbImage {
+    NSBitmapImageRep *rep = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
+    [self cacheDisplayInRect:self.bounds toBitmapImageRep:rep];
+    NSImage *image = [[NSImage alloc] initWithSize:self.bounds.size];
+    [image addRepresentation:rep];
+    return image;
 }
 
 @end

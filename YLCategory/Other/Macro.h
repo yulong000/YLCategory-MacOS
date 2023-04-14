@@ -45,8 +45,6 @@
 #define BlackColorAlpha(a)          [NSColor colorWithWhite:0 alpha:a]
 // 半透明白
 #define WhiteColorAlpha(a)          [NSColor colorWithWhite:1 alpha:a]
-// 自定义灰色
-#define GrayColorComponent(w)       [NSColor colorWithWhite:w alpha:1]
 
 /****************************************  数据类型转换  ***********************************/
 
@@ -64,6 +62,7 @@
 #define kScreenScale                    [NSScreen mainScreen].backingScaleFactor
 #define kScreenWidth                    [NSScreen mainScreen].frame.size.width
 #define kScreenHeight                   [NSScreen mainScreen].frame.size.height
+#define kStatusBarHeight                [[NSStatusBar systemStatusBar] thickness]
 
 /****************************************  字体  ***********************************/
 
@@ -98,14 +97,7 @@
 }()
 
 // 判断当前app是否是深色模式
-#define kIsDarkTheme                \
-^ BOOL {                                                                                    \
-    if (@available(macOS 11.0, *)) {                                                        \
-        return [NSAppearance currentDrawingAppearance].name != NSAppearanceNameAqua;        \
-    } else {                                                                                \
-        return [NSAppearance currentAppearance].name != NSAppearanceNameAqua;               \
-    }                                                                                       \
-}()
+#define kIsDarkTheme                    ([NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] == NSAppearanceNameDarkAqua)
 
 
 // 文件路径
@@ -119,5 +111,7 @@
 #define kAPP_Build_Number               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
 // app Name
 #define kAPP_Name                       [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
+// bundle id
+#define kBundle_id                      [NSBundle mainBundle].bundleIdentifier
 
 #endif /* Marco_h */

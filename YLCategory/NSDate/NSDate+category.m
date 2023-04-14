@@ -5,7 +5,7 @@
 #pragma mark 根据日期格式和字符串 创建日期实例
 + (NSDate *)dateWithFormat:(NSString *)format string:(NSString *)dateStr {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 60 * 60];
+    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
     [formatter setDateFormat:format];
     return [formatter dateFromString:dateStr];
 }
@@ -18,19 +18,17 @@
 #pragma mark 将日期转换成字符串
 - (NSString *)stringValueWithFormat:(NSString *)formatStr {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 60 * 60];
+    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
     [formatter setDateFormat:formatStr];
     return [formatter stringFromDate:self];
 }
 #pragma mark 将日期格式化成对应格式的日期
 - (NSDate *)dateWithFormatString:(NSString *)formatStr {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
     [formatter setDateFormat:formatStr];
     NSString *dateStr = [formatter stringFromDate:self];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 60 * 60];
-    NSDate *date = [formatter dateFromString:dateStr];
-    return date;
+    return [formatter dateFromString:dateStr];
 }
 #pragma mark 计算当前月的第一天是礼拜几
 - (Weekday)dayOfFirstDayInCurrentMonth {
@@ -99,14 +97,6 @@
     return [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:self].length;
 }
 
-#pragma mark 将日期转换成对应格式的字符串  如："yyyy-MM-dd"
-- (NSString *)dateToStringWithFormat:(NSString *)format {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 60 * 60];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:self];
-}
-
 #pragma mark 获取日期对应的年份
 - (NSUInteger)year {
     return [self dateComponents].year;
@@ -140,8 +130,8 @@
 #pragma mark 获取日期为星期几
 - (Weekday)weekday {
     Weekday day = Monday;
-    NSDateComponents *dateComponents = [self dateComponents];
-    switch ([dateComponents weekday]) {
+    NSInteger index = [self dateComponents].weekday;
+    switch (index) {
         case 1: day = Sunday;       break;
         case 2: day = Monday;       break;
         case 3: day = Tuesday;      break;

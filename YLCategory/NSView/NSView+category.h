@@ -25,7 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 监听鼠标 划入｜划出
 /// @param rect 区域
 /// @param owner 回调者
-- (void)addMouseTrackingAreaWithRect:(NSRect)rect owner:(id)owner;
+- (NSTrackingArea *)addMouseTrackingAreaWithRect:(NSRect)rect owner:(id)owner;
+/// 监听鼠标 划入｜划出 整个区域
+- (NSTrackingArea *)addMouseTracking;
 
 /// 移除所有的跟踪区域
 - (void)removeAllTrackingArea;
@@ -42,7 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**  设置边框和圆角  */
 - (void)setBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius;
 
+/// 构造方法，创建带背景色的view
 + (NSView *)viewWithColor:(NSColor *)backgroundColor;
+
+/// 获取缩略图
+- (NSImage *)thumbImage;
 
 @end
 
