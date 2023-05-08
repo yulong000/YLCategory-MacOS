@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "0.0.3"
+s.version               = "0.0.4"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -27,10 +27,6 @@ s.subspec 'NSWindow' do |ss|
 ss.source_files  =    'YLCategory-MacOS/NSWindow/*.{h,m}'
 end
 
-s.subspec 'NSViewController' do |ss|
-ss.source_files  =    'YLCategory-MacOS/NSViewController/*.{h,m}'
-end
-
 s.subspec 'NSView' do |ss|
 ss.source_files  =    'YLCategory-MacOS/NSView/*.{h,m}'
 end
@@ -45,10 +41,6 @@ end
 
 s.subspec 'NSObject' do |ss|
 ss.source_files  =   'YLCategory-MacOS/NSObject/*.{h,m}'
-end
-
-s.subspec 'NSImageView' do |ss|
-ss.source_files  =   'YLCategory-MacOS/NSImageView/*.{h,m}'
 end
 
 s.subspec 'NSImage' do |ss|
@@ -71,6 +63,21 @@ end
 s.subspec 'NSAlert' do |ss|
 ss.source_files  =   'YLCategory-MacOS/NSAlert/*.{h,m}'
 end
+
+s.subspec 'NSResponder' do |ss|
+ss.source_files  =   'YLCategory-MacOS/NSResponder/*.{h,m}'
+end
+
+s.subspec 'NSColor' do |ss|
+ss.source_files  =   'YLCategory-MacOS/NSColor/*.{h,m}'
+ss.dependency        'YLCategory-MacOS/Other'
+end
+
+s.subspec 'YLProgressHUD' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLProgressHUD/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLProgressHUD/YLProgressHUD.bundle'
+ss.dependency        'YLCategory-MacOS/Other'
+end
   
 end
 
@@ -78,3 +85,5 @@ end
 # 升级时  1.add tag
 #        2.push tag
 #        3.pod trunk push YLCategory-MacOS.podspec --allow-warnings
+
+#        pod spec lint YLCategory-MacOS.podspec  验证podspec文件
