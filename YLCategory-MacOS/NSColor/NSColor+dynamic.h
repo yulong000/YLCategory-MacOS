@@ -1,5 +1,5 @@
 //
-//  NSTextField+category.h
+//  NSColor+dynamic.h
 //  YLCategory-MacOS
 //
 //  Created by 魏宇龙 on 2023/5/8.
@@ -9,10 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSTextField (category)
+@interface NSColor (dynamic)
 
-/// 固定最大宽度，高度自适应
-- (NSSize)sizeWithMaxWidth:(CGFloat)width;
++ (NSColor *)light:(NSColor *)light dark:(NSColor *)dark;
 
 @end
 

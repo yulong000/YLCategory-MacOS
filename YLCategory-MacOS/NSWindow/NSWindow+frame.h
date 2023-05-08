@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) CGFloat height;
 @property (assign, nonatomic) NSSize  size;
 @property (assign, nonatomic) NSPoint origin;
-@property (nonatomic, assign) NSRect  bounds;
+@property (assign, nonatomic) NSRect  bounds;
 @property (assign, nonatomic) CGFloat centerX;
 @property (assign, nonatomic) CGFloat centerY;
 

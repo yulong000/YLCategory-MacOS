@@ -9,7 +9,6 @@
 #define YLCategory_h
 
 #import "Macro.h"
-#import "NSViewController+category.h"
 #import "NSButton+category.h"
 #import "NSTextField+category.h"
 #import "NSView+frame.h"
@@ -25,7 +24,9 @@
 #import "NSImage+category.h"
 #import "NSWindow+category.h"
 #import "NSWindow+frame.h"
-#import "NSImageView+category.h"
 #import "NSAlert+category.h"
+#import "NSColor+dynamic.h"
+#import "NSResponder+category.h"
+#import "YLProgressHUD.h"
 
 #endif /* YLCategory_h */

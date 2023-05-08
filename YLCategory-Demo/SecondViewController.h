@@ -1,5 +1,5 @@
 //
-//  NSTextField+category.h
+//  SecondViewController.h
 //  YLCategory-MacOS
 //
 //  Created by 魏宇龙 on 2023/5/8.
@@ -9,10 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSTextField (category)
-
-/// 固定最大宽度，高度自适应
-- (NSSize)sizeWithMaxWidth:(CGFloat)width;
+@interface SecondViewController : NSViewController
 
 @end
 

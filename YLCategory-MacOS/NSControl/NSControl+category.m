@@ -18,13 +18,13 @@ static const char NSControlClickedHandlerKey = '\0';
 
 - (void)setClickedHandler:(NSControlClickedHandler)clickedHandler {
     self.target = self;
-    self.action = @selector(controlClicked);
+    self.action = @selector(yl_controlClicked);
     [self willChangeValueForKey:@"clickedHandler"];
     objc_setAssociatedObject(self, &NSControlClickedHandlerKey, clickedHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
     [self didChangeValueForKey:@"clickedHandler"];
 }
 
-- (void)controlClicked {
+- (void)yl_controlClicked {
     if (self.clickedHandler) {
         self.clickedHandler(self);
     }

@@ -1,4 +1,8 @@
 #import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+
+/// 通知回调
+typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
 
 @interface NSObject (category)
 
@@ -6,7 +10,28 @@
 - (BOOL)isValidString;
 
 /// 发送通知
-- (void)postNotificationName:(NSString *)name;
-- (void)postNotificationName:(NSString *)name userInfo:(NSDictionary *)userInfo;
+- (void)postNotificationWithName:(NSString * _Nonnull)name;
+- (void)postNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
+/// 监听通知
+- (void)addNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
+/// 移除监听通知
+- (void)removeAllNotifications;
+
+
+/// 添加事件监听, 自动调用 addMonitor:
+- (void)addGlobalEventMonitor:(NSEventMask)mask handler:(void (^ _Nullable)(NSEvent * _Nonnull event))block;
+- (void)addLocalEventMonitor:(NSEventMask)mask handler:(NSEvent * _Nullable (^ _Nullable)(NSEvent * _Nonnull event))block;
+
+/// 同时添加 global & local 事件监听，自动调用 addMonitor:
+- (void)addEventMonitor:(NSEventMask)mask handler:(NSEvent * _Nullable (^ _Nullable)(NSEvent * _Nonnull event))block;
+
+/// 添加其他监听事件对象
+- (void)addMonitor:(id _Nonnull)monitor;
+- (void)addMonitors:(NSArray * _Nonnull)monitors;
+
+/// 移除所有的监听, 只有通过上面的方法添加的，才能移除
+- (void)removeAllMonitors;
+/// 移除某个监听
+- (void)removeMonitor:(id _Nonnull)monitor;
 
 @end

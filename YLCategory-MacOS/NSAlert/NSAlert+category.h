@@ -11,11 +11,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSAlert (category)
 
+/// 显示alert
+/// - Parameters:
+///   - window: 要显示到的窗口
+///   - title: 标题
+///   - buttons: 按钮，最多3个
+///   - completionHandler: 点击按钮后的回调
 + (void)showForModalWindow:(NSWindow *)window
                  withTitle:(NSString *)title
                    buttons:(NSArray <NSString *> *)buttons
          completionHandler:(void (^ _Nullable)(NSInteger index))completionHandler;
 
+
+/// 显示alert
+/// - Parameters:
+///   - window: 要显示到的窗口
+///   - title: 标题
+///   - message: 显示内容
+///   - buttons: 按钮，最多3个
+///   - completionHandler: 点击按钮后的回调
 + (void)showForModalWindow:(NSWindow *)window
                  withTitle:(NSString * _Nullable)title
                    message:(NSString * _Nullable)message

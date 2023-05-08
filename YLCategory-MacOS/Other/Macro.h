@@ -105,7 +105,7 @@
 }()
 
 // 判断当前app是否是深色模式
-#define kIsDarkTheme                    ([NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] == NSAppearanceNameDarkAqua)
+#define kAppIsDarkTheme                    ([NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] == NSAppearanceNameDarkAqua)
 
 
 // 文件路径

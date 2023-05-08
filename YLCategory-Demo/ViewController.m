@@ -8,6 +8,11 @@
 #import "ViewController.h"
 #import "YLCategory.h"
 
+@interface ViewController ()
+
+
+@end
+
 @implementation ViewController
 
 - (void)viewDidLoad {
