@@ -14,8 +14,10 @@ typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
 - (void)postNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
 /// 监听通知
 - (void)addNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
-/// 移除监听通知
+/// 移除所有监听通知
 - (void)removeAllNotifications;
+/// 移除某个监听通知
+- (void)removeNotificationName:(NSString * _Nonnull)name;
 
 
 /// 添加事件监听, 自动调用 addMonitor:

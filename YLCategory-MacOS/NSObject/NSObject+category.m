@@ -109,6 +109,10 @@ static const char YLMonitorArrayKey = '\0';
     }
 }
 
+- (void)removeNotificationName:(NSString *)name {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
+}
+
 - (void)removeAllNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

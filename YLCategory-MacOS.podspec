@@ -9,12 +9,12 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "0.0.4"
+s.version               = "0.0.5"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
 s.author                = { "魏宇龙" => "weiyulong1987@163.com" }
-s.platform              = :macos, "10.13"
+s.platform              = :macos, "10.14"
 s.source                = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{s.version}" }
 s.source_files          = "YLCategory-MacOS/YLCategory.h"
 s.requires_arc          = true
@@ -70,7 +70,10 @@ end
 
 s.subspec 'NSColor' do |ss|
 ss.source_files  =   'YLCategory-MacOS/NSColor/*.{h,m}'
-ss.dependency        'YLCategory-MacOS/Other'
+end
+
+s.subspec 'NSImageView' do |ss|
+ss.source_files  =   'YLCategory-MacOS/NSImageView/*.{h,m}'
 end
 
 s.subspec 'YLProgressHUD' do |ss|

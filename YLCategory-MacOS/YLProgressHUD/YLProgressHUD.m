@@ -153,7 +153,7 @@
         if([YLProgressHUDConfig share].movable) {
             __weak typeof(self) weakSelf = self;
             self.monitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskLeftMouseDragged handler:^NSEvent * _Nullable(NSEvent * _Nonnull event) {
-                if(event.window == weakSelf) {
+                if(event.window == weakSelf.parentWindow || event.window == weakSelf) {
                     // 让窗口响应鼠标的拖动
                     NSPoint parentWindowOrigin = weakSelf.parentWindow.parentWindow.frame.origin;
                     [weakSelf.parentWindow.parentWindow setFrameOrigin:NSMakePoint(parentWindowOrigin.x + event.deltaX, parentWindowOrigin.y - event.deltaY)];

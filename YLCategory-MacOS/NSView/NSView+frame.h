@@ -28,6 +28,7 @@ typedef NSView * _Nonnull (^YLOffset)(CGFloat offset);
 注意：
  1.非自动布局，所有传入otherView或superView的布局，都以该view当前的frame作为参考值，不会根据其frame的变化而变化
  2.相对布局的otherView, 指的是同一个父视图下的同级子视图
+ 3.top,bottom的值跟superView的坐标系（即flipped）有关系, top指向坐标系原点0，bottom指向最大值
 ************************************
  
 */
@@ -129,10 +130,14 @@ typedef NSView * _Nonnull (^YLOffset)(CGFloat offset);
 /// 设置垂直居中
 @property (nonatomic, copy, readonly) YLEqualToSuperView centerY_equalToSuper;
 
-/// 设置右侧与父视图右侧的间距space
-@property (nonatomic, copy, readonly) YLSpaceToSuperView right_spaceToSuper;
 /// 设置顶部与父视图底部的间距space
 @property (nonatomic, copy, readonly) YLSpaceToSuperView top_spaceToSuper;
+/// 设置左侧与父视图底部的间距space
+@property (nonatomic, copy, readonly) YLSpaceToSuperView left_spaceToSuper;
+/// 设置右侧与父视图右侧的间距space
+@property (nonatomic, copy, readonly) YLSpaceToSuperView right_spaceToSuper;
+/// 设置底部与父视图底部的间距space
+@property (nonatomic, copy, readonly) YLSpaceToSuperView bottom_spaceToSuper;
 
 /// 设置顶部与另一个view的底部的间距
 @property (nonatomic, copy, readonly) YLSpaceToView top_spaceTo;

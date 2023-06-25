@@ -33,6 +33,7 @@
 		00B6B3F12A09246D00457886 /* NSTextField+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3F02A09246D00457886 /* NSTextField+category.m */; };
 		00B6B3F62A09249600457886 /* YLProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00B6B3F32A09249600457886 /* YLProgressHUD.bundle */; };
 		00B6B3F72A09249600457886 /* YLProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3F42A09249600457886 /* YLProgressHUD.m */; };
+		00B6B3FB2A0A271600457886 /* NSImageView+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3FA2A0A271600457886 /* NSImageView+category.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,8 @@
 		00B6B3F32A09249600457886 /* YLProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YLProgressHUD.bundle; sourceTree = "<group>"; };
 		00B6B3F42A09249600457886 /* YLProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLProgressHUD.m; sourceTree = "<group>"; };
 		00B6B3F52A09249600457886 /* YLProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressHUD.h; sourceTree = "<group>"; };
+		00B6B3F92A0A271600457886 /* NSImageView+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageView+category.h"; sourceTree = "<group>"; };
+		00B6B3FA2A0A271600457886 /* NSImageView+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageView+category.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,7 @@
 		00A9798729E92D870066F7C7 /* YLCategory-MacOS */ = {
 			isa = PBXGroup;
 			children = (
+				00B6B3F82A0A270100457886 /* NSImageView */,
 				00B6B3F22A09249600457886 /* YLProgressHUD */,
 				00B6B3E72A08DD5900457886 /* NSResponder */,
 				00B6B3E32A08DAE000457886 /* NSColor */,
@@ -161,11 +165,11 @@
 			isa = PBXGroup;
 			children = (
 				00A9798929E92D870066F7C7 /* NSView+frame.h */,
-				00A9798A29E92D870066F7C7 /* NSView+gesture.h */,
-				00A9798B29E92D870066F7C7 /* NSView+category.h */,
-				00A9798C29E92D870066F7C7 /* NSView+gesture.m */,
 				00A9798D29E92D870066F7C7 /* NSView+frame.m */,
+				00A9798B29E92D870066F7C7 /* NSView+category.h */,
 				00A9798E29E92D870066F7C7 /* NSView+category.m */,
+				00A9798A29E92D870066F7C7 /* NSView+gesture.h */,
+				00A9798C29E92D870066F7C7 /* NSView+gesture.m */,
 			);
 			path = NSView;
 			sourceTree = "<group>";
@@ -295,6 +299,15 @@
 			path = YLProgressHUD;
 			sourceTree = "<group>";
 		};
+		00B6B3F82A0A270100457886 /* NSImageView */ = {
+			isa = PBXGroup;
+			children = (
+				00B6B3F92A0A271600457886 /* NSImageView+category.h */,
+				00B6B3FA2A0A271600457886 /* NSImageView+category.m */,
+			);
+			path = NSImageView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -366,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00A979CA29E92D870066F7C7 /* NSButton+category.m in Sources */,
+				00B6B3FB2A0A271600457886 /* NSImageView+category.m in Sources */,
 				00A979BE29E92D870066F7C7 /* main.m in Sources */,
 				00A979CE29E92D870066F7C7 /* NSImage+category.m in Sources */,
 				00A979C329E92D870066F7C7 /* NSControl+category.m in Sources */,

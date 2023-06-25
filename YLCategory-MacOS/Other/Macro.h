@@ -77,6 +77,7 @@
 // 字体大小
 #define Font(size)                      [NSFont systemFontOfSize:size]
 #define BoldFont(size)                  [NSFont boldSystemFontOfSize:size]
+#define MediumFont(size)                [NSFont systemFontOfSize:size weight:NSFontWeightMedium]
 
 
 /****************************************  快捷方法  ***********************************/

@@ -345,6 +345,30 @@
     };
 }
 
+- (YLSpaceToSuperView)top_spaceToSuper {
+    __weak typeof(self) weakSelf = self;
+    return ^ (CGFloat space) {
+        weakSelf.top = space;
+        return weakSelf;
+    };
+}
+
+- (YLSpaceToSuperView)left_spaceToSuper {
+    __weak typeof(self) weakSelf = self;
+    return ^ (CGFloat space) {
+        weakSelf.x = space;
+        return weakSelf;
+    };
+}
+
+- (YLSpaceToSuperView)bottom_spaceToSuper {
+    __weak typeof(self) weakSelf = self;
+    return ^ (CGFloat space) {
+        weakSelf.bottom = weakSelf.superview.height - space;
+        return weakSelf;
+    };
+}
+
 - (YLSpaceToSuperView)right_spaceToSuper {
     __weak typeof(self) weakSelf = self;
     return ^ (CGFloat space) {
@@ -353,18 +377,11 @@
     };
 }
 
-- (YLSpaceToSuperView)top_spaceToSuper {
-    __weak typeof(self) weakSelf = self;
-    return ^ (CGFloat space) {
-        weakSelf.top = weakSelf.superview.isFlipped ? (weakSelf.superview.height - weakSelf.height - space) : (weakSelf.superview.height - space);
-        return weakSelf;
-    };
-}
 
 - (YLSpaceToView)top_spaceTo {
     __weak typeof(self) weakSelf = self;
     return ^ (NSView *otherView, CGFloat space) {
-        weakSelf.top = weakSelf.superview.isFlipped ? (otherView.bottom + space) : (otherView.bottom - space);
+        weakSelf.top = otherView.bottom + space;
         return weakSelf;
     };
 }
@@ -380,7 +397,7 @@
 - (YLSpaceToView)bottom_spaceTo {
     __weak typeof(self) weakSelf = self;
     return ^ (NSView *otherView, CGFloat space) {
-        weakSelf.bottom = weakSelf.superview.isFlipped ? (otherView.top - space) : (otherView.top + space);
+        weakSelf.bottom = otherView.top - space;
         return weakSelf;
     };
 }
@@ -396,9 +413,9 @@
 - (YLEdgeToSuperView)edgeToSuper {
     __weak typeof(self) weakSelf = self;
     return ^ (NSEdgeInsets insets) {
+        weakSelf.size = NSMakeSize(weakSelf.superview.width - insets.left - insets.right, weakSelf.superview.height - insets.top - insets.bottom);
         weakSelf.left = insets.left;
         weakSelf.top = insets.top;
-        weakSelf.size = NSMakeSize(weakSelf.superview.width - insets.left - insets.right, weakSelf.superview.height - insets.top - insets.bottom);
         return weakSelf;
     };
 }
@@ -502,13 +519,11 @@
 }
 
 - (CGFloat)top {
-    return self.superview.isFlipped ? self.y : self.maxY;
+    return self.y;
 }
 
 - (void)setTop:(CGFloat)top {
-    NSRect frame = self.frame;
-    frame.origin.y = self.superview.isFlipped ? top : (top - frame.size.height);
-    self.frame = frame;
+    self.y = top;
 }
 
 - (CGFloat)left {
@@ -520,15 +535,11 @@
 }
 
 - (CGFloat)bottom {
-    return self.superview.isFlipped ? (self.y + self.height) : self.y;
+    return self.y + self.height;
 }
 
 - (void)setBottom:(CGFloat)bottom {
-    if(self.superview.isFlipped) {
-        self.y = bottom - self.height;
-    } else {
-        self.y = bottom;
-    }
+    self.y = bottom - self.height;
 }
 
 - (CGFloat)right {

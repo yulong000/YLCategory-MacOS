@@ -8,18 +8,14 @@
 #import "NSResponder+category.h"
 #import <objc/runtime.h>
 
-static const char YLSystemThemeChangedHandlerKey = '\0';
-
 @implementation NSResponder (category)
 
 - (YLSystemThemeChangedHandler)themeChangedHandler {
-    return objc_getAssociatedObject(self, &YLSystemThemeChangedHandlerKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setThemeChangedHandler:(YLSystemThemeChangedHandler)themeChangedHandler {
-    [self willChangeValueForKey:@"themeChangedHandler"];
-    objc_setAssociatedObject(self, &YLSystemThemeChangedHandlerKey, themeChangedHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    [self didChangeValueForKey:@"themeChangedHandler"];
+    objc_setAssociatedObject(self, @selector(themeChangedHandler), themeChangedHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
     if(themeChangedHandler) {
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(yl_systemThemeChanged) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     } else {

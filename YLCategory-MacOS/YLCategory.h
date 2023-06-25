@@ -27,6 +27,7 @@
 #import "NSAlert+category.h"
 #import "NSColor+dynamic.h"
 #import "NSResponder+category.h"
+#import "NSImageView+category.h"
 #import "YLProgressHUD.h"
 
 #endif /* YLCategory_h */
