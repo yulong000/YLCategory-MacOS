@@ -9,7 +9,8 @@
 - (BOOL)isValidateByRegex:(NSString *)regex;
 
 /**
- *  手机号有效性
+ *  手机号有效性，11位
+ *   ^(\\+?0?86\\-?)?1[3-9][0-9]\\d{8}$         // +86开头的手机号
  */
 - (BOOL)isMobileNumber;
 

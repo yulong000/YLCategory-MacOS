@@ -82,6 +82,9 @@
 
 /****************************************  快捷方法  ***********************************/
 
+// 常用的block
+typedef void (^VoidBlock)(void);
+
 // weakself
 #define WeakObject(obj)                 __weak typeof(obj) weak##obj = obj;
 #define WeakSelf                        __weak typeof(self) weakSelf = self;

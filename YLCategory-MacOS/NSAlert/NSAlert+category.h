@@ -22,6 +22,27 @@ NS_ASSUME_NONNULL_BEGIN
                    buttons:(NSArray <NSString *> *)buttons
          completionHandler:(void (^ _Nullable)(NSInteger index))completionHandler;
 
+/// 显示alert
+/// - Parameters:
+///   - title: 标题
+///   - message: 显示内容
+///   - buttons: 按钮，最多3个
+///   - completionHandler: 点击按钮后的回调
++ (void)showWithTitle:(NSString * _Nullable)title
+              message:(NSString * _Nullable)message
+              buttons:(NSArray <NSString *> *)buttons
+    completionHandler:(void (^ _Nullable)(NSInteger index))completionHandler;
+
+
+/// 显示alert
+/// - Parameters:
+///   - title: 标题
+///   - buttons: 按钮，最多3个
+///   - completionHandler: 点击按钮后的回调
++ (void)showWithTitle:(NSString * _Nullable)title
+              buttons:(NSArray <NSString *> *)buttons
+    completionHandler:(void (^ _Nullable)(NSInteger index))completionHandler;
+
 
 /// 显示alert
 /// - Parameters:
@@ -30,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - message: 显示内容
 ///   - buttons: 按钮，最多3个
 ///   - completionHandler: 点击按钮后的回调
-+ (void)showForModalWindow:(NSWindow *)window
++ (void)showForModalWindow:(NSWindow * _Nullable)window
                  withTitle:(NSString * _Nullable)title
                    message:(NSString * _Nullable)message
                    buttons:(NSArray <NSString *> *)buttons

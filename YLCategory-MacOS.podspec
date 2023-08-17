@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "0.0.5"
+s.version               = "0.0.6"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -66,6 +66,7 @@ end
 
 s.subspec 'NSResponder' do |ss|
 ss.source_files  =   'YLCategory-MacOS/NSResponder/*.{h,m}'
+ss.dependency        'YLCategory-MacOS/Other'
 end
 
 s.subspec 'NSColor' do |ss|

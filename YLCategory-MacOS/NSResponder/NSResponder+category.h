@@ -9,12 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^YLSystemThemeChangedHandler)(id responder);
+typedef void (^YLThemeChangedHandler)(id responder, BOOL dark);
 
 @interface NSResponder (category)
 
 /// 系统主题变更回调,  设置为nil， 移除监听
-@property (nonatomic, copy, nullable)  YLSystemThemeChangedHandler themeChangedHandler;
+@property (nonatomic, copy, nullable)  YLThemeChangedHandler systemThemeChangedHandler;
+/// app主题变更回调，设置为nil，移除监听。
+/// 注意：该方法实现原理为KVO，如果子类也有KVO监听，observeValueForKeyPath: ofObject:(id)object change: context: 该方法需要先调用 super
+@property (nonatomic, copy, nullable)  YLThemeChangedHandler appThemeChangedHandler;
 
 @end
 

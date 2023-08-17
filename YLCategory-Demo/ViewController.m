@@ -20,11 +20,12 @@
 
 }
 
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
 
-    // Update the view, if already loaded.
+- (void)mouseDown:(NSEvent *)event {
+    [super mouseDown:event];
+    [NSAlert showWithTitle:@"弹窗" buttons:@[@"确定", @"取消"] completionHandler:^(NSInteger index) {
+        YLLog(@"index : %d", index);
+    }];
 }
-
 
 @end
