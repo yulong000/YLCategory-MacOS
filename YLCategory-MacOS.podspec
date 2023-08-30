@@ -87,7 +87,7 @@ s.subspec 'YLShortcutView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLShortcutView/*.{h,m}'
 ss.resource      =   'YLCategory-MacOS/YLShortcutView/Resources/*'
 ss.dependency        'YLCategory-MacOS/YLProgressHUD'
-ss.dependency        'MASShortcut'
+ss.dependency        'MASShortcut', '~>2.4.0'
 end
 
 s.subspec 'YLUserDefaults' do |ss|
