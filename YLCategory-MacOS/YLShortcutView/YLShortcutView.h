@@ -6,7 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Shortcut.h>
+#import "Shortcut.h"
 
 typedef NS_ENUM(NSInteger, YLShortcutViewStyle) {
     YLShortcutViewStyleSystem = 1,
