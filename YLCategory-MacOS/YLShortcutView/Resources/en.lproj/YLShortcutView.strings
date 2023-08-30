@@ -1,0 +1,17 @@
+/* 
+  YLShortcut.strings
+  Test
+
+  Created by 魏宇龙 on 2022/7/8.
+  
+*/
+
+
+"Click to record shortcut" = "Click to record shortcut";
+"Click to begin editing" = "Click to begin editing";
+"Begin record shortcut" = "Begin record shortcut";
+"Delete shortcut" = "Delete shortcut";
+"Record Shortcut" = "Record Shortcut";
+"End editing" = "End editing";
+"Shortcut has been registered" = "Shortcut has been registered";
+"Control keys are unavailable" = "Control keys are unavailable";

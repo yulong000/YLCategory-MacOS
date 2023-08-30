@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		006AA15F2A9F26F20084F02F /* MASShortcutMonitor+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1552A9F26F20084F02F /* MASShortcutMonitor+category.m */; };
+		006AA1602A9F26F20084F02F /* YLShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1572A9F26F20084F02F /* YLShortcutView.m */; };
+		006AA1612A9F26F20084F02F /* YLShortcutView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 006AA15A2A9F26F20084F02F /* YLShortcutView.strings */; };
+		006AA19E2A9F2BD00084F02F /* YLShortcutView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 006AA19D2A9F2BD00084F02F /* YLShortcutView.bundle */; };
+		006AA1A22A9F34F80084F02F /* YLUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A12A9F34F80084F02F /* YLUserDefaults.m */; };
+		006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A52A9F3A970084F02F /* YLWeakTimer.m */; };
+		006AA1AA2A9F3B190084F02F /* YLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A82A9F3B190084F02F /* YLCollectionView.m */; };
 		00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A9797F29E92D870066F7C7 /* Assets.xcassets */; };
 		00A979BC29E92D870066F7C7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A9798029E92D870066F7C7 /* ViewController.m */; };
 		00A979BD29E92D870066F7C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A9798229E92D870066F7C7 /* Main.storyboard */; };
@@ -34,10 +41,25 @@
 		00B6B3F62A09249600457886 /* YLProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00B6B3F32A09249600457886 /* YLProgressHUD.bundle */; };
 		00B6B3F72A09249600457886 /* YLProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3F42A09249600457886 /* YLProgressHUD.m */; };
 		00B6B3FB2A0A271600457886 /* NSImageView+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3FA2A0A271600457886 /* NSImageView+category.m */; };
+		8D9131251AF81A8E0F010524 /* libPods-YLCategory-MacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		001F8D5528C8829B007A6F0F /* YLCategory-MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YLCategory-MacOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		006AA1552A9F26F20084F02F /* MASShortcutMonitor+category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASShortcutMonitor+category.m"; sourceTree = "<group>"; };
+		006AA1562A9F26F20084F02F /* MASShortcutMonitor+category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcutMonitor+category.h"; sourceTree = "<group>"; };
+		006AA1572A9F26F20084F02F /* YLShortcutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLShortcutView.m; sourceTree = "<group>"; };
+		006AA1582A9F26F20084F02F /* YLShortcutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLShortcutView.h; sourceTree = "<group>"; };
+		006AA15B2A9F26F20084F02F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/YLShortcutView.strings"; sourceTree = "<group>"; };
+		006AA15C2A9F26F20084F02F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/YLShortcutView.strings; sourceTree = "<group>"; };
+		006AA15D2A9F26F20084F02F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/YLShortcutView.strings"; sourceTree = "<group>"; };
+		006AA19D2A9F2BD00084F02F /* YLShortcutView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YLShortcutView.bundle; sourceTree = "<group>"; };
+		006AA1A02A9F34F80084F02F /* YLUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLUserDefaults.h; sourceTree = "<group>"; };
+		006AA1A12A9F34F80084F02F /* YLUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLUserDefaults.m; sourceTree = "<group>"; };
+		006AA1A42A9F3A970084F02F /* YLWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLWeakTimer.h; sourceTree = "<group>"; };
+		006AA1A52A9F3A970084F02F /* YLWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLWeakTimer.m; sourceTree = "<group>"; };
+		006AA1A82A9F3B190084F02F /* YLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionView.m; sourceTree = "<group>"; };
+		006AA1A92A9F3B190084F02F /* YLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionView.h; sourceTree = "<group>"; };
 		00A9797E29E92D870066F7C7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		00A9797F29E92D870066F7C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00A9798029E92D870066F7C7 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -91,6 +113,9 @@
 		00B6B3F52A09249600457886 /* YLProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressHUD.h; sourceTree = "<group>"; };
 		00B6B3F92A0A271600457886 /* NSImageView+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageView+category.h"; sourceTree = "<group>"; };
 		00B6B3FA2A0A271600457886 /* NSImageView+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageView+category.m"; sourceTree = "<group>"; };
+		486207C0208AEDF72FB9DA88 /* Pods-YLCategory-MacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YLCategory-MacOS.debug.xcconfig"; path = "Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS.debug.xcconfig"; sourceTree = "<group>"; };
+		98ACFFA471F75C6924BB470A /* Pods-YLCategory-MacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YLCategory-MacOS.release.xcconfig"; path = "Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS.release.xcconfig"; sourceTree = "<group>"; };
+		DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YLCategory-MacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D9131251AF81A8E0F010524 /* libPods-YLCategory-MacOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +136,8 @@
 				00A9797D29E92D870066F7C7 /* YLCategory-Demo */,
 				00A9798729E92D870066F7C7 /* YLCategory-MacOS */,
 				001F8D5628C8829B007A6F0F /* Products */,
+				32D65B03EDBC7EB8F665701D /* Pods */,
+				7C45926FE87C4A31E6BC0573 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +147,54 @@
 				001F8D5528C8829B007A6F0F /* YLCategory-MacOS.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		006AA1542A9F26D40084F02F /* YLShortcutView */ = {
+			isa = PBXGroup;
+			children = (
+				006AA1582A9F26F20084F02F /* YLShortcutView.h */,
+				006AA1572A9F26F20084F02F /* YLShortcutView.m */,
+				006AA1562A9F26F20084F02F /* MASShortcutMonitor+category.h */,
+				006AA1552A9F26F20084F02F /* MASShortcutMonitor+category.m */,
+				006AA1592A9F26F20084F02F /* Resources */,
+			);
+			path = YLShortcutView;
+			sourceTree = "<group>";
+		};
+		006AA1592A9F26F20084F02F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				006AA19D2A9F2BD00084F02F /* YLShortcutView.bundle */,
+				006AA15A2A9F26F20084F02F /* YLShortcutView.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		006AA19F2A9F34F80084F02F /* YLUserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				006AA1A02A9F34F80084F02F /* YLUserDefaults.h */,
+				006AA1A12A9F34F80084F02F /* YLUserDefaults.m */,
+			);
+			path = YLUserDefaults;
+			sourceTree = "<group>";
+		};
+		006AA1A32A9F3A970084F02F /* YLWeakTimer */ = {
+			isa = PBXGroup;
+			children = (
+				006AA1A42A9F3A970084F02F /* YLWeakTimer.h */,
+				006AA1A52A9F3A970084F02F /* YLWeakTimer.m */,
+			);
+			path = YLWeakTimer;
+			sourceTree = "<group>";
+		};
+		006AA1A72A9F3B190084F02F /* YLCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				006AA1A82A9F3B190084F02F /* YLCollectionView.m */,
+				006AA1A92A9F3B190084F02F /* YLCollectionView.h */,
+			);
+			path = YLCollectionView;
 			sourceTree = "<group>";
 		};
 		00A9797D29E92D870066F7C7 /* YLCategory-Demo */ = {
@@ -141,6 +217,10 @@
 		00A9798729E92D870066F7C7 /* YLCategory-MacOS */ = {
 			isa = PBXGroup;
 			children = (
+				006AA1A72A9F3B190084F02F /* YLCollectionView */,
+				006AA1A32A9F3A970084F02F /* YLWeakTimer */,
+				006AA19F2A9F34F80084F02F /* YLUserDefaults */,
+				006AA1542A9F26D40084F02F /* YLShortcutView */,
 				00B6B3F82A0A270100457886 /* NSImageView */,
 				00B6B3F22A09249600457886 /* YLProgressHUD */,
 				00B6B3E72A08DD5900457886 /* NSResponder */,
@@ -308,6 +388,23 @@
 			path = NSImageView;
 			sourceTree = "<group>";
 		};
+		32D65B03EDBC7EB8F665701D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				486207C0208AEDF72FB9DA88 /* Pods-YLCategory-MacOS.debug.xcconfig */,
+				98ACFFA471F75C6924BB470A /* Pods-YLCategory-MacOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7C45926FE87C4A31E6BC0573 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -315,9 +412,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 001F8D6828C8829D007A6F0F /* Build configuration list for PBXNativeTarget "YLCategory-MacOS" */;
 			buildPhases = (
+				F377EAE3AEE105B2ADA964FB /* [CP] Check Pods Manifest.lock */,
 				001F8D5128C8829B007A6F0F /* Sources */,
 				001F8D5228C8829B007A6F0F /* Frameworks */,
 				001F8D5328C8829B007A6F0F /* Resources */,
+				60F5C7AC4022F533E2396C4C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -349,6 +448,20 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
+				de,
+				ja,
+				es,
+				it,
+				sv,
+				cs,
+				ko,
+				pl,
+				ru,
+				fr,
+				nl,
+				pt,
 			);
 			mainGroup = 001F8D4C28C8829B007A6F0F;
 			productRefGroup = 001F8D5628C8829B007A6F0F /* Products */;
@@ -365,13 +478,57 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				006AA19E2A9F2BD00084F02F /* YLShortcutView.bundle in Resources */,
 				00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */,
 				00B6B3F62A09249600457886 /* YLProgressHUD.bundle in Resources */,
 				00A979BD29E92D870066F7C7 /* Main.storyboard in Resources */,
+				006AA1612A9F26F20084F02F /* YLShortcutView.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		60F5C7AC4022F533E2396C4C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F377EAE3AEE105B2ADA964FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YLCategory-MacOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		001F8D5128C8829B007A6F0F /* Sources */ = {
@@ -385,18 +542,23 @@
 				00A979C329E92D870066F7C7 /* NSControl+category.m in Sources */,
 				00A979C729E92D870066F7C7 /* NSString+secret.m in Sources */,
 				00A979C129E92D870066F7C7 /* NSView+frame.m in Sources */,
+				006AA1602A9F26F20084F02F /* YLShortcutView.m in Sources */,
 				00A979D029E92D870066F7C7 /* NSWindow+category.m in Sources */,
 				00A979C529E92D870066F7C7 /* NSString+bounds.m in Sources */,
 				00A979C029E92D870066F7C7 /* NSView+gesture.m in Sources */,
 				00A979CB29E92D870066F7C7 /* NSAlert+category.m in Sources */,
+				006AA15F2A9F26F20084F02F /* MASShortcutMonitor+category.m in Sources */,
 				00B6B3ED2A08FD4A00457886 /* SecondViewController.m in Sources */,
 				00A979BC29E92D870066F7C7 /* ViewController.m in Sources */,
+				006AA1AA2A9F3B190084F02F /* YLCollectionView.m in Sources */,
 				00A979CF29E92D870066F7C7 /* NSWindow+frame.m in Sources */,
 				00A979D129E92D870066F7C7 /* NSDate+category.m in Sources */,
+				006AA1A22A9F34F80084F02F /* YLUserDefaults.m in Sources */,
 				00B6B3F12A09246D00457886 /* NSTextField+category.m in Sources */,
 				00A979BF29E92D870066F7C7 /* AppDelegate.m in Sources */,
 				00B6B3F72A09249600457886 /* YLProgressHUD.m in Sources */,
 				00A979C629E92D870066F7C7 /* NSString+predicate.m in Sources */,
+				006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */,
 				00B6B3E62A08DB0F00457886 /* NSColor+dynamic.m in Sources */,
 				00A979C229E92D870066F7C7 /* NSView+category.m in Sources */,
 				00A979C429E92D870066F7C7 /* NSString+category.m in Sources */,
@@ -408,6 +570,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		006AA15A2A9F26F20084F02F /* YLShortcutView.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				006AA15B2A9F26F20084F02F /* zh-Hans */,
+				006AA15C2A9F26F20084F02F /* en */,
+				006AA15D2A9F26F20084F02F /* zh-Hant */,
+			);
+			name = YLShortcutView.strings;
+			sourceTree = "<group>";
+		};
 		00A9798229E92D870066F7C7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -530,6 +702,7 @@
 		};
 		001F8D6928C8829D007A6F0F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 486207C0208AEDF72FB9DA88 /* Pods-YLCategory-MacOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -548,6 +721,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -557,6 +731,7 @@
 		};
 		001F8D6A28C8829D007A6F0F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98ACFFA471F75C6924BB470A /* Pods-YLCategory-MacOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -575,6 +750,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";

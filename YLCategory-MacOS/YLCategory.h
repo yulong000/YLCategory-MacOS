@@ -1,6 +1,6 @@
 //
 //  YLCategory.h
-//  QQ
+//  YLCategory-MacOS
 //
 //  Created by 魏宇龙 on 2022/4/15.
 //
@@ -28,6 +28,12 @@
 #import "NSColor+dynamic.h"
 #import "NSResponder+category.h"
 #import "NSImageView+category.h"
+
+// 封装的工具
 #import "YLProgressHUD.h"
+#import "YLShortcutView.h"
+#import "YLUserDefaults.h"
+#import "YLWeakTimer.h"
+#import "YLCollectionView.h"
 
 #endif /* YLCategory_h */

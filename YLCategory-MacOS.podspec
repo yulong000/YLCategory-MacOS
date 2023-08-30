@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "0.0.6"
+s.version               = "1.0.0"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -81,6 +81,26 @@ s.subspec 'YLProgressHUD' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLProgressHUD/*.{h,m}'
 ss.resource      =   'YLCategory-MacOS/YLProgressHUD/YLProgressHUD.bundle'
 ss.dependency        'YLCategory-MacOS/Other'
+end
+
+s.subspec 'YLShortcutView' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLShortcutView/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLShortcutView/Resources/*'
+ss.dependency        'YLCategory-MacOS/YLProgressHUD'
+ss.dependency        'MASShortcut'
+end
+
+s.subspec 'YLUserDefaults' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLUserDefaults/*.{h,m}'
+end
+
+s.subspec 'YLWeakTimer' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLWeakTimer/*.{h,m}'
+ss.dependency        'YLCategory-MacOS/Other'
+end
+
+s.subspec 'YLCollectionView' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLCollectionView/*.{h,m}'
 end
   
 end
