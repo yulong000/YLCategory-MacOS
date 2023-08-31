@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.0.0"
+s.version               = "1.0.1"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -102,12 +102,22 @@ end
 s.subspec 'YLCollectionView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLCollectionView/*.{h,m}'
 end
+
+s.subspec 'YLAppleScript' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLAppleScript/*.{h,m}'
+ss.dependency        'YLCategory-MacOS/YLProgressHUD'
+end
+
+s.subspec 'YLFlipView' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLFlipView/*.{h,m}'
+end
   
 end
 
 
 # 升级时  1.add tag
 #        2.push tag
-#        3.pod trunk push YLCategory-MacOS.podspec --allow-warnings
+#        3.pod trunk push YLCategory-MacOS.podspec --allow-warnings --use-libraries
 
-#        pod spec lint YLCategory-MacOS.podspec  验证podspec文件
+#        pod spec lint YLCategory-MacOS.podspec --use-libraries  验证podspec文件
+#        --use-libraries 有第三方库依赖，添加该参数

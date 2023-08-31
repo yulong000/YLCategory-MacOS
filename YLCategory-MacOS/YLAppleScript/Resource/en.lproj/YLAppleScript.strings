@@ -1,0 +1,19 @@
+/* 
+  YLAppleScript.strings
+  Test
+
+  Created by 魏宇龙 on 2022/11/16.
+  
+*/
+
+
+"Kind tips" = "Kind tips";
+"Install first" = "Please install the script before proceeding";
+"Sure" = "Sure";
+"Cancel" = "Cancel";
+"Install" = "Install";
+"Install script" = "Install script";
+"Install script in current folder" = "Please install the script file in this folder";
+"Install succeed" = "Install succeed";
+"Install failed" = "Install failed";
+"Script task creation failed" = "脚本任务创建失败";

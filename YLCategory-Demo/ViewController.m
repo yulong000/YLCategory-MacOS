@@ -7,6 +7,7 @@
 
 #import "ViewController.h"
 #import "YLCategory.h"
+#import "SecondViewController.h"
 
 @interface ViewController ()
 
@@ -21,14 +22,16 @@
     
     YLShortcutView *shortcutView = [[YLShortcutView alloc] initWithFrame:NSMakeRect(20, 50, 120, 22)];
     [self.view addSubview:shortcutView];
+    
 }
 
 
 - (void)mouseDown:(NSEvent *)event {
     [super mouseDown:event];
-//    [NSAlert showWithTitle:@"弹窗" buttons:@[@"确定", @"取消"] completionHandler:^(NSInteger index) {
-//        YLLog(@"index : %d", index);
-//    }];
+    
+    [NSAlert showWithTitle:@"弹窗" buttons:@[@"确定", @"取消"] completionHandler:^(NSInteger index) {
+        YLLog(@"index : %d", index);
+    }];
 }
 
 @end

@@ -35,5 +35,7 @@
 #import "YLUserDefaults.h"
 #import "YLWeakTimer.h"
 #import "YLCollectionView.h"
+#import "YLAppleScript.h"
+#import "YLFlipView.h"
 
 #endif /* YLCategory_h */

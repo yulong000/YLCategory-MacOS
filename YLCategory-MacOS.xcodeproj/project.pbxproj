@@ -41,6 +41,9 @@
 		00B6B3F62A09249600457886 /* YLProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00B6B3F32A09249600457886 /* YLProgressHUD.bundle */; };
 		00B6B3F72A09249600457886 /* YLProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3F42A09249600457886 /* YLProgressHUD.m */; };
 		00B6B3FB2A0A271600457886 /* NSImageView+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3FA2A0A271600457886 /* NSImageView+category.m */; };
+		00C47F292AA01C750082E813 /* YLFlipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C47F282AA01C750082E813 /* YLFlipView.m */; };
+		00C47F322AA01DDD0082E813 /* YLAppleScript.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00C47F2D2AA01DDD0082E813 /* YLAppleScript.strings */; };
+		00C47F332AA01DDD0082E813 /* YLAppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C47F312AA01DDD0082E813 /* YLAppleScript.m */; };
 		8D9131251AF81A8E0F010524 /* libPods-YLCategory-MacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +116,13 @@
 		00B6B3F52A09249600457886 /* YLProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressHUD.h; sourceTree = "<group>"; };
 		00B6B3F92A0A271600457886 /* NSImageView+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageView+category.h"; sourceTree = "<group>"; };
 		00B6B3FA2A0A271600457886 /* NSImageView+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageView+category.m"; sourceTree = "<group>"; };
+		00C47F272AA01C750082E813 /* YLFlipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLFlipView.h; sourceTree = "<group>"; };
+		00C47F282AA01C750082E813 /* YLFlipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLFlipView.m; sourceTree = "<group>"; };
+		00C47F2B2AA01DDD0082E813 /* YLAppleScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLAppleScript.h; sourceTree = "<group>"; };
+		00C47F2E2AA01DDD0082E813 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/YLAppleScript.strings"; sourceTree = "<group>"; };
+		00C47F2F2AA01DDD0082E813 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/YLAppleScript.strings; sourceTree = "<group>"; };
+		00C47F302AA01DDD0082E813 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/YLAppleScript.strings"; sourceTree = "<group>"; };
+		00C47F312AA01DDD0082E813 /* YLAppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLAppleScript.m; sourceTree = "<group>"; };
 		486207C0208AEDF72FB9DA88 /* Pods-YLCategory-MacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YLCategory-MacOS.debug.xcconfig"; path = "Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS.debug.xcconfig"; sourceTree = "<group>"; };
 		98ACFFA471F75C6924BB470A /* Pods-YLCategory-MacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YLCategory-MacOS.release.xcconfig"; path = "Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS.release.xcconfig"; sourceTree = "<group>"; };
 		DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YLCategory-MacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +227,9 @@
 		00A9798729E92D870066F7C7 /* YLCategory-MacOS */ = {
 			isa = PBXGroup;
 			children = (
+				00A979AC29E92D870066F7C7 /* YLCategory.h */,
+				00C47F2A2AA01DDD0082E813 /* YLAppleScript */,
+				00C47F262AA01C570082E813 /* YLFlipView */,
 				006AA1A72A9F3B190084F02F /* YLCollectionView */,
 				006AA1A32A9F3A970084F02F /* YLWeakTimer */,
 				006AA19F2A9F34F80084F02F /* YLUserDefaults */,
@@ -232,7 +245,6 @@
 				00A979A329E92D870066F7C7 /* NSButton */,
 				00A979A629E92D870066F7C7 /* NSAlert */,
 				00A979A929E92D870066F7C7 /* NSObject */,
-				00A979AC29E92D870066F7C7 /* YLCategory.h */,
 				00B6B3EE2A09244D00457886 /* NSTextField */,
 				00A979B029E92D870066F7C7 /* NSImage */,
 				00A979B329E92D870066F7C7 /* NSWindow */,
@@ -388,6 +400,33 @@
 			path = NSImageView;
 			sourceTree = "<group>";
 		};
+		00C47F262AA01C570082E813 /* YLFlipView */ = {
+			isa = PBXGroup;
+			children = (
+				00C47F272AA01C750082E813 /* YLFlipView.h */,
+				00C47F282AA01C750082E813 /* YLFlipView.m */,
+			);
+			path = YLFlipView;
+			sourceTree = "<group>";
+		};
+		00C47F2A2AA01DDD0082E813 /* YLAppleScript */ = {
+			isa = PBXGroup;
+			children = (
+				00C47F2B2AA01DDD0082E813 /* YLAppleScript.h */,
+				00C47F312AA01DDD0082E813 /* YLAppleScript.m */,
+				00C47F2C2AA01DDD0082E813 /* Resource */,
+			);
+			path = YLAppleScript;
+			sourceTree = "<group>";
+		};
+		00C47F2C2AA01DDD0082E813 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				00C47F2D2AA01DDD0082E813 /* YLAppleScript.strings */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		32D65B03EDBC7EB8F665701D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				006AA19E2A9F2BD00084F02F /* YLShortcutView.bundle in Resources */,
+				00C47F322AA01DDD0082E813 /* YLAppleScript.strings in Resources */,
 				00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */,
 				00B6B3F62A09249600457886 /* YLProgressHUD.bundle in Resources */,
 				00A979BD29E92D870066F7C7 /* Main.storyboard in Resources */,
@@ -537,6 +577,8 @@
 			files = (
 				00A979CA29E92D870066F7C7 /* NSButton+category.m in Sources */,
 				00B6B3FB2A0A271600457886 /* NSImageView+category.m in Sources */,
+				00C47F332AA01DDD0082E813 /* YLAppleScript.m in Sources */,
+				00C47F292AA01C750082E813 /* YLFlipView.m in Sources */,
 				00A979BE29E92D870066F7C7 /* main.m in Sources */,
 				00A979CE29E92D870066F7C7 /* NSImage+category.m in Sources */,
 				00A979C329E92D870066F7C7 /* NSControl+category.m in Sources */,
@@ -586,6 +628,16 @@
 				00A9798329E92D870066F7C7 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		00C47F2D2AA01DDD0082E813 /* YLAppleScript.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00C47F2E2AA01DDD0082E813 /* zh-Hans */,
+				00C47F2F2AA01DDD0082E813 /* en */,
+				00C47F302AA01DDD0082E813 /* zh-Hant */,
+			);
+			name = YLAppleScript.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

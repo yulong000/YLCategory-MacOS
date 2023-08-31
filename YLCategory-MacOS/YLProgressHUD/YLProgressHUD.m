@@ -299,7 +299,7 @@
 #pragma mark - 显示自定义view和文字
 + (instancetype)showCustomView:(NSView * _Nullable)customView text:(NSString *)text toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler {
     if(window == nil) {
-        window = NSApp.keyWindow;
+        window = NSApp.windows.lastObject;
     }
     // 增加一个全覆盖的window，禁用点击其他地方，如果设置为[NSColor clearColor]，鼠标是可以穿透的，所以必须得有个色值
     // Q：为啥不直接设置hud为全覆盖呢？
