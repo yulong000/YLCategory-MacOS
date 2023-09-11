@@ -59,16 +59,31 @@
 
 @implementation YLCollectionView
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if(self = [super initWithCoder:coder]) {
+        [self addCollectionView];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    if(self = [super initWithFrame:frameRect]) {
+        [self addCollectionView];
+    }
+    return self;
+}
 
 - (instancetype)initWithLayout:(NSCollectionViewLayout *)layout {
     if(self = [super initWithFrame:NSZeroRect]) {
-        
-        [self addSubview:self.scrollView];
+        [self addCollectionView];
         self.collectionView.collectionViewLayout = layout;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clipViewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:self.scrollView.contentView];
     }
     return self;
+}
+
+- (void)addCollectionView {
+    [self addSubview:self.scrollView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clipViewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:self.scrollView.contentView];
 }
 
 - (void)dealloc {

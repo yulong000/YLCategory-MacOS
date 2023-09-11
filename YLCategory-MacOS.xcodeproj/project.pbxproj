@@ -14,6 +14,7 @@
 		006AA1A22A9F34F80084F02F /* YLUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A12A9F34F80084F02F /* YLUserDefaults.m */; };
 		006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A52A9F3A970084F02F /* YLWeakTimer.m */; };
 		006AA1AA2A9F3B190084F02F /* YLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A82A9F3B190084F02F /* YLCollectionView.m */; };
+		009B0EF02AA7200D0001A679 /* NSColor+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B0EEF2AA7200D0001A679 /* NSColor+category.m */; };
 		00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A9797F29E92D870066F7C7 /* Assets.xcassets */; };
 		00A979BC29E92D870066F7C7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A9798029E92D870066F7C7 /* ViewController.m */; };
 		00A979BD29E92D870066F7C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A9798229E92D870066F7C7 /* Main.storyboard */; };
@@ -34,7 +35,6 @@
 		00A979CF29E92D870066F7C7 /* NSWindow+frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A979B529E92D870066F7C7 /* NSWindow+frame.m */; };
 		00A979D029E92D870066F7C7 /* NSWindow+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A979B629E92D870066F7C7 /* NSWindow+category.m */; };
 		00A979D129E92D870066F7C7 /* NSDate+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A979B929E92D870066F7C7 /* NSDate+category.m */; };
-		00B6B3E62A08DB0F00457886 /* NSColor+dynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3E52A08DB0F00457886 /* NSColor+dynamic.m */; };
 		00B6B3EA2A08DD7B00457886 /* NSResponder+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3E92A08DD7B00457886 /* NSResponder+category.m */; };
 		00B6B3ED2A08FD4A00457886 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3EC2A08FD4A00457886 /* SecondViewController.m */; };
 		00B6B3F12A09246D00457886 /* NSTextField+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B6B3F02A09246D00457886 /* NSTextField+category.m */; };
@@ -63,6 +63,8 @@
 		006AA1A52A9F3A970084F02F /* YLWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLWeakTimer.m; sourceTree = "<group>"; };
 		006AA1A82A9F3B190084F02F /* YLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionView.m; sourceTree = "<group>"; };
 		006AA1A92A9F3B190084F02F /* YLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionView.h; sourceTree = "<group>"; };
+		009B0EEE2AA7200D0001A679 /* NSColor+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSColor+category.h"; sourceTree = "<group>"; };
+		009B0EEF2AA7200D0001A679 /* NSColor+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSColor+category.m"; sourceTree = "<group>"; };
 		00A9797E29E92D870066F7C7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		00A9797F29E92D870066F7C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00A9798029E92D870066F7C7 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -103,8 +105,6 @@
 		00A979B729E92D870066F7C7 /* NSWindow+frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+frame.h"; sourceTree = "<group>"; };
 		00A979B929E92D870066F7C7 /* NSDate+category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+category.m"; sourceTree = "<group>"; };
 		00A979BA29E92D870066F7C7 /* NSDate+category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+category.h"; sourceTree = "<group>"; };
-		00B6B3E42A08DB0F00457886 /* NSColor+dynamic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSColor+dynamic.h"; sourceTree = "<group>"; };
-		00B6B3E52A08DB0F00457886 /* NSColor+dynamic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSColor+dynamic.m"; sourceTree = "<group>"; };
 		00B6B3E82A08DD7B00457886 /* NSResponder+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSResponder+category.h"; sourceTree = "<group>"; };
 		00B6B3E92A08DD7B00457886 /* NSResponder+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSResponder+category.m"; sourceTree = "<group>"; };
 		00B6B3EB2A08FD4A00457886 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -201,8 +201,8 @@
 		006AA1A72A9F3B190084F02F /* YLCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				006AA1A82A9F3B190084F02F /* YLCollectionView.m */,
 				006AA1A92A9F3B190084F02F /* YLCollectionView.h */,
+				006AA1A82A9F3B190084F02F /* YLCollectionView.m */,
 			);
 			path = YLCollectionView;
 			sourceTree = "<group>";
@@ -357,8 +357,8 @@
 		00B6B3E32A08DAE000457886 /* NSColor */ = {
 			isa = PBXGroup;
 			children = (
-				00B6B3E42A08DB0F00457886 /* NSColor+dynamic.h */,
-				00B6B3E52A08DB0F00457886 /* NSColor+dynamic.m */,
+				009B0EEE2AA7200D0001A679 /* NSColor+category.h */,
+				009B0EEF2AA7200D0001A679 /* NSColor+category.m */,
 			);
 			path = NSColor;
 			sourceTree = "<group>";
@@ -597,11 +597,11 @@
 				00A979D129E92D870066F7C7 /* NSDate+category.m in Sources */,
 				006AA1A22A9F34F80084F02F /* YLUserDefaults.m in Sources */,
 				00B6B3F12A09246D00457886 /* NSTextField+category.m in Sources */,
+				009B0EF02AA7200D0001A679 /* NSColor+category.m in Sources */,
 				00A979BF29E92D870066F7C7 /* AppDelegate.m in Sources */,
 				00B6B3F72A09249600457886 /* YLProgressHUD.m in Sources */,
 				00A979C629E92D870066F7C7 /* NSString+predicate.m in Sources */,
 				006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */,
-				00B6B3E62A08DB0F00457886 /* NSColor+dynamic.m in Sources */,
 				00A979C229E92D870066F7C7 /* NSView+category.m in Sources */,
 				00A979C429E92D870066F7C7 /* NSString+category.m in Sources */,
 				00B6B3EA2A08DD7B00457886 /* NSResponder+category.m in Sources */,

@@ -16,4 +16,6 @@
 "Install script in current folder" = "Please install the script file in this folder";
 "Install succeed" = "Install succeed";
 "Install failed" = "Install failed";
-"Script task creation failed" = "脚本任务创建失败";
+"Install error path" = "The installation path selected is incorrect";
+"Reselect" = "Reselect";
+"Script task creation failed" = "Script task creation failed";

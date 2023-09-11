@@ -183,7 +183,6 @@ NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
         }
         return;
     }
-    __weak typeof(self) weakSelf = self;
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = YLAppleScriptLocalizeString(@"Kind tips", @"");
     alert.informativeText = YLAppleScriptLocalizeString(@"Install first", @"");
@@ -191,57 +190,74 @@ NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
     [alert addButtonWithTitle:YLAppleScriptLocalizeString(@"Cancel", @"")];
     NSModalResponse returnCode = [alert runModal];
     if(returnCode == NSAlertFirstButtonReturn) {
-        NSURL *scriptDirUrl = [self getScriptLocalURL];
-        NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-        openPanel.directoryURL = scriptDirUrl;
-        openPanel.canChooseDirectories = YES;
-        openPanel.canChooseFiles = NO;
-        openPanel.prompt = YLAppleScriptLocalizeString(@"Install script", @"");
-        openPanel.message = YLAppleScriptLocalizeString(@"Install script in current folder", @"");
-        [openPanel beginWithCompletionHandler:^(NSModalResponse result) {
-            if(result == NSModalResponseOK) {
-                NSURL *selectUrl = openPanel.URL;
-                if([selectUrl isEqual:scriptDirUrl]) {
-                    // 选择了正确的文件夹
-                    BOOL flag = YES;
-                    for(NSString *fileName in fileNameArr) {
-                        NSURL *destionationUrl = [selectUrl URLByAppendingPathComponent:fileName];
-                        NSURL *sourceUrl = [[NSBundle mainBundle] URLForResource:fileName withExtension:nil];
-                        NSError *error = nil;
-                        if(sourceUrl == nil) {
-                            NSLog(@"【%s】%@ is not exist", __FUNCTION__, fileName);
-                            flag = NO;
-                        } else {
-                            if([[NSFileManager defaultManager] fileExistsAtPath:destionationUrl.path]) {
-                                // 文件存在，移除
-                                [[NSFileManager defaultManager] removeItemAtURL:destionationUrl error:nil];
-                            }
-                            if([[NSFileManager defaultManager] copyItemAtURL:sourceUrl toURL:destionationUrl error:&error]) {
-                                // 复制成功
-                                [YLProgressHUD showText:YLAppleScriptLocalizeString(@"Install succeed", @"") toWindow:NSApp.windows.lastObject];
-                                NSLog(@"【%s】 copy item to local success: %@", __FUNCTION__, fileName);
-                            } else {
-                                NSLog(@"【%s】 copy item to local fail: %@", __FUNCTION__, error);
-                                [YLProgressHUD showText:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.windows.lastObject];
-                                flag = NO;
-                            }
+        [self beginInstallScripts:fileNameArr completionHandler:handler];
+    }
+}
+
+#pragma mark 开始安装脚本
++ (void)beginInstallScripts:(NSArray <NSString *> *)fileNameArr completionHandler:(void (^)(BOOL))handler {
+    NSURL *scriptDirUrl = [self getScriptLocalURL];
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    openPanel.directoryURL = scriptDirUrl;
+    openPanel.canChooseDirectories = YES;
+    openPanel.canChooseFiles = NO;
+    openPanel.prompt = YLAppleScriptLocalizeString(@"Install script", @"");
+    openPanel.message = YLAppleScriptLocalizeString(@"Install script in current folder", @"");
+    [openPanel beginWithCompletionHandler:^(NSModalResponse result) {
+        if(result == NSModalResponseOK) {
+            NSURL *selectUrl = openPanel.URL;
+            if([selectUrl isEqual:scriptDirUrl]) {
+                // 选择了正确的文件夹
+                BOOL flag = YES;
+                for(NSString *fileName in fileNameArr) {
+                    NSURL *destionationUrl = [selectUrl URLByAppendingPathComponent:fileName];
+                    NSURL *sourceUrl = [[NSBundle mainBundle] URLForResource:fileName withExtension:nil];
+                    NSError *error = nil;
+                    if(sourceUrl == nil) {
+                        NSLog(@"【%s】%@ is not exist", __FUNCTION__, fileName);
+                        flag = NO;
+                    } else {
+                        if([[NSFileManager defaultManager] fileExistsAtPath:destionationUrl.path]) {
+                            // 文件存在，移除
+                            [[NSFileManager defaultManager] removeItemAtURL:destionationUrl error:nil];
                         }
-                        
+                        if([[NSFileManager defaultManager] copyItemAtURL:sourceUrl toURL:destionationUrl error:&error]) {
+                            // 复制成功
+                            [YLProgressHUD showText:YLAppleScriptLocalizeString(@"Install succeed", @"") toWindow:NSApp.orderedWindows.firstObject];
+                            NSLog(@"【%s】 copy item to local success: %@", __FUNCTION__, fileName);
+                        } else {
+                            NSLog(@"【%s】 copy item to local fail: %@", __FUNCTION__, error);
+                            [YLProgressHUD showText:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.orderedWindows.firstObject];
+                            flag = NO;
+                        }
                     }
-                    if(handler) {
-                        handler(flag);
-                    }
-                } else {
-                    // 选的文件夹不是目标文件夹，重新选择
-                    [weakSelf installScriptsWithArr:fileNameArr completionHandler:handler];
+                }
+                if(handler) {
+                    handler(flag);
                 }
             } else {
-                NSLog(@"【%s】 user cancel", __FUNCTION__);
-                if(handler) {
-                    handler(NO);
-                }
+                // 选的文件夹不是目标文件夹，重新选择
+                [self reinstallScripts:fileNameArr toCorrectURLWithCompletionHandler:handler];
             }
-        }];
+        } else {
+            NSLog(@"【%s】 user cancel", __FUNCTION__);
+            if(handler) {
+                handler(NO);
+            }
+        }
+    }];
+}
+
++ (void)reinstallScripts:(NSArray <NSString *> *)fileNameArr toCorrectURLWithCompletionHandler:(void (^)(BOOL))handler {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleWarning;
+    alert.messageText = YLAppleScriptLocalizeString(@"Kind tips", @"");
+    alert.informativeText = YLAppleScriptLocalizeString(@"Install error path", @"");
+    [alert addButtonWithTitle:YLAppleScriptLocalizeString(@"Reselect", @"")];
+    [alert addButtonWithTitle:YLAppleScriptLocalizeString(@"Cancel", @"")];
+    NSModalResponse returnCode = [alert runModal];
+    if(returnCode == NSAlertFirstButtonReturn) {
+        [self beginInstallScripts:fileNameArr completionHandler:handler];
     }
 }
 

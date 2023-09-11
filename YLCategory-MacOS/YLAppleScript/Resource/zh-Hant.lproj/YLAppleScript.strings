@@ -16,4 +16,6 @@
 "Install script in current folder" = "請將腳本文件安裝在該文件夾內";
 "Install succeed" = "安裝成功";
 "Install failed" = "安裝失敗";
+"Install error path" = "選擇的安裝路徑不正確";
+"Reselect" = "重新選擇";
 "Script task creation failed" = "腳本任務創建失敗";

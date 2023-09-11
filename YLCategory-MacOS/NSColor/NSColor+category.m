@@ -1,13 +1,13 @@
 //
-//  NSColor+dynamic.m
+//  NSColor+category.m
 //  YLCategory-MacOS
 //
-//  Created by 魏宇龙 on 2023/5/8.
+//  Created by 魏宇龙 on 2023/9/5.
 //
 
-#import "NSColor+dynamic.h"
+#import "NSColor+category.h"
 
-@implementation NSColor (dynamic)
+@implementation NSColor (category)
 
 + (NSColor *)light:(NSColor *)light dark:(NSColor *)dark {
     if(@available(macOS 10.15, *)) {
@@ -20,6 +20,13 @@
         }];
     }
     return light;
+}
+
+- (NSColorAlphaHanlder)alpha {
+    __weak typeof(self) weakSelf = self;
+    return ^(CGFloat alpha) {
+        return [weakSelf colorWithAlphaComponent:alpha];
+    };
 }
 
 @end

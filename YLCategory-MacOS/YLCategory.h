@@ -25,7 +25,7 @@
 #import "NSWindow+category.h"
 #import "NSWindow+frame.h"
 #import "NSAlert+category.h"
-#import "NSColor+dynamic.h"
+#import "NSColor+category.h"
 #import "NSResponder+category.h"
 #import "NSImageView+category.h"
 
