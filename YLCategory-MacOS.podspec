@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.0.2"
+s.version               = "1.0.3"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -105,6 +105,7 @@ end
 
 s.subspec 'YLAppleScript' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLAppleScript/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLAppleScript/Resource/*'
 ss.dependency        'YLCategory-MacOS/YLProgressHUD'
 end
 
