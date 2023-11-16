@@ -34,10 +34,12 @@ static const char NSControlClickedHandlerKey = '\0';
 
 - (void)mouseDown:(NSEvent *)event {
     [self.window makeFirstResponder:self];
+    [super mouseDown:event];
 }
 
 - (void)mouseUp:(NSEvent *)event {
     [NSApp sendAction:self.action to:self.target from:self];
+    [super mouseUp:event];
 }
 
 - (BOOL)acceptsFirstResponder {
