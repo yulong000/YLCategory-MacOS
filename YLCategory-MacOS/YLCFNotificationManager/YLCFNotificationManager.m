@@ -38,7 +38,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[YLCFNotificationManager alloc] init];
-        manager.isSandbox = [[[NSProcessInfo processInfo] environment] objectForKey:@"APP_SANDBOX_CONTAINER_ID"];
+        manager.isSandbox = nil != [[[NSProcessInfo processInfo] environment] objectForKey:@"APP_SANDBOX_CONTAINER_ID"];
         manager.observerDict = [NSMutableDictionary dictionary];
     });
     return manager;
