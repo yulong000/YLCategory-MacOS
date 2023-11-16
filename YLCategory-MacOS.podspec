@@ -27,6 +27,10 @@ s.subspec 'NSWindow' do |ss|
 ss.source_files  =    'YLCategory-MacOS/NSWindow/*.{h,m}'
 end
 
+s.subspec 'NSScreen' do |ss|
+ss.source_files  =   'YLCategory-MacOS/NSScreen/*.{h,m}'
+end
+
 s.subspec 'NSView' do |ss|
 ss.source_files  =    'YLCategory-MacOS/NSView/*.{h,m}'
 end
