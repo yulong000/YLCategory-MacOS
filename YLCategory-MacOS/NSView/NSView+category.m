@@ -117,4 +117,17 @@
     return image;
 }
 
+#pragma mark 视图控制器
+- (NSViewController *)vc {
+    return self.window.contentViewController;
+}
+#pragma mark 窗口控制器
+- (NSWindowController *)wc {
+    return self.window.windowController;
+}
+#pragma mark 屏幕
+- (NSScreen *)screen {
+    return self.window.screen;
+}
+
 @end

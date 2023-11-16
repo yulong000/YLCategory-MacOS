@@ -110,6 +110,14 @@ typedef NSSize (^YLCollectionViewFooterSizeHandler)(NSCollectionView *collection
 /// 注册header, footer
 - (void)registerSupplementaryViewClass:(Class)supplementaryViewClass kind:(NSCollectionViewSupplementaryElementKind)kind withIdentifier:(NSString *)identifier;
 
+/// 注册Nib item
+- (void)registerItemNib:(NSNib *)nib withIdentifier:(NSString *)identifier;
+/// 注册Nib header, footer
+- (void)registerSupplementaryViewNib:(NSNib *)nib kind:(NSCollectionViewSupplementaryElementKind)kind withIdentifier:(NSString *)identifier;
+
+/// 注册拖拽类型
+- (void)registerForDraggedTypes:(NSArray<NSPasteboardType> *)newTypes;
+
 /// 重新加载数据
 - (void)reloadData;
 

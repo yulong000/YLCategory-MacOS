@@ -106,6 +106,14 @@
     [self.collectionView registerClass:supplementaryViewClass forSupplementaryViewOfKind:kind withIdentifier:identifier];
 }
 
+- (void)registerItemNib:(NSNib *)nib withIdentifier:(NSString *)identifier {
+    [self.collectionView registerNib:nib forItemWithIdentifier:identifier];
+}
+
+- (void)registerSupplementaryViewNib:(NSNib *)nib kind:(NSCollectionViewSupplementaryElementKind)kind withIdentifier:(NSString *)identifier {
+    [self.collectionView registerNib:nib forSupplementaryViewOfKind:kind withIdentifier:identifier];
+}
+
 - (void)registerForDraggedTypes:(NSArray<NSPasteboardType> *)newTypes {
     [self.collectionView registerForDraggedTypes:newTypes];
 }

@@ -39,11 +39,18 @@ typedef void(^YLTimerRepeatBlock)(NSTimer *timer);
                            handler:(YLTimerRepeatBlock)handler;
 
 
-/// 防抖，在延时时间内，重复调用，不会重复响应
+/// 防抖，在延时时间内，重复调用，只会在最后一次响应
 /// @param delay 延时响应 （秒）
 /// @param action 延时结束后回调
 + (VoidBlock)debounceActionWithTimeInterval:(CGFloat)delay
                                      action:(VoidBlock)action;
+
+
+/// 防抖，在一定时间内，重复调用，只会在第一次时响应
+/// @param interval  时间间隔（秒）
+/// @param action 回调
++ (VoidBlock)onceActionWithTimeInterval:(CGFloat)interval 
+                                 action:(VoidBlock)action;
 
 
 @end

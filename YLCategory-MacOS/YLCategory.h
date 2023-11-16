@@ -28,6 +28,7 @@
 #import "NSColor+category.h"
 #import "NSResponder+category.h"
 #import "NSImageView+category.h"
+#import "NSScreen+category.h"
 
 // 封装的工具
 #import "YLProgressHUD.h"
@@ -37,5 +38,6 @@
 #import "YLCollectionView.h"
 #import "YLAppleScript.h"
 #import "YLFlipView.h"
+#import "YLCFNotificationManager.h"
 
 #endif /* YLCategory_h */

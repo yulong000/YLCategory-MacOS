@@ -60,11 +60,27 @@
 + (VoidBlock)debounceActionWithTimeInterval:(CGFloat)delay action:(VoidBlock)action {
     __block NSInteger index = 0;
     return ^ {
-        index ++;
-        NSInteger temIndex = index;
+        NSInteger tmpIndex = ++ index;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if(temIndex == index) {
-                action();
+            if(tmpIndex == index) {
+                if(action) {
+                    action();
+                }
+                index = 0;
+            }
+        });
+    };
+}
+
++ (VoidBlock)onceActionWithTimeInterval:(CGFloat)interval action:(VoidBlock)action {
+    __block NSInteger index = 0;
+    return ^ {
+        if(index == 0 && action) {
+            action();
+        }
+        NSInteger tmpIndex = ++ index;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if(tmpIndex == index) {
                 index = 0;
             }
         });

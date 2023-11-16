@@ -50,6 +50,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取缩略图
 - (NSImage *)thumbImage;
 
+/// 视图控制器
+- (NSViewController *)vc;
+/// 窗口控制器
+- (NSWindowController *)wc;
+/// 所在的屏幕
+- (NSScreen *)screen;
+
 @end
 
 NS_ASSUME_NONNULL_END
