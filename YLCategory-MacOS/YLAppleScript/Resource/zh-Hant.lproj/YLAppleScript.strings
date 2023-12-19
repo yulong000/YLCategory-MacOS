@@ -8,12 +8,12 @@
 
 
 "Kind tips" = "溫馨提示";
-"Install first" = "請先安裝腳本後繼續操作";
+"Install first" = "請先安裝蘋果腳本後繼續操作";
 "Sure" = "確定";
 "Cancel" = "取消";
 "Install" = "安裝";
-"Install script" = "安裝腳本";
-"Install script in current folder" = "請將腳本文件安裝在該文件夾內";
+"Install script" = "安裝蘋果腳本";
+"Install script in current folder" = "請將蘋果腳本文件安裝在該文件夾內";
 "Install succeed" = "安裝成功";
 "Install failed" = "安裝失敗";
 "Install error path" = "選擇的安裝路徑不正確";

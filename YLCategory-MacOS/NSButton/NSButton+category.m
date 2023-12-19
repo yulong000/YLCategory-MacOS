@@ -10,7 +10,7 @@
 @implementation NSButton (category)
 
 + (instancetype)buttonWithImage:(NSImage *)image handler:(NSControlClickedHandler)handler {
-    return [self buttonWithImage:image imagePosition:NSImageOnly title:nil font:nil textColor:nil handler:handler];
+    return [self buttonWithImage:image imagePosition:NSImageOnly title:@"" font:nil textColor:nil handler:handler];
 }
 
 + (instancetype)buttonWithTitle:(NSString *)title handler:(NSControlClickedHandler)handler {
@@ -48,6 +48,7 @@
     }
     if(image) {
         btn.image = image;
+        btn.image.template = YES;
         btn.imageScaling = NSImageScaleProportionallyUpOrDown;
         btn.imagePosition = imagePosition;
     }

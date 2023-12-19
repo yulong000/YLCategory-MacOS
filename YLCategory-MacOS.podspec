@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.0.4"
+s.version               = "1.0.5"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -119,6 +119,10 @@ end
 
 s.subspec 'YLCFNotificationManager' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLCFNotificationManager/*.{h,m}'
+end
+
+s.subspec 'YLControl' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLControl/*.{h,m}'
 end
   
 end

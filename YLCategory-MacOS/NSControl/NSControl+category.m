@@ -30,24 +30,4 @@ static const char NSControlClickedHandlerKey = '\0';
     }
 }
 
-// 自定义NSControl时，为了响应点击事件，需要实现下面的方法
-
-- (void)mouseDown:(NSEvent *)event {
-    [self.window makeFirstResponder:self];
-    [super mouseDown:event];
-}
-
-- (void)mouseUp:(NSEvent *)event {
-    [NSApp sendAction:self.action to:self.target from:self];
-    [super mouseUp:event];
-}
-
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
-
-- (BOOL)becomeFirstResponder {
-    return YES;
-}
-
 @end

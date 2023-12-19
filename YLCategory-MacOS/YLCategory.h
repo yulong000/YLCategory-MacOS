@@ -39,5 +39,6 @@
 #import "YLAppleScript.h"
 #import "YLFlipView.h"
 #import "YLCFNotificationManager.h"
+#import "YLControl.h"
 
 #endif /* YLCategory_h */

@@ -8,12 +8,12 @@
 
 
 "Kind tips" = "Kind tips";
-"Install first" = "Please install the script before proceeding";
+"Install first" = "Please install the apple script before proceeding";
 "Sure" = "Sure";
 "Cancel" = "Cancel";
 "Install" = "Install";
-"Install script" = "Install script";
-"Install script in current folder" = "Please install the script file in this folder";
+"Install script" = "Install apple script";
+"Install script in current folder" = "Please install the apple script file in this folder";
 "Install succeed" = "Install succeed";
 "Install failed" = "Install failed";
 "Install error path" = "The installation path selected is incorrect";
