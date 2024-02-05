@@ -28,4 +28,8 @@
     return YES;
 }
 
+- (BOOL)isFlipped {
+    return YES;
+}
+
 @end

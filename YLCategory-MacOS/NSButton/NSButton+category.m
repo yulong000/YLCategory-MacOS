@@ -48,7 +48,6 @@
     }
     if(image) {
         btn.image = image;
-        btn.image.template = YES;
         btn.imageScaling = NSImageScaleProportionallyUpOrDown;
         btn.imagePosition = imagePosition;
     }
