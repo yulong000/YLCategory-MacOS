@@ -1,0 +1,17 @@
+/* 
+  YLShortcut.strings
+  Test
+
+  Created by 魏宇龙 on 2022/7/8.
+  
+*/
+
+
+"Click to record shortcut" = "ショートカットを記録するにはクリックしてください";
+"Click to begin editing" = "編集を開始するにはクリックしてください";
+"Begin record shortcut" = "ショートカットの記録を開始";
+"Delete shortcut" = "ショートカットを削除";
+"Record Shortcut" = "ショートカットを記録";
+"End editing" = "編集を終了";
+"Shortcut has been registered" = "ショートカットが登録されています";
+"Control keys are unavailable" = "コントロールキーは利用できません";

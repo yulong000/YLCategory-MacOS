@@ -1,0 +1,17 @@
+/* 
+  YLShortcut.strings
+  Test
+
+  Created by 魏宇龙 on 2022/7/8.
+  
+*/
+
+
+"Click to record shortcut" = "Haz clic para grabar el acceso directo";
+"Click to begin editing" = "Haz clic para empezar a editar";
+"Begin record shortcut" = "Comenzar a grabar el acceso directo";
+"Delete shortcut" = "Eliminar acceso directo";
+"Record Shortcut" = "Grabar acceso directo";
+"End editing" = "Terminar edición";
+"Shortcut has been registered" = "El acceso directo ha sido registrado";
+"Control keys are unavailable" = "Las teclas de control no están disponibles";

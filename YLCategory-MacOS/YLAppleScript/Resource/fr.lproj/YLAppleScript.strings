@@ -1,0 +1,21 @@
+/* 
+  YLAppleScript.strings
+  Test
+
+  Created by 魏宇龙 on 2022/11/16.
+  
+*/
+
+
+"Kind tips" = "Conseils gentils";
+"Install first" = "Veuillez d'abord installer le script Apple";
+"Sure" = "D'accord";
+"Cancel" = "Annuler";
+"Install" = "Installer";
+"Install script" = "Installer le script";
+"Install script in current folder" = "Veuillez installer le script dans ce dossier";
+"Install succeed" = "Installation réussie";
+"Install failed" = "Installation échouée";
+"Install error path" = "Le chemin d'installation sélectionné n'est pas correct";
+"Reselect" = "Resélectionner";
+"Script task creation failed" = "La création de la tâche de script a échoué";

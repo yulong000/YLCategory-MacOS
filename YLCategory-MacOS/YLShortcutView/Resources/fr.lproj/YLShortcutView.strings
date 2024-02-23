@@ -1,0 +1,17 @@
+/* 
+  YLShortcut.strings
+  Test
+
+  Created by 魏宇龙 on 2022/7/8.
+  
+*/
+
+
+"Click to record shortcut" = "Cliquez pour enregistrer le raccourci";
+"Click to begin editing" = "Cliquez pour commencer l'édition";
+"Begin record shortcut" = "Commencer l'enregistrement du raccourci";
+"Delete shortcut" = "Supprimer le raccourci";
+"Record Shortcut" = "Enregistrer le raccourci";
+"End editing" = "Terminer l'édition";
+"Shortcut has been registered" = "Le raccourci a été enregistré";
+"Control keys are unavailable" = "Les touches de contrôle ne sont pas disponibles";

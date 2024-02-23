@@ -122,7 +122,7 @@ typedef void (^VoidBlock)(void);
 // building 号
 #define kAPP_Build_Number               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
 // app Name
-#define kAPP_Name                       ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"])
+#define kAPP_Name                       ([[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"])
 // bundle id
 #define kBundle_id                      [NSBundle mainBundle].bundleIdentifier
 

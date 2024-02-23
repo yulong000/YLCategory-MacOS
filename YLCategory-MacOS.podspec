@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.0.6"
+s.version               = "1.0.7"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}

@@ -1,0 +1,17 @@
+/* 
+  YLShortcut.strings
+  Test
+
+  Created by 魏宇龙 on 2022/7/8.
+  
+*/
+
+
+"Click to record shortcut" = "Klicken Sie, um die Tastenkombination aufzuzeichnen";
+"Click to begin editing" = "Klicken Sie, um mit der Bearbeitung zu beginnen";
+"Begin record shortcut" = "Beginnen Sie mit der Aufzeichnung der Tastenkombination";
+"Delete shortcut" = "Tastenkombination löschen";
+"Record Shortcut" = "Tastenkombination aufzeichnen";
+"End editing" = "Bearbeitung beenden";
+"Shortcut has been registered" = "Die Tastenkombination wurde registriert";
+"Control keys are unavailable" = "Steuerungstasten sind nicht verfügbar";
