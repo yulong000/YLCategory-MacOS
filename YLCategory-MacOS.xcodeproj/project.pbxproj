@@ -47,6 +47,7 @@
 		00C47F322AA01DDD0082E813 /* YLAppleScript.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00C47F2D2AA01DDD0082E813 /* YLAppleScript.strings */; };
 		00C47F332AA01DDD0082E813 /* YLAppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C47F312AA01DDD0082E813 /* YLAppleScript.m */; };
 		00CE518D2B314BF400A4EDFD /* YLControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CE518C2B314BF400A4EDFD /* YLControl.m */; };
+		00E8C0CB2BA163BE00C37E97 /* XcodeLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E8C0CA2BA163BE00C37E97 /* XcodeLog.m */; };
 		8D9131251AF81A8E0F010524 /* libPods-YLCategory-MacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,7 @@
 		00C47F312AA01DDD0082E813 /* YLAppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLAppleScript.m; sourceTree = "<group>"; };
 		00CE518B2B314BF400A4EDFD /* YLControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLControl.h; sourceTree = "<group>"; };
 		00CE518C2B314BF400A4EDFD /* YLControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLControl.m; sourceTree = "<group>"; };
+		00E8C0CA2BA163BE00C37E97 /* XcodeLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeLog.m; sourceTree = "<group>"; };
 		486207C0208AEDF72FB9DA88 /* Pods-YLCategory-MacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YLCategory-MacOS.debug.xcconfig"; path = "Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS.debug.xcconfig"; sourceTree = "<group>"; };
 		98ACFFA471F75C6924BB470A /* Pods-YLCategory-MacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YLCategory-MacOS.release.xcconfig"; path = "Target Support Files/Pods-YLCategory-MacOS/Pods-YLCategory-MacOS.release.xcconfig"; sourceTree = "<group>"; };
 		DE0ACCF1B71ED26C457BC253 /* libPods-YLCategory-MacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YLCategory-MacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,6 +322,7 @@
 		00A9799229E92D870066F7C7 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				00E8C0CA2BA163BE00C37E97 /* XcodeLog.m */,
 				00A9799329E92D870066F7C7 /* Macro.h */,
 			);
 			path = Other;
@@ -645,6 +648,7 @@
 				006AA15F2A9F26F20084F02F /* MASShortcutMonitor+category.m in Sources */,
 				00B6B3ED2A08FD4A00457886 /* SecondViewController.m in Sources */,
 				00A979BC29E92D870066F7C7 /* ViewController.m in Sources */,
+				00E8C0CB2BA163BE00C37E97 /* XcodeLog.m in Sources */,
 				006AA1AA2A9F3B190084F02F /* YLCollectionView.m in Sources */,
 				00A979CF29E92D870066F7C7 /* NSWindow+frame.m in Sources */,
 				00A979D129E92D870066F7C7 /* NSDate+category.m in Sources */,

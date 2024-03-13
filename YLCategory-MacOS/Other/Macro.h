@@ -10,10 +10,10 @@
 
 /****************************************  打印 ** ***********************************/
 
-#ifdef DEBUG
-#    define YLLog(...) NSLog(__VA_ARGS__)
+#if DEBUG
+#   define YLLog(...) NSLog(__VA_ARGS__)
 #else
-#    define YLLog(...)
+#   define YLLog(...)
 #endif
 
 /****************************************  颜色 ** ***********************************/
@@ -110,7 +110,8 @@ typedef void (^VoidBlock)(void);
 
 // 判断当前app是否是深色模式
 #define kAppIsDarkTheme                    ([NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] == NSAppearanceNameDarkAqua)
-
+// 是否是沙盒模式
+#define kAppIsSandbox                   ([[[NSProcessInfo processInfo] environment] objectForKey:@"APP_SANDBOX_CONTAINER_ID"] != nil)
 
 // 文件路径
 #define kDocumentPath                   [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
@@ -125,5 +126,8 @@ typedef void (^VoidBlock)(void);
 #define kAPP_Name                       ([[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"])
 // bundle id
 #define kBundle_id                      [NSBundle mainBundle].bundleIdentifier
+
+// 判断2个CF字符串是否相等
+#define CFStringEqual(str1, str2)       (CFStringCompare(str1, str2, 0) == kCFCompareEqualTo)
 
 #endif /* Marco_h */

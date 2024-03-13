@@ -58,36 +58,66 @@ NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
         NSLog(@"【%s】 file name is incorrect: %@", __FUNCTION__, fileName);
         return;
     }
-    NSError *error = nil;
-    NSURL *scriptDirUrl = [self getScriptLocalURL];
-    NSURL *scriptUrl = [scriptDirUrl URLByAppendingPathComponent:fileName];
-    if([[NSFileManager defaultManager] fileExistsAtPath:scriptUrl.path]) {
-        // 已经存在了脚本, 执行
-        NSUserAppleScriptTask *task = [[NSUserAppleScriptTask alloc] initWithURL:scriptUrl error:&error];
-        if(task) {
-            // 任务创建成功,如果传入有方法名称和参数，则创建事件，否则就执行文件
-            NSAppleEventDescriptor *descriptor = [self createEventDescriptorWithFuncName:funcName arguments:arguments];
-            [task executeWithAppleEvent:descriptor completionHandler:^(NSAppleEventDescriptor * _Nullable result, NSError * _Nullable error) {
-                if(handler) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        handler(result, error);
-                    });
-                }
-            }];
-        } else {
-            NSLog(@"【%s】create user applle script task error: %@", __FUNCTION__, error);
-            [YLProgressHUD showError:YLAppleScriptLocalizeString(@"Script task creation failed", @"") toWindow:NSApp.windows.lastObject];
-        }
-        return;
+    if([fileName hasSuffix:@".scpt"] == NO) {
+        // 如果没有传入后缀，则自动拼接上
+        fileName = [NSString stringWithFormat:@"%@.scpt", fileName];
     }
-    // 脚本未安装，安装脚本
-    [self installScriptWithFile:fileName completionHandler:^(BOOL success) {
-        if(success) {
-            [self executeScriptWithFile:fileName funcName:funcName arguments:arguments completionHandler:handler];
-        } else {
-            [YLProgressHUD showError:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.windows.lastObject];
+    if([[[NSProcessInfo processInfo] environment] objectForKey:@"APP_SANDBOX_CONTAINER_ID"] != nil) {
+        // 沙盒
+        NSError *error = nil;
+        NSURL *scriptDirUrl = [self getScriptLocalURL];
+        NSURL *scriptUrl = [scriptDirUrl URLByAppendingPathComponent:fileName];
+        if([[NSFileManager defaultManager] fileExistsAtPath:scriptUrl.path]) {
+            // 已经存在了脚本, 执行
+            NSUserAppleScriptTask *task = [[NSUserAppleScriptTask alloc] initWithURL:scriptUrl error:&error];
+            if(task) {
+                // 任务创建成功,如果传入有方法名称和参数，则创建事件，否则就执行文件
+                NSAppleEventDescriptor *descriptor = [self createEventDescriptorWithFuncName:funcName arguments:arguments];
+                [task executeWithAppleEvent:descriptor completionHandler:^(NSAppleEventDescriptor * _Nullable result, NSError * _Nullable error) {
+                    if(handler) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            handler(result, error);
+                        });
+                    }
+                }];
+            } else {
+                NSLog(@"【%s】create user applle script task error: %@", __FUNCTION__, error);
+                [YLProgressHUD showError:YLAppleScriptLocalizeString(@"Script task creation failed", @"") toWindow:NSApp.windows.lastObject];
+            }
+            return;
         }
-    }];
+        // 脚本未安装，安装脚本
+        [self installScriptWithFile:fileName completionHandler:^(BOOL success) {
+            if(success) {
+                [self executeScriptWithFile:fileName funcName:funcName arguments:arguments completionHandler:handler];
+            } else {
+                [YLProgressHUD showError:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.windows.lastObject];
+            }
+        }];
+    } else {
+        // 非沙盒
+        NSURL *scriptUrl = [[NSBundle mainBundle] URLForResource:fileName withExtension:nil];
+        if(scriptUrl == nil) {
+            NSLog(@"【%s】 script file not exist : %@", __FUNCTION__, fileName);
+            return;
+        }
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:scriptUrl error:nil];
+            NSAppleEventDescriptor *descriptor = [self createEventDescriptorWithFuncName:funcName arguments:arguments];
+            NSDictionary *error = nil;
+            NSAppleEventDescriptor *result = [appleScript executeAppleEvent:descriptor error:&error];
+            if(handler) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(result) {
+                        handler(result, nil);
+                    } else {
+                        // 有错误
+                        handler(result, [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:error]);
+                    }
+                });
+            }
+        });
+    }
 }
 
 #pragma mark 根据函数名和参数创建 eventDescriptor
