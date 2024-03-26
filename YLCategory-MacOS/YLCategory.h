@@ -29,6 +29,7 @@
 #import "NSResponder+category.h"
 #import "NSImageView+category.h"
 #import "NSScreen+category.h"
+#import "NSArray+category.h"
 
 // 封装的工具
 #import "YLProgressHUD.h"

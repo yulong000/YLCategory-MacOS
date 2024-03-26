@@ -3,12 +3,14 @@
 #import <AppKit/AppKit.h>
 
 static const char YLNotificationDictionaryKey = '\0';
+static const char YLDistributedNotificationDictionaryKey = '\0';
 static const char YLMonitorArrayKey = '\0';
 
 @interface NSObject ()
 
 @property (nonatomic, strong) NSMutableArray *yl_monitorArray;
 @property (nonatomic, strong) NSMutableDictionary *yl_noteDict;
+@property (nonatomic, strong) NSMutableDictionary *yl_distributedNoteDict;
 
 @end
 
@@ -111,10 +113,12 @@ static const char YLMonitorArrayKey = '\0';
 
 - (void)removeNotificationName:(NSString *)name {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
+    [self.yl_noteDict removeObjectForKey:name];
 }
 
 - (void)removeAllNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.yl_noteDict removeAllObjects];
 }
 
 - (NSMutableDictionary *)yl_noteDict {
@@ -125,6 +129,52 @@ static const char YLMonitorArrayKey = '\0';
     [self willChangeValueForKey:@"yl_noteDict"];
     objc_setAssociatedObject(self, &YLNotificationDictionaryKey, yl_noteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self didChangeValueForKey:@"yl_noteDict"];
+}
+
+#pragma mark - 分布式通知事件
+
+- (void)postDistributedNotificationWithName:(NSString *)name {
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil];
+}
+
+- (void)postDistributedNotificationWithName:(NSString *)name userInfo:(NSDictionary *)userInfo {
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo];
+}
+
+- (void)addDistributedNotificationName:(NSString *)name handler:(YLNotificationHandler)handler {
+    if(name.isValidString == NO || handler == nil)  return;
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(yl_DistributedNotificationMsg:) name:name object:nil];
+    if(self.yl_distributedNoteDict == nil) {
+        self.yl_distributedNoteDict = [NSMutableDictionary dictionary];
+    }
+    self.yl_distributedNoteDict[name] = handler;
+}
+
+- (void)yl_DistributedNotificationMsg:(NSNotification *)note {
+    YLNotificationHandler handler = [self.yl_distributedNoteDict objectForKey:note.name];
+    if(handler) {
+        handler(note);
+    }
+}
+
+- (void)removeDistributedNotificationName:(NSString *)name {
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
+    [self.yl_distributedNoteDict removeObjectForKey:name];
+}
+
+- (void)removeAllDistributedNotifications {
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+    [self.yl_distributedNoteDict removeAllObjects];
+}
+
+- (NSMutableDictionary *)yl_distributedNoteDict {
+    return objc_getAssociatedObject(self, &YLDistributedNotificationDictionaryKey);
+}
+
+- (void)setYl_distributedNoteDict:(NSMutableDictionary *)yl_distributedNoteDict {
+    [self willChangeValueForKey:@"yl_distributedNoteDict"];
+    objc_setAssociatedObject(self, &YLDistributedNotificationDictionaryKey, yl_distributedNoteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self didChangeValueForKey:@"yl_distributedNoteDict"];
 }
 
 @end

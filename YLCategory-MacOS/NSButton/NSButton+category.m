@@ -10,11 +10,15 @@
 @implementation NSButton (category)
 
 + (instancetype)buttonWithImage:(NSImage *)image handler:(NSControlClickedHandler)handler {
-    return [self buttonWithImage:image imagePosition:NSImageOnly title:@"" font:nil textColor:nil handler:handler];
+    NSButton *btn = [self buttonWithImage:image target:nil action:nil];
+    btn.clickedHandler = handler;
+    return btn;
 }
 
 + (instancetype)buttonWithTitle:(NSString *)title handler:(NSControlClickedHandler)handler {
-    return [self buttonWithTitle:title font:nil textColor:nil handler:handler];
+    NSButton *btn = [self buttonWithTitle:title target:nil action:nil];
+    btn.clickedHandler = handler;
+    return btn;
 }
 
 + (instancetype)buttonWithTitle:(NSString *)title
@@ -30,7 +34,7 @@
                            font:(NSFont * _Nullable)font
                       textColor:(NSColor * _Nullable)textColor
                         handler:(NSControlClickedHandler _Nullable)handler {
-    NSButton *btn = [[super alloc] init];
+    NSButton *btn = [[self alloc] init];
     btn.bordered = NO;
     if(title) {
         NSMutableDictionary *params = [NSMutableDictionary dictionary];

@@ -19,6 +19,16 @@ typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
 /// 移除某个监听通知
 - (void)removeNotificationName:(NSString * _Nonnull)name;
 
+/// 发送分布式通知
+- (void)postDistributedNotificationWithName:(NSString * _Nonnull)name;
+- (void)postDistributedNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
+/// 监听分布式通知
+- (void)addDistributedNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
+/// 移除所有分布式监听通知
+- (void)removeAllDistributedNotifications;
+/// 移除某个分布式监听通知
+- (void)removeDistributedNotificationName:(NSString * _Nonnull)name;
+
 
 /// 添加事件监听, 自动调用 addMonitor:
 - (void)addGlobalEventMonitor:(NSEventMask)mask handler:(void (^ _Nullable)(NSEvent * _Nonnull event))block;

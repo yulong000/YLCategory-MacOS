@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0009D7C32BB176F00093D24E /* NSArray+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009D7C22BB176F00093D24E /* NSArray+category.m */; };
 		000D0DA32B05E58F00CF6C32 /* YLCFNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */; };
 		000D0DA72B05E81B00CF6C32 /* NSScreen+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA62B05E81B00CF6C32 /* NSScreen+category.m */; };
 		006AA15F2A9F26F20084F02F /* MASShortcutMonitor+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1552A9F26F20084F02F /* MASShortcutMonitor+category.m */; };
@@ -52,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0009D7C12BB176F00093D24E /* NSArray+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+category.h"; sourceTree = "<group>"; };
+		0009D7C22BB176F00093D24E /* NSArray+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+category.m"; sourceTree = "<group>"; };
 		000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCFNotificationManager.m; sourceTree = "<group>"; };
 		000D0DA22B05E58F00CF6C32 /* YLCFNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCFNotificationManager.h; sourceTree = "<group>"; };
 		000D0DA52B05E81B00CF6C32 /* NSScreen+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScreen+category.h"; sourceTree = "<group>"; };
@@ -163,6 +166,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00003A9B2BB174AF0007D0D0 /* NSArray */ = {
+			isa = PBXGroup;
+			children = (
+				0009D7C12BB176F00093D24E /* NSArray+category.h */,
+				0009D7C22BB176F00093D24E /* NSArray+category.m */,
+			);
+			path = NSArray;
+			sourceTree = "<group>";
+		};
 		000D0DA02B05E58F00CF6C32 /* YLCFNotificationManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				00A979AC29E92D870066F7C7 /* YLCategory.h */,
+				00003A9B2BB174AF0007D0D0 /* NSArray */,
 				00CE518A2B314BD900A4EDFD /* YLControl */,
 				000D0DA02B05E58F00CF6C32 /* YLCFNotificationManager */,
 				00C47F2A2AA01DDD0082E813 /* YLAppleScript */,
@@ -659,6 +672,7 @@
 				00B6B3F72A09249600457886 /* YLProgressHUD.m in Sources */,
 				00A979C629E92D870066F7C7 /* NSString+predicate.m in Sources */,
 				006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */,
+				0009D7C32BB176F00093D24E /* NSArray+category.m in Sources */,
 				00A979C229E92D870066F7C7 /* NSView+category.m in Sources */,
 				00CE518D2B314BF400A4EDFD /* YLControl.m in Sources */,
 				00A979C429E92D870066F7C7 /* NSString+category.m in Sources */,

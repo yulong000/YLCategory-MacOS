@@ -26,8 +26,6 @@
 
 /// 存放所有的监听对象
 @property (nonatomic, strong) NSMutableDictionary <NSString *, NSMutableArray <YLCFNotificationObserver *> *> *observerDict;
-/// 是否是沙盒模式
-@property (nonatomic, assign) BOOL isSandbox;
 
 @end
 
@@ -38,7 +36,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[YLCFNotificationManager alloc] init];
-        manager.isSandbox = nil != [[[NSProcessInfo processInfo] environment] objectForKey:@"APP_SANDBOX_CONTAINER_ID"];
         manager.observerDict = [NSMutableDictionary dictionary];
     });
     return manager;
@@ -68,7 +65,7 @@ static void YLCFNotificationCallback(CFNotificationCenterRef center, void *obser
 - (void)addObserver:(id)observer selector:(SEL)selector name:(NSNotificationName)name {
     if(name.length > 0) {
         BOOL containName = NO;
-        for (NSString *notiName in self.observerDict.allKeys) {
+        for (NSString *notiName in [YLCFNotificationManager share].observerDict.allKeys) {
             if([notiName isEqualToString:name]) {
                 containName = YES;
                 break;
@@ -76,14 +73,14 @@ static void YLCFNotificationCallback(CFNotificationCenterRef center, void *obser
         }
         if(containName == NO) {
             // 未注册过，注册一下
-            CFNotificationCenterAddObserver(self.isSandbox ? CFNotificationCenterGetDistributedCenter() : CFNotificationCenterGetDarwinNotifyCenter(),
-                                            (__bridge const void *)(self),
+            CFNotificationCenterAddObserver(CFNotificationCenterGetDistributedCenter(),
+                                            (__bridge const void *)([YLCFNotificationManager share]),
                                             YLCFNotificationCallback,
                                             (__bridge CFStringRef)name,
                                             NULL,
                                             CFNotificationSuspensionBehaviorDeliverImmediately);
         }
-        NSMutableDictionary *dict = self.observerDict;
+        NSMutableDictionary *dict = [YLCFNotificationManager share].observerDict;
         NSMutableArray *arr = [dict valueForKey:name];
         if(arr == nil) {
             arr = [NSMutableArray array];
@@ -110,7 +107,7 @@ static void YLCFNotificationCallback(CFNotificationCenterRef center, void *obser
 
 #pragma mark - 移除某个通知
 - (void)removeObserver:(nonnull id)observer name:(NSNotificationName)name {
-    NSMutableArray *arr = [self.observerDict valueForKey:name];
+    NSMutableArray *arr = [[YLCFNotificationManager share].observerDict valueForKey:name];
     NSMutableArray *deleteArr = [NSMutableArray array];
     for (YLCFNotificationObserver *obj in arr) {
         if(obj.observer == observer || obj.observer == nil) {
@@ -118,39 +115,39 @@ static void YLCFNotificationCallback(CFNotificationCenterRef center, void *obser
         }
     }
     [arr removeObjectsInArray:deleteArr];
-    self.observerDict[name] = arr;
+    [YLCFNotificationManager share].observerDict[name] = arr;
     if(arr.count == 0) {
         // 已经移除了所有的监听对象, 从通知中心移除监听
-        CFNotificationCenterRemoveObserver(self.isSandbox ? CFNotificationCenterGetDistributedCenter() : CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)self, (__bridge CFNotificationName)name, NULL);
-        [self.observerDict removeObjectForKey:name];
+        CFNotificationCenterRemoveObserver(CFNotificationCenterGetDistributedCenter(), (__bridge const void *)[YLCFNotificationManager share], (__bridge CFNotificationName)name, NULL);
+        [[YLCFNotificationManager share].observerDict removeObjectForKey:name];
     }
 }
 
 #pragma mark 移除某个监听对象的所有通知
 - (void)removeObserver:(nonnull id)observer {
-    NSArray *allKeys = self.observerDict.allKeys;
+    NSArray *allKeys = [YLCFNotificationManager share].observerDict.allKeys;
     for(int i = 0; i < allKeys.count; i ++) {
-        [self removeObserver:observer name:allKeys[i]];
+        [[YLCFNotificationManager share] removeObserver:observer name:allKeys[i]];
     }
 }
 
 #pragma mark 移除所有通知
 - (void)removeAllObservers {
-    NSArray *allKeys = self.observerDict.allKeys;
+    NSArray *allKeys = [YLCFNotificationManager share].observerDict.allKeys;
     for (NSString *name in allKeys) {
-        CFNotificationCenterRemoveObserver(self.isSandbox ? CFNotificationCenterGetDistributedCenter() : CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)self, (__bridge CFNotificationName)name, NULL);
+        CFNotificationCenterRemoveObserver(CFNotificationCenterGetDistributedCenter(), (__bridge const void *)[YLCFNotificationManager share], (__bridge CFNotificationName)name, NULL);
     }
-    [self.observerDict removeAllObjects];
+    [[YLCFNotificationManager share].observerDict removeAllObjects];
 }
 
 #pragma mark - 发送通知
 - (void)postCFNotificationWithName:(NSNotificationName)name {
-    [self postCFNotificationWithName:name userInfo:nil];
+    [[YLCFNotificationManager share] postCFNotificationWithName:name userInfo:nil];
 }
 
 #pragma mark 发送通知, 传递内容
 - (void)postCFNotificationWithName:(NSNotificationName)name userInfo:(NSDictionary * _Nullable)userInfo {
-    CFNotificationCenterPostNotificationWithOptions(self.isSandbox ? CFNotificationCenterGetDarwinNotifyCenter() : CFNotificationCenterGetDistributedCenter(), (CFStringRef)name, NULL, (CFDictionaryRef)userInfo, kCFNotificationDeliverImmediately | kCFNotificationPostToAllSessions);
+    CFNotificationCenterPostNotificationWithOptions(CFNotificationCenterGetDistributedCenter(), (CFStringRef)name, NULL, (CFDictionaryRef)userInfo, kCFNotificationDeliverImmediately | kCFNotificationPostToAllSessions);
 }
 
 @end

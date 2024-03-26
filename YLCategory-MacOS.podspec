@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.0.8"
+s.version               = "1.0.9"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -21,6 +21,10 @@ s.requires_arc          = true
 
 s.subspec 'Other' do |ss|
 ss.source_files  =   'YLCategory-MacOS/Other/*.{h,m}'
+end
+
+s.subspec 'NSArray' do |ss|
+ss.source_files  =   'YLCategory-MacOS/NSArray/*.{h,m}'
 end
 
 s.subspec 'NSWindow' do |ss|
