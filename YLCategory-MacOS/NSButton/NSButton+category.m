@@ -11,12 +11,14 @@
 
 + (instancetype)buttonWithImage:(NSImage *)image handler:(NSControlClickedHandler)handler {
     NSButton *btn = [self buttonWithImage:image target:nil action:nil];
+    btn.bordered = NO;
     btn.clickedHandler = handler;
     return btn;
 }
 
 + (instancetype)buttonWithTitle:(NSString *)title handler:(NSControlClickedHandler)handler {
     NSButton *btn = [self buttonWithTitle:title target:nil action:nil];
+    btn.bordered = NO;
     btn.clickedHandler = handler;
     return btn;
 }
