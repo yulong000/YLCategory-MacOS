@@ -41,6 +41,10 @@
 #define YellowColor                 [NSColor yellowColor]
 // 蓝色
 #define BlueColor                   [NSColor blueColor]
+// 系统蓝色
+#define SystemBlueColor             [NSColor systemBlueColor]
+// control accent color
+#define ControlAccentColor          [NSColor controlAccentColor]
 // r, g, b, a 颜色
 #define RGBA(r, g, b, a)            [NSColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
 // r=g=b, a=1 颜色
@@ -70,7 +74,7 @@
 #define kScreenScale                    [NSScreen mainScreen].backingScaleFactor
 #define kScreenWidth                    [NSScreen mainScreen].frame.size.width
 #define kScreenHeight                   [NSScreen mainScreen].frame.size.height
-#define kStatusBarHeight                [[NSStatusBar systemStatusBar] thickness]
+#define kStatusBarHeight                [NSApp mainMenu].menuBarHeight
 
 /****************************************  字体  ***********************************/
 
@@ -81,9 +85,6 @@
 
 
 /****************************************  快捷方法  ***********************************/
-
-// 常用的block
-typedef void (^VoidBlock)(void);
 
 // weakself
 #define WeakObject(obj)                 __weak typeof(obj) weak##obj = obj;

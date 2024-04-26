@@ -57,7 +57,7 @@
     return timerTarget.timer;
 }
 
-+ (VoidBlock)debounceActionWithTimeInterval:(CGFloat)delay action:(VoidBlock)action {
++ (dispatch_block_t)debounceActionWithTimeInterval:(CGFloat)delay action:(dispatch_block_t)action {
     __block NSInteger index = 0;
     return ^ {
         NSInteger tmpIndex = ++ index;
@@ -72,7 +72,7 @@
     };
 }
 
-+ (VoidBlock)onceActionWithTimeInterval:(CGFloat)interval action:(VoidBlock)action {
++ (dispatch_block_t)onceActionWithTimeInterval:(CGFloat)interval action:(dispatch_block_t)action {
     __block NSInteger index = 0;
     return ^ {
         if(index == 0 && action) {

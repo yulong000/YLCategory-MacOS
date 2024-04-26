@@ -32,6 +32,7 @@
 #import "NSArray+category.h"
 
 // 封装的工具
+#import "YLUtility.h"
 #import "YLProgressHUD.h"
 #import "YLShortcutView.h"
 #import "YLUserDefaults.h"

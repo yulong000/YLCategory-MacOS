@@ -2,15 +2,13 @@
 #import <objc/runtime.h>
 #import <AppKit/AppKit.h>
 
-static const char YLNotificationDictionaryKey = '\0';
-static const char YLDistributedNotificationDictionaryKey = '\0';
-static const char YLMonitorArrayKey = '\0';
 
 @interface NSObject ()
 
 @property (nonatomic, strong) NSMutableArray *yl_monitorArray;
 @property (nonatomic, strong) NSMutableDictionary *yl_noteDict;
 @property (nonatomic, strong) NSMutableDictionary *yl_distributedNoteDict;
+@property (nonatomic, strong) NSMutableDictionary *yl_workspaceNoteDict;
 
 @end
 
@@ -75,13 +73,11 @@ static const char YLMonitorArrayKey = '\0';
 }
 
 - (NSMutableArray *)yl_monitorArray {
-    return objc_getAssociatedObject(self, &YLMonitorArrayKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setYl_monitorArray:(NSMutableArray *)yl_monitorArray {
-    [self willChangeValueForKey:@"yl_monitorArray"];
-    objc_setAssociatedObject(self, &YLMonitorArrayKey, yl_monitorArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self didChangeValueForKey:@"yl_monitorArray"];
+    objc_setAssociatedObject(self, @selector(yl_monitorArray), yl_monitorArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 
@@ -122,13 +118,11 @@ static const char YLMonitorArrayKey = '\0';
 }
 
 - (NSMutableDictionary *)yl_noteDict {
-    return objc_getAssociatedObject(self, &YLNotificationDictionaryKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setYl_noteDict:(NSMutableDictionary *)yl_noteDict {
-    [self willChangeValueForKey:@"yl_noteDict"];
-    objc_setAssociatedObject(self, &YLNotificationDictionaryKey, yl_noteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self didChangeValueForKey:@"yl_noteDict"];
+    objc_setAssociatedObject(self, @selector(yl_noteDict), yl_noteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark - 分布式通知事件
@@ -168,13 +162,55 @@ static const char YLMonitorArrayKey = '\0';
 }
 
 - (NSMutableDictionary *)yl_distributedNoteDict {
-    return objc_getAssociatedObject(self, &YLDistributedNotificationDictionaryKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setYl_distributedNoteDict:(NSMutableDictionary *)yl_distributedNoteDict {
-    [self willChangeValueForKey:@"yl_distributedNoteDict"];
-    objc_setAssociatedObject(self, &YLDistributedNotificationDictionaryKey, yl_distributedNoteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self didChangeValueForKey:@"yl_distributedNoteDict"];
+    objc_setAssociatedObject(self, @selector(yl_distributedNoteDict), yl_distributedNoteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+#pragma mark - 系统通知
+- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name {
+    [[NSWorkspace sharedWorkspace].notificationCenter postNotificationName:name object:nil];
+}
+
+- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo {
+    [[NSWorkspace sharedWorkspace].notificationCenter postNotificationName:name object:nil userInfo:userInfo];
+}
+
+- (void)addWorkspaceNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler {
+    if(name.isValidString == NO || handler == nil)  return;
+    [[NSWorkspace sharedWorkspace].notificationCenter addObserver:self selector:@selector(yl_workspaceNotificationMsg:) name:name object:nil];
+    if(self.yl_workspaceNoteDict == nil) {
+        self.yl_workspaceNoteDict = [NSMutableDictionary dictionary];
+    }
+    self.yl_workspaceNoteDict[name] = handler;
+}
+
+- (void)yl_workspaceNotificationMsg:(NSNotification *)note {
+    YLNotificationHandler handler = [self.yl_workspaceNoteDict objectForKey:note.name];
+    if(handler) {
+        handler(note);
+    }
+}
+
+- (void)removeAllWorkspaceNotifications {
+    [[NSWorkspace sharedWorkspace].notificationCenter removeObserver:self];
+    [self.yl_workspaceNoteDict removeAllObjects];
+}
+
+- (void)removeWorkspaceNotificationName:(NSString * _Nonnull)name {
+    [[NSWorkspace sharedWorkspace].notificationCenter removeObserver:self name:name object:nil];
+    [self.yl_workspaceNoteDict removeObjectForKey:name];
+}
+
+- (NSMutableDictionary *)yl_workspaceNoteDict {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setYl_workspaceNoteDict:(NSMutableDictionary *)yl_workspaceNoteDict {
+    objc_setAssociatedObject(self, @selector(yl_workspaceNoteDict), yl_workspaceNoteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

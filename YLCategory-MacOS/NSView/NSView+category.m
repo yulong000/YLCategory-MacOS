@@ -6,6 +6,7 @@
 //
 
 #import "NSView+category.h"
+#import <objc/runtime.h>
 
 @implementation NSView (category)
 
@@ -87,6 +88,18 @@
     self.layer.cornerRadius = cornerRadius;
 }
 
+#pragma mark 设置边框宽度
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    self.wantsLayer = YES;
+    self.layer.borderWidth = borderWidth;
+}
+
+#pragma mark 设置边框颜色
+- (void)setBorderColor:(NSColor *)borderColor {
+    self.wantsLayer = YES;
+    self.layer.borderColor = borderColor.CGColor;
+}
+
 #pragma mark 设置边框和圆角
 - (void)setBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius {
     [self setBorderColor:borderColor borderWidth:borderWidth];
@@ -101,8 +114,8 @@
     self.layer.cornerRadius = cornerRadius;
 }
 
-+ (NSView *)viewWithColor:(NSColor *)backgroundColor {
-    NSView *view = [[NSView alloc] init];
++ (instancetype)viewWithColor:(NSColor *)backgroundColor {
+    NSView *view = [[self alloc] init];
     view.wantsLayer = YES;
     view.layer.backgroundColor = backgroundColor.CGColor;
     return view;

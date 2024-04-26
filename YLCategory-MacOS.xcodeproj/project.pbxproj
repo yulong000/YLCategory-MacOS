@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0009D7C32BB176F00093D24E /* NSArray+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009D7C22BB176F00093D24E /* NSArray+category.m */; };
+		000C7B172BC39DF0003ABB1A /* YLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C7B162BC39DF0003ABB1A /* YLUtility.m */; };
 		000D0DA32B05E58F00CF6C32 /* YLCFNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */; };
 		000D0DA72B05E81B00CF6C32 /* NSScreen+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA62B05E81B00CF6C32 /* NSScreen+category.m */; };
 		006AA15F2A9F26F20084F02F /* MASShortcutMonitor+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1552A9F26F20084F02F /* MASShortcutMonitor+category.m */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		0009D7C12BB176F00093D24E /* NSArray+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+category.h"; sourceTree = "<group>"; };
 		0009D7C22BB176F00093D24E /* NSArray+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+category.m"; sourceTree = "<group>"; };
+		000C7B152BC39DF0003ABB1A /* YLUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLUtility.h; sourceTree = "<group>"; };
+		000C7B162BC39DF0003ABB1A /* YLUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLUtility.m; sourceTree = "<group>"; };
 		000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCFNotificationManager.m; sourceTree = "<group>"; };
 		000D0DA22B05E58F00CF6C32 /* YLCFNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCFNotificationManager.h; sourceTree = "<group>"; };
 		000D0DA52B05E81B00CF6C32 /* NSScreen+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScreen+category.h"; sourceTree = "<group>"; };
@@ -175,6 +178,15 @@
 			path = NSArray;
 			sourceTree = "<group>";
 		};
+		000C7B142BC399CC003ABB1A /* YLUtility */ = {
+			isa = PBXGroup;
+			children = (
+				000C7B152BC39DF0003ABB1A /* YLUtility.h */,
+				000C7B162BC39DF0003ABB1A /* YLUtility.m */,
+			);
+			path = YLUtility;
+			sourceTree = "<group>";
+		};
 		000D0DA02B05E58F00CF6C32 /* YLCFNotificationManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				00A979AC29E92D870066F7C7 /* YLCategory.h */,
+				000C7B142BC399CC003ABB1A /* YLUtility */,
 				00003A9B2BB174AF0007D0D0 /* NSArray */,
 				00CE518A2B314BD900A4EDFD /* YLControl */,
 				000D0DA02B05E58F00CF6C32 /* YLCFNotificationManager */,
@@ -651,6 +664,7 @@
 				00A979CE29E92D870066F7C7 /* NSImage+category.m in Sources */,
 				00A979C329E92D870066F7C7 /* NSControl+category.m in Sources */,
 				00A979C729E92D870066F7C7 /* NSString+secret.m in Sources */,
+				000C7B172BC39DF0003ABB1A /* YLUtility.m in Sources */,
 				00A979C129E92D870066F7C7 /* NSView+frame.m in Sources */,
 				006AA1602A9F26F20084F02F /* YLShortcutView.m in Sources */,
 				00A979D029E92D870066F7C7 /* NSWindow+category.m in Sources */,

@@ -16,13 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YLUserDefaults : NSObject
 
 @property (readonly) NSUserDefaults *userDefaults;
-@property (readonly, nullable) NSUserDefaults *groupDefaults;
 
 + (instancetype)share;
-
-/// 设置 app group
-/// - Parameter groupName: name
-- (void)setGroupName:(NSString *)groupName;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)new NS_UNAVAILABLE;
@@ -57,6 +52,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - group
 
+/// 只有一个group时，获取设置的group
+@property (nullable, readonly) NSUserDefaults *groupDefaults;
+
+/// 设置 app group，适合一个app只有一个group的时候
+- (void)setGroupName:(NSString *)groupName;
+
 - (void)setObject:(nullable id)obj forGroupKey:(NSString *)key;
 - (nullable id)objectForGroupKey:(NSString *)key;
 - (void)removeObjectForGroupKey:(NSString *)key;
@@ -82,6 +83,41 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSURL *)URLForGroupKey:(NSString *)key;
 
 - (void)setObjectsWithGroupKeys:(NSDictionary<NSString *,id> *)keyValues;
+
+#pragma mark - groups
+
+/// 添加一个group
+- (NSUserDefaults *)addGroupWithName:(NSString *)groupName;
+/// 移除一个group，如果和 - (void)setGroupName:(NSString *)groupName 时同名，也会被移除
+- (void)removeGroupWithName:(NSString *)groupName;
+/// 获取多个group中的一个
+- (nullable NSUserDefaults *)getGroupDefaultsWithName:(NSString *)groupName;
+
+- (void)setObject:(nullable id)obj forGroup:(NSString *)groupName key:(NSString *)key;
+- (nullable id)objectForGroup:(NSString *)groupName key:(NSString *)key;
+- (void)removeObjectForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (nullable NSString *)stringForGroup:(NSString *)groupName key:(NSString *)key;
+- (nullable NSArray *)arrayForGroup:(NSString *)groupName key:(NSString *)key;
+- (nullable NSDictionary *)dictionaryForGroup:(NSString *)groupName key:(NSString *)key;
+- (nullable NSData *)dataForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (void)setInteger:(NSInteger)value forGroup:(NSString *)groupName key:(NSString *)key;
+- (NSInteger)integerForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (void)setFloat:(float)value forGroup:(NSString *)groupName key:(NSString *)key;
+- (float)floatForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (void)setDouble:(double)value forGroup:(NSString *)groupName key:(NSString *)key;
+- (double)doubleForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (void)setBool:(BOOL)value forGroup:(NSString *)groupName key:(NSString *)key;
+- (BOOL)boolForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (void)setURL:(nullable NSURL *)url forGroup:(NSString *)groupName key:(NSString *)key;
+- (nullable NSURL *)URLForGroup:(NSString *)groupName key:(NSString *)key;
+
+- (void)setObjectsWithGroup:(NSString *)groupName keys:(NSDictionary<NSString *,id> *)keyValues;
 
 @end
 

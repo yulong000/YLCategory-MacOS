@@ -29,6 +29,16 @@ typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
 /// 移除某个分布式监听通知
 - (void)removeDistributedNotificationName:(NSString * _Nonnull)name;
 
+/// 发送系统通知
+- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name;
+- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
+/// 监听系统通知
+- (void)addWorkspaceNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
+/// 移除所有系统监听通知
+- (void)removeAllWorkspaceNotifications;
+/// 移除某个系统监听通知
+- (void)removeWorkspaceNotificationName:(NSString * _Nonnull)name;
+
 
 /// 添加事件监听, 自动调用 addMonitor:
 - (void)addGlobalEventMonitor:(NSEventMask)mask handler:(void (^ _Nullable)(NSEvent * _Nonnull event))block;

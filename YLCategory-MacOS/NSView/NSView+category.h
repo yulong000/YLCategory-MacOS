@@ -32,8 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 移除所有的跟踪区域
 - (void)removeAllTrackingArea;
 
-/**  设置边框  */
-- (void)setBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth;
+/**  设置边框宽度 */
+- (void)setBorderWidth:(CGFloat)borderWidth;
+
+/**  设置边框颜色 */
+- (void)setBorderColor:(NSColor *)borderColor;
 
 /**  设置圆角  */
 - (void)setCornerRadius:(CGFloat)cornerRadius;
@@ -41,11 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置指定位置的圆角 */
 - (void)setCornerRadius:(CGFloat)cornerRadius mask:(CACornerMask)mask;
 
+/**  设置边框  */
+- (void)setBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth;
+
 /**  设置边框和圆角  */
 - (void)setBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius;
 
 /// 构造方法，创建带背景色的view
-+ (NSView *)viewWithColor:(NSColor *)backgroundColor;
++ (instancetype)viewWithColor:(NSColor *)backgroundColor;
 
 /// 获取缩略图
 - (NSImage *)thumbImage;

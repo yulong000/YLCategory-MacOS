@@ -8,6 +8,7 @@
 #import "YLFlipView.h"
 
 @implementation YLFlipView
+@synthesize tag = _tag;
 
 - (BOOL)isFlipped {
     return YES;

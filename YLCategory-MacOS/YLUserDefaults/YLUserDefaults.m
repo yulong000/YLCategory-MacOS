@@ -14,7 +14,10 @@
 @interface YLUserDefaults ()
 
 @property (nonatomic, strong) NSUserDefaults *userDefaults;
+/// 只有一个group
 @property (nonatomic, strong) NSUserDefaults *groupDefaults;
+/// 多个group
+@property (nonatomic, strong) NSMutableDictionary *groupDefaultsDict;
 
 @end
 
@@ -32,12 +35,9 @@
 - (instancetype)init {
     if(self = [super init]) {
         self.userDefaults = [NSUserDefaults standardUserDefaults];
+        self.groupDefaultsDict = [NSMutableDictionary dictionary];
     }
     return self;
-}
-
-- (void)setGroupName:(NSString *)groupName {
-    self.groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:groupName];
 }
 
 #pragma mark - app
@@ -124,6 +124,12 @@
 
 #pragma mark - group
 
+- (void)setGroupName:(NSString *)groupName {
+    if(groupName == nil || groupName.length == 0) return;
+    self.groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:groupName];
+    self.groupDefaultsDict[groupName] = self.groupDefaults;
+}
+
 - (void)setObject:(nullable id)obj forGroupKey:(nonnull NSString *)key {
     [self.groupDefaults setObject:obj forKey:key];
     [self.groupDefaults synchronize];
@@ -202,6 +208,134 @@
         [self.groupDefaults setObject:keyValues[key] forKey:key];
     }
     [self.groupDefaults synchronize];
+}
+
+
+#pragma mark - groups
+
+- (NSUserDefaults *)addGroupWithName:(NSString *)groupName {
+    if(groupName == nil || groupName.length == 0) return nil;
+    NSUserDefaults *defaults = [self.groupDefaultsDict objectForKey:groupName];
+    if(defaults != nil) {
+        // 已经存在了，不需要再次添加
+        return defaults;
+    }
+    NSUserDefaults *group = [[NSUserDefaults alloc] initWithSuiteName:groupName];
+    self.groupDefaultsDict[groupName] = group;
+    return group;
+}
+
+- (void)removeGroupWithName:(NSString *)groupName {
+    NSUserDefaults *group = [self.groupDefaultsDict objectForKey:groupName];
+    if(group == nil) {
+        return;
+    }
+    [self.groupDefaultsDict removeObjectForKey:groupName];
+    if(group == self.groupDefaults) {
+        self.groupDefaults = nil;
+    }
+}
+
+- (NSUserDefaults *)getGroupDefaultsWithName:(NSString *)groupName {
+    return [self.groupDefaultsDict objectForKey:groupName];
+}
+
+- (void)setObject:(nullable id)obj forGroup:(nonnull NSString *)groupName key:(nonnull NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults setObject:obj forKey:key];
+    [defaults synchronize];
+}
+
+- (nullable id)objectForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults objectForKey:key];
+}
+
+- (void)removeObjectForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults removeObjectForKey:key];
+    [defaults synchronize];
+}
+
+- (nullable NSString *)stringForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults stringForKey:key];
+}
+
+- (nullable NSArray *)arrayForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults arrayForKey:key];
+}
+
+- (nullable NSDictionary *)dictionaryForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults dictionaryForKey:key];
+}
+
+- (nullable NSData *)dataForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults dataForKey:key];
+}
+
+- (void)setInteger:(NSInteger)value forGroup:(nonnull NSString *)groupName key:(nonnull NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults setInteger:value forKey:key];
+    [defaults synchronize];
+}
+
+- (NSInteger)integerForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults integerForKey:key];
+}
+
+- (void)setFloat:(float)value forGroup:(nonnull NSString *)groupName key:(nonnull NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults setFloat:value forKey:key];
+    [defaults synchronize];
+}
+
+- (float)floatForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults floatForKey:key];
+}
+
+- (void)setDouble:(double)value forGroup:(nonnull NSString *)groupName key:(nonnull NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults setDouble:value forKey:key];
+    [defaults synchronize];
+}
+
+- (double)doubleForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults doubleForKey:key];
+}
+
+- (void)setBool:(BOOL)value forGroup:(nonnull NSString *)groupName key:(nonnull NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults setBool:value forKey:key];
+    [defaults synchronize];
+}
+- (BOOL)boolForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults boolForKey:key];
+}
+
+- (void)setURL:(nullable NSURL *)url forGroup:(nonnull NSString *)groupName key:(nonnull NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    [defaults setURL:url forKey:key];
+    [defaults synchronize];
+}
+- (nullable NSURL *)URLForGroup:(NSString *)groupName key:(NSString *)key {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    return [defaults URLForKey:key];
+}
+
+- (void)setObjectsWithGroup:(NSString *)groupName keys:(NSDictionary<NSString *,id> *)keyValues {
+    NSUserDefaults *defaults = [self getGroupDefaultsWithName:groupName];
+    for (NSString *key in keyValues) {
+        [defaults setObject:keyValues[key] forKey:key];
+    }
+    [defaults synchronize];
 }
 
 @end
