@@ -141,3 +141,5 @@ end
 
 #        pod spec lint YLCategory-MacOS.podspec --use-libraries  验证podspec文件
 #        --use-libraries 有第三方库依赖，添加该参数
+
+#        pod trunk delete YLCategory-MacOS x.x.x  删除已发布的某个版本

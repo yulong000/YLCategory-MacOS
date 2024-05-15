@@ -128,16 +128,16 @@
 #pragma mark - 分布式通知事件
 
 - (void)postDistributedNotificationWithName:(NSString *)name {
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:nil deliverImmediately:YES];
 }
 
 - (void)postDistributedNotificationWithName:(NSString *)name userInfo:(NSDictionary *)userInfo {
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo deliverImmediately:YES];
 }
 
 - (void)addDistributedNotificationName:(NSString *)name handler:(YLNotificationHandler)handler {
     if(name.isValidString == NO || handler == nil)  return;
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(yl_DistributedNotificationMsg:) name:name object:nil];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(yl_DistributedNotificationMsg:) name:name object:nil suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
     if(self.yl_distributedNoteDict == nil) {
         self.yl_distributedNoteDict = [NSMutableDictionary dictionary];
     }

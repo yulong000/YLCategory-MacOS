@@ -127,6 +127,8 @@
 #define kAPP_Name                       ([[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"] ?: [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleName"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"])
 // bundle id
 #define kBundle_id                      [NSBundle mainBundle].bundleIdentifier
+// 系统版本号
+#define kSystem_OS_Version              [NSString stringWithFormat:@"%ld.%ld.%ld", [NSProcessInfo processInfo].operatingSystemVersion.majorVersion, [NSProcessInfo processInfo].operatingSystemVersion.minorVersion, [NSProcessInfo processInfo].operatingSystemVersion.patchVersion]
 
 // 判断2个CF字符串是否相等
 #define CFStringEqual(str1, str2)       (CFStringCompare(str1, str2, 0) == kCFCompareEqualTo)
