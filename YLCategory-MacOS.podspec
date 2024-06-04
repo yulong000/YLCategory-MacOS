@@ -129,7 +129,7 @@ ss.source_files  =   'YLCategory-MacOS/YLControl/*.{h,m}'
 end
 
 s.subspec 'YLUtility' do |ss|
-ss.source_files  =   'YLCategory-MacOS/YLUtiity/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/YLUtility/*.{h,m}'
 end
   
 end
