@@ -11,6 +11,7 @@
 
 @interface ViewController ()
 
+
 @end
 
 @implementation ViewController
@@ -21,7 +22,7 @@
     
     YLShortcutView *shortcutView = [[YLShortcutView alloc] initWithFrame:NSMakeRect(20, 50, 120, 22)];
     [self.view addSubview:shortcutView];
-
+    
 }
 
 - (void)mouseDown:(NSEvent *)event {

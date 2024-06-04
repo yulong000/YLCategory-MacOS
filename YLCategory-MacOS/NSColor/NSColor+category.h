@@ -23,6 +23,21 @@ typedef NSColor * _Nonnull (^NSColorAlphaHanlder)(CGFloat alpha);
 ///   - dark: 暗色
 + (NSColor *)light:(NSColor *)light dark:(NSColor *)dark;
 
+/// 转成16进制字符串 #FFFFFF或者#FFFFFFAA
+- (NSString *)hexString;
+
+/// 将16进制字符串转换成NSColor
+/// - Parameter hexStr: 16进制字符串，适配 
+/// 1. #FFF
+/// 2. #FFFA
+/// 3. #FFFFFF
+/// 4. #FFFFFFAA
+/// 5. FFF
+/// 6. FFFA
+/// 7. FFFFFF
+/// 8. FFFFFFAA
++ (nullable NSColor *)colorWithHexString:(NSString *)hexStr;
+
 @end
 
 NS_ASSUME_NONNULL_END

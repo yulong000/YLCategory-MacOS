@@ -37,6 +37,33 @@ typedef void(^YLTimerRepeatBlock)(NSTimer *timer);
                             target:(id)target
                            handler:(YLTimerRepeatBlock)handler;
 
+/**
+ 构造一个循环的定时器
+
+ @param interval 重复调用的时间间隔
+ @param target 监听者
+ @param userInfo 自定义信息
+ @param handler 每次重复的回调
+ @return 定时器
+ */
++ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)interval
+                            target:(id)target
+                          userInfo:(nullable id)userInfo
+                     repeatHandler:(YLTimerRepeatBlock)handler;
+/**
+ 构造一个一次性的定时器
+
+ @param interval 调用的时间间隔
+ @param target 监听者
+ @param userInfo 自定义信息
+ @param handler 回调
+ @return 定时器
+ */
++ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)interval
+                            target:(id)target
+                          userInfo:(nullable id)userInfo
+                           handler:(YLTimerRepeatBlock)handler;
+
 
 /// 防抖，在延时时间内，重复调用，只会在最后一次响应
 /// @param delay 延时响应 （秒）

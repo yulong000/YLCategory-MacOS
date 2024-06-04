@@ -51,9 +51,9 @@
         [[NSColor blackColor] set];
     }
     
-    CGFloat centerX = NSMidX(dirtyRect);
-    CGFloat centerY = NSMidY(dirtyRect);
-    CGFloat radius1 = dirtyRect.size.height / 2 - 2;
+    CGFloat centerX = NSMidX(self.bounds);
+    CGFloat centerY = NSMidY(self.bounds);
+    CGFloat radius1 = self.bounds.size.height / 2 - 2;
     CGFloat radius2 = radius1 - 3;
     
     // 外层的圆

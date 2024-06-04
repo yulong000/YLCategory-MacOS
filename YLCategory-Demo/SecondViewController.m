@@ -16,15 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+
 }
-
-
-- (void)mouseDown:(NSEvent *)event {
-    [super mouseDown:event];
-    
-}
-
 
 @end
