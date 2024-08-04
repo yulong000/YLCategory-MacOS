@@ -486,15 +486,6 @@
     [self layoutUI];
 }
 
-#pragma mark 获取view的截图
-- (NSImage *)getThumbImageFromView:(NSView *)view {
-    NSBitmapImageRep *rep = [view bitmapImageRepForCachingDisplayInRect:view.bounds];
-    [view cacheDisplayInRect:view.bounds toBitmapImageRep:rep];
-    NSImage *image = [[NSImage alloc] initWithSize:view.bounds.size];
-    [image addRepresentation:rep];
-    return image;
-}
-
 #pragma mark -
 
 #pragma mark 获取成功的view

@@ -54,7 +54,9 @@ static void YLCFNotificationCallback(CFNotificationCenterRef center, void *obser
             dispatch_async(dispatch_get_main_queue(), ^{
                 IMP imp = [obj.observer methodForSelector:obj.selector];
                 void (*func)(id, SEL, NSDictionary *) = (void *)imp;
-                func(obj.observer, obj.selector, dict);
+                if(func) {
+                    func(obj.observer, obj.selector, dict);
+                }
             });
         }
     }
