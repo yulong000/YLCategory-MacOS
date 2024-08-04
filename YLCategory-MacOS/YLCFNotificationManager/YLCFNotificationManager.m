@@ -50,7 +50,7 @@ static void YLCFNotificationCallback(CFNotificationCenterRef center, void *obser
     NSDictionary *dict = (__bridge NSDictionary *)userInfo;
     NSMutableArray *arr = [[YLCFNotificationManager share].observerDict objectForKey:(__bridge NSString *)name];
     for (YLCFNotificationObserver *obj in arr) {
-        if(obj.observer && obj.selector) {
+        if(obj.observer != nil && obj.selector != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 IMP imp = [obj.observer methodForSelector:obj.selector];
                 void (*func)(id, SEL, NSDictionary *) = (void *)imp;
