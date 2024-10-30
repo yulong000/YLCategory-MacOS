@@ -7,12 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Shortcut.h"
+#import "YLShortcutConfig.h"
 
-typedef NS_ENUM(NSInteger, YLShortcutViewStyle) {
-    YLShortcutViewStyleSystem = 1,
-    YLShortcutViewStyleNormal,
-    YLShortcutViewStyleDark,
-};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,14 +31,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-/// 全局配置，需要在组件未创建之前设置，优先级低于控件单独设置的值
-@interface YLShortcutConfig : NSObject
-
-+ (void)setThemeStyle:(YLShortcutViewStyle)style;
-+ (void)setTitleForHasNotShortcut:(NSString *)title;
-+ (void)setTitleForHasNotShortcutAndEditing:(NSString *)title;
-
-@end
 
 NS_ASSUME_NONNULL_END

@@ -78,14 +78,14 @@
 
 #pragma mark 上个月的这一天
 - (NSDate *)dayInThePreviousMonth {
-    NSDateComponents *dateComponents = [self dateComponents];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = -1;
     return [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self options:0];
 }
 
 #pragma mark 下个月的这一天
 - (NSDate *)dayInTheNextMonth {
-    NSDateComponents *dateComponents = [self dateComponents];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = 1;
     return [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self options:0];
 }
@@ -177,16 +177,12 @@
 
 #pragma mark 获取某个日期对应的前一天的日期
 - (NSDate *)yesterday {
-    NSDateComponents *dateComponents = [self dateComponents];
-    dateComponents.day -= 1;
-    return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    return [self dateAddDays:-1];
 }
 
 #pragma mark 获取当前日期增加dayCount天的日期
 - (NSDate *)dateAddDays:(NSInteger)dayCount {
-    NSDateComponents *dateComponents = [self dateComponents];
-    dateComponents.day += dayCount;
-    return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    return [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:dayCount toDate:self options:0];
 }
 
 #pragma mark 根据传入的某个日期，获取整个星期的日期

@@ -6,7 +6,6 @@
 //
 
 #import "YLShortcutView.h"
-#import "MASShortcutMonitor+category.h"
 #import "YLProgressHUD.h"
 
 NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
@@ -17,44 +16,6 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
     });
     return [bundle localizedStringForKey:key value:@"" table:@"YLShortcutView"];
 }
-
-@interface YLShortcutConfig ()
-
-/// 主题样式
-@property (nonatomic, assign) YLShortcutViewStyle style;
-/// 全局设置没有快捷键时显示的标题
-@property (nonatomic, copy, nullable) NSString *titleForHasNotShortcut;
-/// 全局设置没有快捷键时编辑状态显示的标题
-@property (nonatomic, copy, nullable) NSString *titleForHasNotShortcutAndEditing;
-
-@end
-
-
-@implementation YLShortcutConfig
-
-+ (instancetype)share {
-    static YLShortcutConfig *config = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        config = [[YLShortcutConfig alloc] init];
-    });
-    return config;
-}
-
-+ (void)setThemeStyle:(YLShortcutViewStyle)style {
-    [YLShortcutConfig share].style = style;
-}
-
-+ (void)setTitleForHasNotShortcut:(NSString *)title {
-    [YLShortcutConfig share].titleForHasNotShortcut = title;
-}
-
-+ (void)setTitleForHasNotShortcutAndEditing:(NSString *)title {
-    [YLShortcutConfig share].titleForHasNotShortcutAndEditing = title;
-}
-
-@end
-
 
 @interface YLShortcutView ()
 
@@ -228,7 +189,7 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
                             // 已经注册过了
                             NSBeep();
                             NSLog(@"%@", explanation);
-                            [YLProgressHUD showError:YLShortcutLocalizeString(@"Shortcut has been registered", @"") toWindow:weakSelf.window];
+                            [YLProgressHUD showError:YLShortcutLocalizeString(@"Shortcut has been registered by system", @"") toWindow:weakSelf.window];
                         } else {
                             event = nil;
                             weakSelf.shortcut = shortcut;

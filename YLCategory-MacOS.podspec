@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.1.2"
+s.version               = "1.1.3"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -93,9 +93,8 @@ end
 
 s.subspec 'YLShortcutView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLShortcutView/*.{h,m}'
-ss.resource      =   'YLCategory-MacOS/YLShortcutView/Resources/*'
+ss.resource      =   ['YLCategory-MacOS/YLShortcutView/Resources/*', 'YLCategory-MacOS/YLShortcutView/MASShortcut/Resources/*']
 ss.dependency        'YLCategory-MacOS/YLProgressHUD'
-ss.dependency        'MASShortcut', '~>2.4.0'
 end
 
 s.subspec 'YLUserDefaults' do |ss|

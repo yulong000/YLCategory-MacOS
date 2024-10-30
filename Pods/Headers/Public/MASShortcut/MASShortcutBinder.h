@@ -1,1 +1,0 @@
-../../../MASShortcut/Framework/User Defaults Storage/MASShortcutBinder.h
