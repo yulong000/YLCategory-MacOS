@@ -1,0 +1,23 @@
+/* 
+  YLLanguage.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/30.
+  
+*/
+
+
+"Follow The System" = "Dem System folgen";
+"English" = "Englisch";
+"Chinese Simplified" = "Vereinfachtes Chinesisch";
+"Chinese Traditional" = "Traditionelles Chinesisch";
+"Japanese" = "Japanisch";
+"Korean" = "Koreanisch";
+"French" = "Französisch";
+"Spanish" = "Spanisch";
+"German" = "Deutsch";
+
+"Kind tips" = "Freundliche Hinweise";
+"Restart app tips" = "Das Ändern der Sprache erfordert einen Neustart der App. Möchten Sie sie sofort neu starten?";
+"Cancel" = "Abbrechen";
+"Restart" = "Neustart";

@@ -1,0 +1,20 @@
+/* 
+  YLUpdateManager.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/30.
+  
+*/
+
+
+"Expire Tips" = "由於未知原因，%@需要重新下載。";
+"Click to download" = "點此下載";
+"OS Expire Tips" = "%@與當前系統版本不適配，需要更新到最新版本方可正常使用。";
+"Click to update" = "點此更新";
+
+"Kind tips" = "溫馨提示";
+"Sure" = "確定";
+"New version found" = "發現新版本";
+"Latest version" = "已經是最新版本";
+"Skip" = "跳過";
+"Update" = "更新";

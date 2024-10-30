@@ -1,0 +1,20 @@
+/* 
+  YLUpdateManager.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/30.
+  
+*/
+
+
+"Expire Tips" = "O %@ precisa ser baixado novamente por motivos desconhecidos.";
+"Click to download" = "Clique para baixar";
+"OS Expire Tips" = "O %@ não é compatível com a versão atual do sistema. Por favor, atualize para a última versão para usá-lo normalmente.";
+"Click to update" = "Clique para atualizar";
+
+"Kind tips" = "Dicas amigáveis";
+"Sure" = "Sim";
+"New version found" = "Nova versão encontrada";
+"Latest version" = "Já é a versão mais recente";
+"Skip" = "Pular";
+"Update" = "Atualizar";

@@ -1,133 +1,32 @@
 //
-//  YLProgressHUD.m
-//  iCopy
+//  YLHud.m
+//  YLCategory-MacOS
 //
-//  Created by 魏宇龙 on 2022/11/29.
+//  Created by 魏宇龙 on 2024/10/30.
 //
 
-#import "YLProgressHUD.h"
-#import <QuartzCore/CAMediaTimingFunction.h>
+#import "YLHud.h"
+#import "YLHudContentView.h"
+#import "YLHudProgressView.h"
 #import <CoreImage/CIFilter.h>
-#import "Macro.h"
 
 #define kHUDHideDefaultSecond   1.0         // 默认延迟隐藏的秒数
 #define kHUDMaxWidth            300         // 最大的宽度，超过宽度换行
+#define kAppCurrentThemeIsDark  ([NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] == NSAppearanceNameDarkAqua)
 
-#pragma mark - 显示进度
+@interface YLHud ()
 
-@interface YLProgressDisplayView : NSView
-
-@property (nonatomic, assign) YLProgressHUDStyle style;
-@property (nonatomic, assign) CGFloat progress;
-/// 将progress转换成百分比字符串
-@property (nonatomic, copy)   NSString *progressText;
-
-@end
-
-@implementation YLProgressDisplayView
-
-- (void)setProgress:(CGFloat)progress {
-    _progress = MIN(1, MAX(0, progress));;
-    self.progressText = [NSString stringWithFormat:@"%d%%", (int)(_progress * 100)];
-    [self setNeedsDisplay:YES];
-}
-
-- (BOOL)isFlipped {
-    return YES;
-}
-
-- (void)setStyle:(YLProgressHUDStyle)style {
-    _style = style;
-    [self setNeedsDisplay:YES];
-}
-
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    CGContextRef ctx = [NSGraphicsContext currentContext].CGContext;
-    CGContextSetLineWidth(ctx, 2);
-    if(self.style == YLProgressHUDStyleBlack) {
-        [[NSColor whiteColor] set];
-    } else {
-        [[NSColor blackColor] set];
-    }
-    
-    CGFloat centerX = NSMidX(self.bounds);
-    CGFloat centerY = NSMidY(self.bounds);
-    CGFloat radius1 = self.bounds.size.height / 2 - 2;
-    CGFloat radius2 = radius1 - 3;
-    
-    // 外层的圆
-    CGContextAddArc(ctx, centerX, centerY, radius1, 0, M_PI * 2, 0);
-    CGContextStrokePath(ctx);
-    
-    // 内部的进度
-    CGFloat end = M_PI * 2 * self.progress - M_PI_2;
-    CGContextAddArc(ctx, centerX, centerY, radius2, - M_PI_2, end, 0);
-    CGContextAddLineToPoint(ctx, centerX, centerY);
-    CGContextAddLineToPoint(ctx, centerX, centerY - radius2);
-    CGContextFillPath(ctx);
-}
-
-@end
-
-#pragma mark - hud显示区域
-
-@interface YLProgressHUDView : NSView
-
-@property (nonatomic, assign) YLProgressHUDStyle style;
-
-@end
-
-@implementation YLProgressHUDView
-
-- (instancetype)initWithFrame:(NSRect)frameRect {
-    if(self = [super initWithFrame:frameRect]) {
-        self.wantsLayer = YES;
-        self.layer.cornerRadius = 10;
-        self.style = YLProgressHUDStyleBlack;
-    }
-    return self;
-}
-
-- (void)resetShadow {
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowBlurRadius = 3;
-    if(self.style == YLProgressHUDStyleBlack) {
-        self.layer.backgroundColor = [NSColor colorWithRed:0 green:0 blue:0 alpha:0.9].CGColor;
-        shadow.shadowColor = [NSColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    } else {
-        self.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.9].CGColor;
-        shadow.shadowColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.4];
-    }
-    self.shadow = shadow;
-}
-
-- (BOOL)isFlipped {
-    return YES;
-}
-
-- (void)setStyle:(YLProgressHUDStyle)style {
-    _style = style;
-    [self resetShadow];
-}
-
-@end
-
-#pragma mark - hud窗口
-
-@interface YLProgressHUD ()
-
-@property (nonatomic, strong) YLProgressHUDView *hudView;
+@property (nonatomic, strong) YLHudContentView *hudView;
 @property (nonatomic, strong, nullable) NSView *customView;
 @property (nonatomic, strong) NSTextField *textLabel;
 /// 隐藏后的回调
-@property (nonatomic, copy)   YLProgressHUDCompletionHandler completionHandler;
+@property (nonatomic, copy)   YLHudCompletionHandler completionHandler;
 
 @property (nonatomic, strong) id monitor;
 
 @end
 
-@implementation YLProgressHUD
+@implementation YLHud
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -137,20 +36,20 @@
         self.styleMask = NSWindowStyleMaskBorderless;
         self.releasedWhenClosed = NO;
 
-        self.hudView = [[YLProgressHUDView alloc] init];
+        self.hudView = [[YLHudContentView alloc] init];
         [self.contentView addSubview:self.hudView];
         
         self.textLabel = [NSTextField labelWithString:@""];
-        self.textLabel.font = YLProgressHUDConfig.share.textFont ?: [NSFont systemFontOfSize:16];
+        self.textLabel.font = YLHudConfig.share.textFont ?: [NSFont systemFontOfSize:16];
         self.textLabel.maximumNumberOfLines = 10;
         self.textLabel.preferredMaxLayoutWidth = kHUDMaxWidth - 40;
         self.textLabel.cell.wraps = YES;
         self.textLabel.textColor = [NSColor whiteColor];
         [self.hudView addSubview:self.textLabel];
         
-        self.style = [YLProgressHUDConfig share].style;
+        self.style = [YLHudConfig share].style;
         
-        if([YLProgressHUDConfig share].movable) {
+        if([YLHudConfig share].movable) {
             __weak typeof(self) weakSelf = self;
             self.monitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskLeftMouseDragged handler:^NSEvent * _Nullable(NSEvent * _Nonnull event) {
                 if(event.window == weakSelf.parentWindow || event.window == weakSelf) {
@@ -165,14 +64,14 @@
     return self;
 }
 
-- (void)setStyle:(YLProgressHUDStyle)style {
-    if(style == YLProgressHUDStyleAuto) {
-        _style = kAppIsDarkTheme ? YLProgressHUDStyleWhite : YLProgressHUDStyleBlack;
+- (void)setStyle:(YLHudStyle)style {
+    if(style == YLHudStyleAuto) {
+        _style = kAppCurrentThemeIsDark ? YLHudStyleWhite : YLHudStyleBlack;
     } else {
         _style = style;
     }
     self.hudView.style = _style;
-    self.textLabel.textColor = _style == YLProgressHUDStyleBlack ? [NSColor whiteColor] : [NSColor blackColor];
+    self.textLabel.textColor = _style == YLHudStyleBlack ? [NSColor whiteColor] : [NSColor blackColor];
 }
 
 - (void)dealloc {
@@ -224,80 +123,80 @@
 #pragma mark - 显示成功
 
 + (instancetype)showSuccess:(NSString *)success toWindow:(NSWindow *)window {
-    return [YLProgressHUD showSuccess:success toWindow:window completionHandler:nil];
+    return [YLHud showSuccess:success toWindow:window completionHandler:nil];
 }
 
 + (instancetype)showSuccess:(NSString *)success toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second {
-    return [YLProgressHUD showSuccess:success toWindow:window hideAfterDelay:second completionHandler:nil];
+    return [YLHud showSuccess:success toWindow:window hideAfterDelay:second completionHandler:nil];
 }
 
-+ (instancetype)showSuccess:(NSString *)success toWindow:(NSWindow *)window completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler {
-    return [YLProgressHUD showSuccess:success toWindow:window hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
++ (instancetype)showSuccess:(NSString *)success toWindow:(NSWindow *)window completionHandler:(YLHudCompletionHandler _Nullable)completionHandler {
+    return [YLHud showSuccess:success toWindow:window hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-+ (instancetype)showSuccess:(NSString *)success toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
-    NSImageView *successView = [YLProgressHUD createSuccessViewWithStyle:YLProgressHUDConfig.share.style];
-    return [YLProgressHUD showCustomView:successView text:success toWindow:window hideAfterDelay:second completionHandler:completionHandler];
++ (instancetype)showSuccess:(NSString *)success toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
+    NSImageView *successView = [YLHud createSuccessViewWithStyle:YLHudConfig.share.style];
+    return [YLHud showCustomView:successView text:success toWindow:window hideAfterDelay:second completionHandler:completionHandler];
 }
 
 #pragma mark - 显示错误
 
 + (instancetype)showError:(NSString *)error toWindow:(NSWindow *)window {
-    return [YLProgressHUD showError:error toWindow:window completionHandler:nil];
+    return [YLHud showError:error toWindow:window completionHandler:nil];
 }
 
 + (instancetype)showError:(NSString *)error toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second {
-    return [YLProgressHUD showError:error toWindow:window hideAfterDelay:second completionHandler:nil];
+    return [YLHud showError:error toWindow:window hideAfterDelay:second completionHandler:nil];
 }
 
-+ (instancetype)showError:(NSString *)error toWindow:(NSWindow *)window completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler {
-    return [YLProgressHUD showError:error toWindow:window hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
++ (instancetype)showError:(NSString *)error toWindow:(NSWindow *)window completionHandler:(YLHudCompletionHandler _Nullable)completionHandler {
+    return [YLHud showError:error toWindow:window hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-+ (instancetype)showError:(NSString *)error toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
-    NSImageView *errorView = [YLProgressHUD createErrorViewWithStyle:YLProgressHUDConfig.share.style];
-    return [YLProgressHUD showCustomView:errorView text:error toWindow:window hideAfterDelay:second completionHandler:completionHandler];
++ (instancetype)showError:(NSString *)error toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
+    NSImageView *errorView = [YLHud createErrorViewWithStyle:YLHudConfig.share.style];
+    return [YLHud showCustomView:errorView text:error toWindow:window hideAfterDelay:second completionHandler:completionHandler];
 }
 
 #pragma mark - 显示文字
 
 + (instancetype)showText:(NSString *)text toWindow:(NSWindow *)window {
-    return [YLProgressHUD showText:text toWindow:window completionHandler:nil];
+    return [YLHud showText:text toWindow:window completionHandler:nil];
 }
 
 + (instancetype)showText:(NSString *)text toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second {
-    return [YLProgressHUD showText:text toWindow:window hideAfterDelay:second completionHandler:nil];
+    return [YLHud showText:text toWindow:window hideAfterDelay:second completionHandler:nil];
 }
 
-+ (instancetype)showText:(NSString *)text toWindow:(NSWindow *)window completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler {
-    return [YLProgressHUD showText:text toWindow:window hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
++ (instancetype)showText:(NSString *)text toWindow:(NSWindow *)window completionHandler:(YLHudCompletionHandler _Nullable)completionHandler {
+    return [YLHud showText:text toWindow:window hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-+ (instancetype)showText:(NSString *)text toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
-    return [YLProgressHUD showCustomView:nil text:text toWindow:window hideAfterDelay:second completionHandler:completionHandler];
++ (instancetype)showText:(NSString *)text toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
+    return [YLHud showCustomView:nil text:text toWindow:window hideAfterDelay:second completionHandler:completionHandler];
 }
 
 #pragma mark - 显示加载中
 
 + (instancetype)showLoading:(NSString *)loadingText toWindow:(NSWindow *)window {
-    NSProgressIndicator *indicator = [YLProgressHUD createLoadingIndicator];
-    return [YLProgressHUD showCustomView:indicator text:loadingText toWindow:window hideAfterDelay:-1 completionHandler:nil];
+    NSProgressIndicator *indicator = [YLHud createLoadingIndicator];
+    return [YLHud showCustomView:indicator text:loadingText toWindow:window hideAfterDelay:-1 completionHandler:nil];
 }
 
 #pragma mark - 显示进度
 
 + (instancetype)showProgress:(CGFloat)progress toWindow:(NSWindow *)window {
-    return [YLProgressHUD showProgress:progress text:nil toWindow:window];
+    return [YLHud showProgress:progress text:nil toWindow:window];
 }
 
 + (instancetype)showProgress:(CGFloat)progress text:(NSString * _Nullable)text toWindow:(nonnull NSWindow *)window {
-    YLProgressDisplayView *progressView = [YLProgressHUD createProgressViewWithStyle:YLProgressHUDConfig.share.style];
+    YLHudProgressView *progressView = [YLHud createProgressViewWithStyle:YLHudConfig.share.style];
     progressView.progress = progress;
-    return [YLProgressHUD showCustomView:progressView text:text ?: progressView.progressText toWindow:window hideAfterDelay:-1 completionHandler:nil];
+    return [YLHud showCustomView:progressView text:text ?: progressView.progressText toWindow:window hideAfterDelay:-1 completionHandler:nil];
 }
 
 #pragma mark - 显示自定义view和文字
-+ (instancetype)showCustomView:(NSView * _Nullable)customView text:(NSString *)text toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler {
++ (instancetype)showCustomView:(NSView * _Nullable)customView text:(NSString *)text toWindow:(NSWindow *)window hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler _Nullable)completionHandler {
     if(window == nil) {
         window = NSApp.windows.lastObject;
     }
@@ -314,7 +213,7 @@
     [window addChildWindow:parentWindow ordered:NSWindowAbove];
     
     // 这个是要显示的小窗口
-    YLProgressHUD *hud = [[YLProgressHUD alloc] init];
+    YLHud *hud = [[YLHud alloc] init];
     [parentWindow addChildWindow:hud ordered:NSWindowAbove];
     hud.textLabel.stringValue = text ?: @"";
     hud.completionHandler = completionHandler;
@@ -326,7 +225,7 @@
     if(second >= 0) {
         // 自动隐藏
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YLProgressHUD hideHUD:hud];
+            [YLHud hideHUD:hud];
         });
     }
     return hud;
@@ -334,7 +233,7 @@
 
 #pragma mark - 隐藏
 
-+ (void)hideHUD:(YLProgressHUD *)hud {
++ (void)hideHUD:(YLHud *)hud {
     if(hud.completionHandler) {
         hud.completionHandler();
     }
@@ -346,10 +245,10 @@
 
 + (void)hideHUDForWindow:(NSWindow *)window {
     for (NSWindow *child in window.childWindows) {
-        if([child isKindOfClass:[YLProgressHUD class]]) {
-            [YLProgressHUD hideHUD:(YLProgressHUD *)child];
+        if([child isKindOfClass:[YLHud class]]) {
+            [YLHud hideHUD:(YLHud *)child];
         } else {
-            [YLProgressHUD hideHUDForWindow:child];
+            [YLHud hideHUDForWindow:child];
         }
     }
 }
@@ -360,15 +259,15 @@
     [self hideWithCompletionHandler:nil];
 }
 
-- (void)hideWithCompletionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)hideWithCompletionHandler:(YLHudCompletionHandler)completionHandler {
     [self hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-- (void)hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
     self.completionHandler = completionHandler;
     if(second > 0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YLProgressHUD hideHUD:self];
+            [YLHud hideHUD:self];
         });
     }
 }
@@ -388,11 +287,11 @@
     [self showText:text hideAfterDelay:second completionHandler:nil];
 }
 
-- (void)showText:(NSString *)text completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)showText:(NSString *)text completionHandler:(YLHudCompletionHandler)completionHandler {
     [self showText:text hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-- (void)showText:(NSString *)text hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)showText:(NSString *)text hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
     [self.customView removeFromSuperview];
     self.customView = nil;
     self.textLabel.stringValue = text ?: @"";
@@ -401,7 +300,7 @@
     if(second >= 0) {
         // 自动隐藏
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YLProgressHUD hideHUD:self];
+            [YLHud hideHUD:self];
         });
     }
 }
@@ -416,13 +315,13 @@
     [self showSuccess:success hideAfterDelay:second completionHandler:nil];
 }
 
-- (void)showSuccess:(NSString *)success completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)showSuccess:(NSString *)success completionHandler:(YLHudCompletionHandler)completionHandler {
     [self showSuccess:success hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-- (void)showSuccess:(NSString *)success hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)showSuccess:(NSString *)success hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
     [self.customView removeFromSuperview];
-    self.customView = [YLProgressHUD createSuccessViewWithStyle:self.style];
+    self.customView = [YLHud createSuccessViewWithStyle:self.style];
     [self.hudView addSubview:self.customView];
     self.textLabel.stringValue = success ?: @"";
     self.completionHandler = completionHandler;
@@ -430,7 +329,7 @@
     if(second >= 0) {
         // 自动隐藏
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YLProgressHUD hideHUD:self];
+            [YLHud hideHUD:self];
         });
     }
 }
@@ -445,13 +344,13 @@
     [self showError:error hideAfterDelay:second completionHandler:nil];
 }
 
-- (void)showError:(NSString *)error completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)showError:(NSString *)error completionHandler:(YLHudCompletionHandler)completionHandler {
     [self showError:error hideAfterDelay:kHUDHideDefaultSecond completionHandler:completionHandler];
 }
 
-- (void)showError:(NSString *)error hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler)completionHandler {
+- (void)showError:(NSString *)error hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler)completionHandler {
     [self.customView removeFromSuperview];
-    self.customView = [YLProgressHUD createErrorViewWithStyle:self.style];
+    self.customView = [YLHud createErrorViewWithStyle:self.style];
     [self.hudView addSubview:self.customView];
     self.textLabel.stringValue = error ?: @"";
     self.completionHandler = completionHandler;
@@ -459,7 +358,7 @@
     if(second >= 0) {
         // 自动隐藏
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YLProgressHUD hideHUD:self];
+            [YLHud hideHUD:self];
         });
     }
 }
@@ -471,13 +370,13 @@
 }
 
 - (void)showProgress:(CGFloat)progress text:(NSString * _Nullable)text {
-    if([self.customView isKindOfClass:[YLProgressDisplayView class]]) {
-        YLProgressDisplayView *progressView = (YLProgressDisplayView *)(self.customView);
+    if([self.customView isKindOfClass:[YLHudProgressView class]]) {
+        YLHudProgressView *progressView = (YLHudProgressView *)(self.customView);
         progressView.progress = progress;
         self.textLabel.stringValue = text ?: progressView.progressText;
     } else {
         [self.customView removeFromSuperview];
-        YLProgressDisplayView *progressView = [YLProgressHUD createProgressViewWithStyle:self.style];
+        YLHudProgressView *progressView = [YLHud createProgressViewWithStyle:self.style];
         progressView.progress = progress;
         self.customView = progressView;
         [self.hudView addSubview:self.customView];
@@ -489,38 +388,38 @@
 #pragma mark -
 
 #pragma mark 获取成功的view
-+ (NSImageView *)createSuccessViewWithStyle:(YLProgressHUDStyle)style {
++ (NSImageView *)createSuccessViewWithStyle:(YLHudStyle)style {
     NSImageView *successView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 40, 40)];
     successView.tag = 10000;
-    [YLProgressHUD setImageView:successView withStyle:style];
+    [YLHud setImageView:successView withStyle:style];
     return successView;
 }
 
 #pragma mark 获取失败的view
-+ (NSImageView *)createErrorViewWithStyle:(YLProgressHUDStyle)style {
++ (NSImageView *)createErrorViewWithStyle:(YLHudStyle)style {
     NSImageView *errorView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 40, 40)];
     errorView.tag = 20000;
-    [YLProgressHUD setImageView:errorView withStyle:style];
+    [YLHud setImageView:errorView withStyle:style];
     return errorView;
 }
 
-+ (void)setImageView:(NSImageView *)imageView withStyle:(YLProgressHUDStyle)style {
-    if(style == YLProgressHUDStyleAuto) {
-        style = kAppIsDarkTheme ? YLProgressHUDStyleWhite : YLProgressHUDStyleBlack;
++ (void)setImageView:(NSImageView *)imageView withStyle:(YLHudStyle)style {
+    if(style == YLHudStyleAuto) {
+        style = kAppCurrentThemeIsDark ? YLHudStyleWhite : YLHudStyleBlack;
     }
     if(imageView.tag == 10000) {
         // 成功
-        if(style == YLProgressHUDStyleBlack) {
-            imageView.image = [YLProgressHUD bundleImage:@"success_white@2x.png"];
+        if(style == YLHudStyleBlack) {
+            imageView.image = [YLHud bundleImage:@"success_white@2x.png"];
         } else {
-            imageView.image = [YLProgressHUD bundleImage:@"success_black@2x.png"];
+            imageView.image = [YLHud bundleImage:@"success_black@2x.png"];
         }
     } else if(imageView.tag == 20000) {
         // 失败
-        if(style == YLProgressHUDStyleBlack) {
-            imageView.image = [YLProgressHUD bundleImage:@"error_white@2x.png"];
+        if(style == YLHudStyleBlack) {
+            imageView.image = [YLHud bundleImage:@"error_white@2x.png"];
         } else {
-            imageView.image = [YLProgressHUD bundleImage:@"error_black@2x.png"];
+            imageView.image = [YLHud bundleImage:@"error_black@2x.png"];
         }
     }
 }
@@ -529,17 +428,17 @@
 + (NSProgressIndicator *)createLoadingIndicator {
     NSProgressIndicator *indicator = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 40, 40)];
     indicator.style = NSProgressIndicatorStyleSpinning;
-    indicator.contentFilters = @[[YLProgressHUD createColorFilterWithStyle:YLProgressHUDConfig.share.style]];
+    indicator.contentFilters = @[[YLHud createColorFilterWithStyle:YLHudConfig.share.style]];
     [indicator startAnimation:nil];
     return indicator;
 }
 
-+ (CIFilter *)createColorFilterWithStyle:(YLProgressHUDStyle)style {
-    if(style == YLProgressHUDStyleAuto) {
-        style = kAppIsDarkTheme ? YLProgressHUDStyleWhite : YLProgressHUDStyleBlack;
++ (CIFilter *)createColorFilterWithStyle:(YLHudStyle)style {
+    if(style == YLHudStyleAuto) {
+        style = kAppCurrentThemeIsDark ? YLHudStyleWhite : YLHudStyleBlack;
     }
     NSColor *color;
-    if(style == YLProgressHUDStyleWhite) {
+    if(style == YLHudStyleWhite) {
         color = [[NSColor blackColor] colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
     } else {
         color = [[NSColor whiteColor] colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
@@ -554,42 +453,25 @@
 }
 
 #pragma mark 获取进度的view
-+ (YLProgressDisplayView *)createProgressViewWithStyle:(YLProgressHUDStyle)style {
-    if(style == YLProgressHUDStyleAuto) {
-        style = kAppIsDarkTheme ? YLProgressHUDStyleWhite : YLProgressHUDStyleBlack;
++ (YLHudProgressView *)createProgressViewWithStyle:(YLHudStyle)style {
+    if(style == YLHudStyleAuto) {
+        style = kAppCurrentThemeIsDark ? YLHudStyleWhite : YLHudStyleBlack;
     }
-    YLProgressDisplayView *progressView = [[YLProgressDisplayView alloc] initWithFrame:NSMakeRect(0, 0, 40, 40)];
+    YLHudProgressView *progressView = [[YLHudProgressView alloc] initWithFrame:NSMakeRect(0, 0, 40, 40)];
     progressView.style = style;
     return progressView;
 }
 
 #pragma mark 获取bundle里的图片
 + (NSImage *)bundleImage:(NSString *)icon {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"YLProgressHUD" withExtension:@"bundle"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"YLHud" withExtension:@"bundle"];
     if(url == nil) {
         url = [[[[NSBundle mainBundle] URLForResource:@"Frameworks" withExtension:nil] URLByAppendingPathComponent:@"YLCategory"] URLByAppendingPathExtension:@"framework"];
         NSBundle *bundle = [NSBundle bundleWithURL:url];
-        url = [bundle URLForResource:@"YLProgressHUD" withExtension:@"bundle"];
+        url = [bundle URLForResource:@"YLHud" withExtension:@"bundle"];
     }
     NSString *path = [[NSBundle bundleWithURL:url].bundlePath stringByAppendingPathComponent:icon];
     return [[NSImage alloc] initWithContentsOfFile:path];
-}
-
-@end
-
-#pragma mark - 配置信息
-
-@implementation YLProgressHUDConfig
-
-+ (instancetype)share {
-    static dispatch_once_t onceToken = '\0';
-    static YLProgressHUDConfig *config = nil;
-    dispatch_once(&onceToken, ^{
-        config = [[YLProgressHUDConfig alloc] init];
-        config.style = YLProgressHUDStyleAuto;
-        config.movable = YES;
-    });
-    return config;
 }
 
 @end

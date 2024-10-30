@@ -1,0 +1,26 @@
+/* 
+  YLPermissionManager.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/30.
+  
+*/
+
+
+"Permission Title" = "Conceder Permissões ao %@";
+"Permission sub Title" = "O %@ precisa de sua permissão para funcionar corretamente, por favor, veja e autorize";
+"View permission setting tutorail" = "Ver tutorial de configuração de permissões >>";
+"Accessibility permission authorization" = "Autorização de Permissão de Acessibilidade";
+"Screen recording permission authorization" = "Autorização de Permissão de Gravação de Tela";
+"Full disk access authorization" = "Autorização de Permissão de Acesso Total ao Disco";
+"Authorize" = "Autorizar";
+"Quit App" = "Sair do Aplicativo";
+"Skip" = "Pular";
+
+"Kind tips" = "Dicas gentis";
+"Accessibility Tips" = "O %@ requer que você conceda permissão de 'Acessibilidade', por favor, autorize antes de usar. (Se ainda estiver sendo solicitado após a autorização, desmarque e marque novamente a permissão)";
+"ScreenCapture Tips" = "O %@ requer que você conceda permissão de 'Gravação de Tela', por favor, autorize antes de usar. (Se ainda estiver sendo solicitado após a autorização, desmarque e marque novamente a permissão)";
+"Full disk access Tips" = "O %@ requer que você conceda permissão de 'Acesso Total ao Disco', por favor, autorize antes de usar. (Se ainda estiver sendo solicitado após a autorização, desmarque e marque novamente a permissão)";
+"To Authorize" = "Autorizar";
+"Cancel" = "Cancelar";
+"Sure" = "Confirmar";

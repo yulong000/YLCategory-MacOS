@@ -6,7 +6,7 @@
 //
 
 #import "YLShortcutView.h"
-#import "YLProgressHUD.h"
+#import "YLHud.h"
 
 NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
     static NSBundle *bundle = nil;
@@ -189,7 +189,7 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
                             // 已经注册过了
                             NSBeep();
                             NSLog(@"%@", explanation);
-                            [YLProgressHUD showError:YLShortcutLocalizeString(@"Shortcut has been registered by system", @"") toWindow:weakSelf.window];
+                            [YLHud showError:YLShortcutLocalizeString(@"Shortcut has been registered by system", @"") toWindow:weakSelf.window];
                         } else {
                             event = nil;
                             weakSelf.shortcut = shortcut;
@@ -201,7 +201,7 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
                     } else {
                         // 控制键不可用
                         NSBeep();
-                        [YLProgressHUD showError:YLShortcutLocalizeString(@"Control keys are unavailable", @"") toWindow:weakSelf.window];
+                        [YLHud showError:YLShortcutLocalizeString(@"Control keys are unavailable", @"") toWindow:weakSelf.window];
                     }
                 } else {
                     // 字母键未按下

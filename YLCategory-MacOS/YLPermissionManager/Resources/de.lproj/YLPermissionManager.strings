@@ -1,0 +1,26 @@
+/* 
+  YLPermissionManager.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/30.
+  
+*/
+
+
+"Permission Title" = "Berechtigung für %@ erteilen";
+"Permission sub Title" = "%@ benötigt Ihre Erlaubnis zur Verwendung. Bitte überprüfen und gewähren Sie die Berechtigung.";
+"View permission setting tutorail" = "Anleitung zur Berechtigungseinstellung ansehen >>";
+"Accessibility permission authorization" = "Barrierefreiheit-Berechtigung autorisieren";
+"Screen recording permission authorization" = "Bildschirmaufzeichnungs-Berechtigung autorisieren";
+"Full disk access authorization" = "Voller Festplattenzugriff autorisieren";
+"Authorize" = "Autorisieren";
+"Quit App" = "App beenden";
+"Skip" = "Überspringen";
+
+"Kind tips" = "Hinweis";
+"Accessibility Tips" = "%@ benötigt Ihre Erlaubnis zur Verwendung der „Barrierefreiheit“. Bitte gewähren Sie die Berechtigung, um fortzufahren. (Wenn Sie trotz Erteilung der Berechtigung weiterhin Benachrichtigungen erhalten, deaktivieren Sie sie und aktivieren Sie sie erneut)";
+"ScreenCapture Tips" = "%@ benötigt Ihre Erlaubnis zur Verwendung der „Bildschirmaufzeichnung“. Bitte gewähren Sie die Berechtigung, um fortzufahren. (Wenn Sie trotz Erteilung der Berechtigung weiterhin Benachrichtigungen erhalten, deaktivieren Sie sie und aktivieren Sie sie erneut)";
+"Full disk access Tips" = "%@ benötigt Ihre Erlaubnis zur Verwendung des „vollen Festplattenzugriffs“. Bitte gewähren Sie die Berechtigung, um fortzufahren. (Wenn Sie trotz Erteilung der Berechtigung weiterhin Benachrichtigungen erhalten, deaktivieren Sie sie und aktivieren Sie sie erneut)";
+"To Authorize" = "Zur Autorisierung";
+"Cancel" = "Abbrechen";
+"Sure" = "Bestätigen";

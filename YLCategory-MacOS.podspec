@@ -85,16 +85,16 @@ s.subspec 'NSImageView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/NSImageView/*.{h,m}'
 end
 
-s.subspec 'YLProgressHUD' do |ss|
-ss.source_files  =   'YLCategory-MacOS/YLProgressHUD/*.{h,m}'
-ss.resource      =   'YLCategory-MacOS/YLProgressHUD/YLProgressHUD.bundle'
+s.subspec 'YLHud' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLHud/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLHud/Resources/*'
 ss.dependency        'YLCategory-MacOS/Other'
 end
 
 s.subspec 'YLShortcutView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLShortcutView/*.{h,m}'
 ss.resource      =   ['YLCategory-MacOS/YLShortcutView/Resources/*', 'YLCategory-MacOS/YLShortcutView/MASShortcut/Resources/*']
-ss.dependency        'YLCategory-MacOS/YLProgressHUD'
+ss.dependency        'YLCategory-MacOS/YLHud'
 end
 
 s.subspec 'YLUserDefaults' do |ss|
@@ -111,8 +111,8 @@ end
 
 s.subspec 'YLAppleScript' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLAppleScript/*.{h,m}'
-ss.resource      =   'YLCategory-MacOS/YLAppleScript/Resource/*'
-ss.dependency        'YLCategory-MacOS/YLProgressHUD'
+ss.resource      =   'YLCategory-MacOS/YLAppleScript/Resources/*'
+ss.dependency        'YLCategory-MacOS/YLHud'
 end
 
 s.subspec 'YLFlipView' do |ss|
@@ -129,6 +129,33 @@ end
 
 s.subspec 'YLUtility' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLUtility/*.{h,m}'
+end
+
+s.subspec 'YLUpdateManager' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLUpdateManager/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLUpdateManager/Resources/*'
+end
+
+s.subspec 'YLAppRating' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLAppRating/*.{h,m}'
+end
+
+s.subspec 'YLWindowButton' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLWindowButton/*.{h,m}'
+end
+
+s.subspec 'YLLanguage' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLLanguage/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLLanguage/Resources/*'
+end
+
+s.subspec 'YLPermissionManager' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLPermissionManager/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLPermissionManager/Resources/*'
+end
+
+s.subspec 'YLAppleReview' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLAppleReview/*.{h,m}'
 end
   
 end

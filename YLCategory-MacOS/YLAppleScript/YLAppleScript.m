@@ -8,7 +8,7 @@
 #import "YLAppleScript.h"
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
-#import "YLProgressHUD.h"
+#import "YLHud.h"
 
 NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
     static NSBundle *bundle = nil;
@@ -82,7 +82,7 @@ NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
                 }];
             } else {
                 NSLog(@"【%s】create user applle script task error: %@", __FUNCTION__, error);
-                [YLProgressHUD showError:YLAppleScriptLocalizeString(@"Script task creation failed", @"") toWindow:NSApp.windows.lastObject];
+                [YLHud showError:YLAppleScriptLocalizeString(@"Script task creation failed", @"") toWindow:NSApp.windows.lastObject];
             }
             return;
         }
@@ -91,7 +91,7 @@ NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
             if(success) {
                 [self executeScriptWithFile:fileName funcName:funcName arguments:arguments completionHandler:handler];
             } else {
-                [YLProgressHUD showError:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.windows.lastObject];
+                [YLHud showError:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.windows.lastObject];
             }
         }];
     } else {
@@ -253,11 +253,11 @@ NSString *YLAppleScriptLocalizeString(NSString *key, NSString *comment) {
                         }
                         if([[NSFileManager defaultManager] copyItemAtURL:sourceUrl toURL:destionationUrl error:&error]) {
                             // 复制成功
-                            [YLProgressHUD showText:YLAppleScriptLocalizeString(@"Install succeed", @"") toWindow:NSApp.orderedWindows.firstObject];
+                            [YLHud showText:YLAppleScriptLocalizeString(@"Install succeed", @"") toWindow:NSApp.orderedWindows.firstObject];
                             NSLog(@"【%s】 copy item to local success: %@", __FUNCTION__, fileName);
                         } else {
                             NSLog(@"【%s】 copy item to local fail: %@", __FUNCTION__, error);
-                            [YLProgressHUD showText:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.orderedWindows.firstObject];
+                            [YLHud showText:YLAppleScriptLocalizeString(@"Install failed", @"") toWindow:NSApp.orderedWindows.firstObject];
                             flag = NO;
                         }
                     }

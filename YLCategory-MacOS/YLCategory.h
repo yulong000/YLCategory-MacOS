@@ -33,7 +33,7 @@
 
 // 封装的工具
 #import "YLUtility.h"
-#import "YLProgressHUD.h"
+#import "YLHud.h"
 #import "YLShortcutView.h"
 #import "YLUserDefaults.h"
 #import "YLWeakTimer.h"
@@ -42,5 +42,11 @@
 #import "YLFlipView.h"
 #import "YLCFNotificationManager.h"
 #import "YLControl.h"
+#import "YLAppleReview.h"
+#import "YLPermissionManager.h"
+#import "YLLanguage.h"
+#import "YLWindowButton.h"
+#import "YLPermissionManager.h"
+#import "YLUpdateManager.h"
 
 #endif /* YLCategory_h */

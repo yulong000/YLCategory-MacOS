@@ -1,0 +1,24 @@
+/* 
+  YLLanguage.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/30.
+  
+*/
+
+
+"Follow The System" = "システムに従う";
+"English" = "英語";
+"Chinese Simplified" = "簡体字中国語";
+"Chinese Traditional" = "繁体字中国語";
+"Japanese" = "日本語";
+"Korean" = "韓国語";
+"French" = "フランス語";
+"Spanish" = "スペイン語";
+"Portuguese" = "ポルトガル語";
+"Unknown" = "未知";
+
+"Kind tips" = "親切なヒント";
+"Restart app tips" = "言語を変更するにはアプリを再起動する必要があります。今すぐ再起動しますか？";
+"Cancel" = "キャンセル";
+"Restart" = "再起動";

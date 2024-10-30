@@ -1,44 +1,19 @@
 //
-//  YLProgressHUD.h
-//  iCopy
+//  YLHud.h
+//  YLCategory-MacOS
 //
-//  Created by 魏宇龙 on 2022/11/29.
+//  Created by 魏宇龙 on 2024/10/30.
 //
 
-#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+#import "YLHudConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, YLProgressHUDStyle) {
-    YLProgressHUDStyleAuto,
-    YLProgressHUDStyleBlack,
-    YLProgressHUDStyleWhite,
-};
-
-typedef void (^YLProgressHUDCompletionHandler)(void);
-
-#pragma mark - 样式配置
-
-@interface YLProgressHUDConfig : NSObject
+@interface YLHud : NSWindow
 
 /// 显示的样式
-@property (nonatomic, assign) YLProgressHUDStyle style;
-/// 显示的文字的字体
-@property (nonatomic, strong, nullable) NSFont *textFont;
-/// 是否可以通过拖动移动背后的window， default = yes
-@property (nonatomic, assign) BOOL movable;
-
-+ (instancetype)share;
-
-@end
-
-#pragma mark - hud window
-
-@interface YLProgressHUD : NSWindow
-
-/// 显示的样式
-@property (nonatomic, assign) YLProgressHUDStyle style;
+@property (nonatomic, assign) YLHudStyle style;
 
 #pragma mark - 成功 （自动隐藏）
 
@@ -49,11 +24,11 @@ typedef void (^YLProgressHUDCompletionHandler)(void);
              hideAfterDelay:(CGFloat)second;
 + (instancetype)showSuccess:(NSString *)success
                    toWindow:(NSWindow *)window
-          completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+          completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 + (instancetype)showSuccess:(NSString *)success
                    toWindow:(NSWindow *)window
              hideAfterDelay:(CGFloat)second
-          completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+          completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 #pragma mark - 错误 （自动隐藏）
 
@@ -64,11 +39,11 @@ typedef void (^YLProgressHUDCompletionHandler)(void);
            hideAfterDelay:(CGFloat)second;
 + (instancetype)showError:(NSString *)error
                  toWindow:(NSWindow *)window
-        completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+        completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 + (instancetype)showError:(NSString *)error
                  toWindow:(NSWindow *)window
            hideAfterDelay:(CGFloat)second
-        completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+        completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 #pragma mark - 文本 （自动隐藏）
 
@@ -79,11 +54,11 @@ typedef void (^YLProgressHUDCompletionHandler)(void);
           hideAfterDelay:(CGFloat)second;
 + (instancetype)showText:(NSString *)text
                 toWindow:(NSWindow *)window
-       completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+       completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 + (instancetype)showText:(NSString *)text
                 toWindow:(NSWindow *)window
           hideAfterDelay:(CGFloat)second
-       completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+       completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 
 #pragma mark - 加载中 （需手动隐藏）
@@ -114,38 +89,39 @@ typedef void (^YLProgressHUDCompletionHandler)(void);
                           text:(NSString *)text
                       toWindow:(NSWindow *)window
                 hideAfterDelay:(CGFloat)second
-             completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+             completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 #pragma mark - 隐藏HUD
 
 + (void)hideHUDForWindow:(NSWindow *)window;
-+ (void)hideHUD:(YLProgressHUD *)hud;
++ (void)hideHUD:(YLHud *)hud;
 
 #pragma mark - 加载中 切换显示其他状态
 
 - (void)hide;
-- (void)hideWithCompletionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
-- (void)hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+- (void)hideWithCompletionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
+- (void)hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 - (void)showLoading:(NSString *)loading;
 
 - (void)showText:(NSString *)text;
 - (void)showText:(NSString *)text hideAfterDelay:(CGFloat)second;
-- (void)showText:(NSString *)text completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
-- (void)showText:(NSString *)text hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+- (void)showText:(NSString *)text completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
+- (void)showText:(NSString *)text hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 - (void)showSuccess:(NSString *)success;
 - (void)showSuccess:(NSString *)success hideAfterDelay:(CGFloat)second;
-- (void)showSuccess:(NSString *)success completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
-- (void)showSuccess:(NSString *)success hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+- (void)showSuccess:(NSString *)success completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
+- (void)showSuccess:(NSString *)success hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 - (void)showError:(NSString *)error;
 - (void)showError:(NSString *)error hideAfterDelay:(CGFloat)second;
-- (void)showError:(NSString *)error completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
-- (void)showError:(NSString *)error hideAfterDelay:(CGFloat)second completionHandler:(YLProgressHUDCompletionHandler _Nullable)completionHandler;
+- (void)showError:(NSString *)error completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
+- (void)showError:(NSString *)error hideAfterDelay:(CGFloat)second completionHandler:(YLHudCompletionHandler _Nullable)completionHandler;
 
 - (void)showProgress:(CGFloat)progress;
 - (void)showProgress:(CGFloat)progress text:(NSString * _Nullable)text;
+
 
 @end
 
