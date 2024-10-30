@@ -57,7 +57,7 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
     [self.updateController checkForUpdates:sender];
 }
 
-#pragma mark - 根据日期和系统版本（二选一）判断试用到期
+#pragma mark - 根据日期和系统版本判断试用到期
 - (void)judgeAppExpireWithDate:(NSString *)dateString andOSVersion:(NSString *)osVersion {
     if([self judgeAppExpireWithDate:dateString] == NO) {
         [self judgeAppExpireWithOSVersion:osVersion];
@@ -232,7 +232,7 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
     [task resume];
 }
 
-#pragma mark - 根据日期和系统版本（二选一）判断试用到期
+#pragma mark - 根据日期和系统版本判断试用到期
 - (void)judgeAppExpireWithDate:(NSString *)dateString andOSVersion:(NSString *)osVersion {
     if([self judgeAppExpireWithDate:dateString] == NO) {
         [self judgeAppExpireWithOSVersion:osVersion];

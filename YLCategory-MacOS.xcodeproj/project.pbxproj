@@ -489,6 +489,7 @@
 			children = (
 				006AA19D2A9F2BD00084F02F /* YLShortcutView.bundle */,
 				006AA15A2A9F26F20084F02F /* YLShortcutView.strings */,
+				00F6627B2CCE0C0A00EF1D93 /* MAShortcutLocalizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -808,17 +809,8 @@
 				00F662552CCE04FF00EF1D93 /* UI */,
 				00F6624E2CCE04E600EF1D93 /* Monitoring */,
 				00F662462CCE04C400EF1D93 /* Model */,
-				00F6626B2CCE0BFC00EF1D93 /* Resources */,
 			);
 			path = MASShortcut;
-			sourceTree = "<group>";
-		};
-		00F6626B2CCE0BFC00EF1D93 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				00F6627B2CCE0C0A00EF1D93 /* MAShortcutLocalizable.strings */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		7C45926FE87C4A31E6BC0573 /* Frameworks */ = {

@@ -93,7 +93,7 @@ end
 
 s.subspec 'YLShortcutView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLShortcutView/*.{h,m}'
-ss.resource      =   ['YLCategory-MacOS/YLShortcutView/Resources/*', 'YLCategory-MacOS/YLShortcutView/MASShortcut/Resources/*']
+ss.resource      =   'YLCategory-MacOS/YLShortcutView/Resources/*'
 ss.dependency        'YLCategory-MacOS/YLHud'
 end
 

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 根据系统版本判断试用到期
 - (BOOL)judgeAppExpireWithOSVersion:(NSString *)osVersion;
 
-/// 根据日期和系统版本（二选一）判断试用到期
+/// 根据日期和系统版本,判断试用到期
 - (void)judgeAppExpireWithDate:(NSString *)dateString andOSVersion:(NSString *)osVersion;
 
 @end
