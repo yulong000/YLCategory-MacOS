@@ -1,0 +1,12 @@
+/* 
+  YLFileAccess.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/31.
+  
+*/
+
+
+"File access title" = "允許授權文件路徑";
+"File access message" = "請授權 %@ 訪問該路徑";
+"File access prompt" = "授權";

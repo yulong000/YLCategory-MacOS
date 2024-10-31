@@ -40,6 +40,11 @@
 		006AA1A22A9F34F80084F02F /* YLUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A12A9F34F80084F02F /* YLUserDefaults.m */; };
 		006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A52A9F3A970084F02F /* YLWeakTimer.m */; };
 		006AA1AA2A9F3B190084F02F /* YLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A82A9F3B190084F02F /* YLCollectionView.m */; };
+		008AFE852CD32D45007C460F /* YLFileAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE842CD32D45007C460F /* YLFileAccess.m */; };
+		008AFE8E2CD32D6C007C460F /* AppSandboxFileAccessPersist.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE8C2CD32D6C007C460F /* AppSandboxFileAccessPersist.m */; };
+		008AFE8F2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE8A2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m */; };
+		008AFE902CD32D6C007C460F /* AppSandboxFileAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE882CD32D6C007C460F /* AppSandboxFileAccess.m */; };
+		008AFE942CD36240007C460F /* YLFileAccess.strings in Resources */ = {isa = PBXBuildFile; fileRef = 008AFE922CD36240007C460F /* YLFileAccess.strings */; };
 		009B0EF02AA7200D0001A679 /* NSColor+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B0EEF2AA7200D0001A679 /* NSColor+category.m */; };
 		009DA80F2CCF501A00F4BADA /* YLShortcutConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 009DA80E2CCF501A00F4BADA /* YLShortcutConfig.m */; };
 		00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A9797F29E92D870066F7C7 /* Assets.xcassets */; };
@@ -171,6 +176,23 @@
 		006AA1A52A9F3A970084F02F /* YLWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLWeakTimer.m; sourceTree = "<group>"; };
 		006AA1A82A9F3B190084F02F /* YLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionView.m; sourceTree = "<group>"; };
 		006AA1A92A9F3B190084F02F /* YLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionView.h; sourceTree = "<group>"; };
+		008AFE832CD32D45007C460F /* YLFileAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLFileAccess.h; sourceTree = "<group>"; };
+		008AFE842CD32D45007C460F /* YLFileAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLFileAccess.m; sourceTree = "<group>"; };
+		008AFE872CD32D6C007C460F /* AppSandboxFileAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSandboxFileAccess.h; sourceTree = "<group>"; };
+		008AFE882CD32D6C007C460F /* AppSandboxFileAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSandboxFileAccess.m; sourceTree = "<group>"; };
+		008AFE892CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSandboxFileAccessOpenSavePanelDelegate.h; sourceTree = "<group>"; };
+		008AFE8A2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSandboxFileAccessOpenSavePanelDelegate.m; sourceTree = "<group>"; };
+		008AFE8B2CD32D6C007C460F /* AppSandboxFileAccessPersist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSandboxFileAccessPersist.h; sourceTree = "<group>"; };
+		008AFE8C2CD32D6C007C460F /* AppSandboxFileAccessPersist.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSandboxFileAccessPersist.m; sourceTree = "<group>"; };
+		008AFE932CD36240007C460F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
+		008AFE952CD36291007C460F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/YLFileAccess.strings"; sourceTree = "<group>"; };
+		008AFE962CD36292007C460F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/YLFileAccess.strings"; sourceTree = "<group>"; };
+		008AFE972CD36295007C460F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
+		008AFE982CD36296007C460F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
+		008AFE992CD36298007C460F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
+		008AFE9A2CD36299007C460F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
+		008AFE9B2CD3629B007C460F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
+		008AFE9C2CD3629D007C460F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/YLFileAccess.strings; sourceTree = "<group>"; };
 		009784F12B88669F00D6590A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/YLShortcutView.strings; sourceTree = "<group>"; };
 		009784F22B8866A100D6590A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/YLShortcutView.strings; sourceTree = "<group>"; };
 		009784F32B8866A700D6590A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/YLShortcutView.strings; sourceTree = "<group>"; };
@@ -521,6 +543,38 @@
 			path = YLCollectionView;
 			sourceTree = "<group>";
 		};
+		008AFE822CD32D22007C460F /* YLFileAccess */ = {
+			isa = PBXGroup;
+			children = (
+				008AFE8D2CD32D6C007C460F /* AppSandboxFileAccess */,
+				008AFE832CD32D45007C460F /* YLFileAccess.h */,
+				008AFE842CD32D45007C460F /* YLFileAccess.m */,
+				008AFE912CD36228007C460F /* Resources */,
+			);
+			path = YLFileAccess;
+			sourceTree = "<group>";
+		};
+		008AFE8D2CD32D6C007C460F /* AppSandboxFileAccess */ = {
+			isa = PBXGroup;
+			children = (
+				008AFE872CD32D6C007C460F /* AppSandboxFileAccess.h */,
+				008AFE882CD32D6C007C460F /* AppSandboxFileAccess.m */,
+				008AFE892CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.h */,
+				008AFE8A2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m */,
+				008AFE8B2CD32D6C007C460F /* AppSandboxFileAccessPersist.h */,
+				008AFE8C2CD32D6C007C460F /* AppSandboxFileAccessPersist.m */,
+			);
+			path = AppSandboxFileAccess;
+			sourceTree = "<group>";
+		};
+		008AFE912CD36228007C460F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				008AFE922CD36240007C460F /* YLFileAccess.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		00A9797D29E92D870066F7C7 /* YLCategory-Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				00A979AC29E92D870066F7C7 /* YLCategory.h */,
+				008AFE822CD32D22007C460F /* YLFileAccess */,
 				004C1E6D2CD235AE00890A67 /* YLUpdateManager */,
 				004C1E692CD233B400890A67 /* YLAppRating */,
 				004C1E592CD2309600890A67 /* YLHud */,
@@ -894,6 +949,7 @@
 				004C1E302CD22C7800890A67 /* YLPermissionManager.bundle in Resources */,
 				006AA19E2A9F2BD00084F02F /* YLShortcutView.bundle in Resources */,
 				00C47F322AA01DDD0082E813 /* YLAppleScript.strings in Resources */,
+				008AFE942CD36240007C460F /* YLFileAccess.strings in Resources */,
 				00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */,
 				004C1E332CD22CA700890A67 /* YLPermissionManager.strings in Resources */,
 				00F6627C2CCE0C0A00EF1D93 /* MAShortcutLocalizable.strings in Resources */,
@@ -919,6 +975,9 @@
 				004C1E552CD22F5D00890A67 /* YLWindowButton.m in Sources */,
 				00A979CA29E92D870066F7C7 /* NSButton+category.m in Sources */,
 				004C1E452CD22E1400890A67 /* YLLanguageModel.m in Sources */,
+				008AFE8E2CD32D6C007C460F /* AppSandboxFileAccessPersist.m in Sources */,
+				008AFE8F2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m in Sources */,
+				008AFE902CD32D6C007C460F /* AppSandboxFileAccess.m in Sources */,
 				004C1E1D2CD2297A00890A67 /* YLAppleReview.m in Sources */,
 				00B6B3FB2A0A271600457886 /* NSImageView+category.m in Sources */,
 				00C47F332AA01DDD0082E813 /* YLAppleScript.m in Sources */,
@@ -942,6 +1001,7 @@
 				00A979C729E92D870066F7C7 /* NSString+secret.m in Sources */,
 				000C7B172BC39DF0003ABB1A /* YLUtility.m in Sources */,
 				00A979C129E92D870066F7C7 /* NSView+frame.m in Sources */,
+				008AFE852CD32D45007C460F /* YLFileAccess.m in Sources */,
 				00F6624C2CCE04D100EF1D93 /* MASShortcutValidator.m in Sources */,
 				00F6624D2CCE04D100EF1D93 /* MASShortcut.m in Sources */,
 				006AA1602A9F26F20084F02F /* YLShortcutView.m in Sources */,
@@ -1044,6 +1104,22 @@
 				009784FC2B886C9E00D6590A /* de */,
 			);
 			name = YLShortcutView.strings;
+			sourceTree = "<group>";
+		};
+		008AFE922CD36240007C460F /* YLFileAccess.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				008AFE932CD36240007C460F /* en */,
+				008AFE952CD36291007C460F /* zh-Hans */,
+				008AFE962CD36292007C460F /* zh-Hant */,
+				008AFE972CD36295007C460F /* fr */,
+				008AFE982CD36296007C460F /* de */,
+				008AFE992CD36298007C460F /* ja */,
+				008AFE9A2CD36299007C460F /* ko */,
+				008AFE9B2CD3629B007C460F /* pt */,
+				008AFE9C2CD3629D007C460F /* es */,
+			);
+			name = YLFileAccess.strings;
 			sourceTree = "<group>";
 		};
 		00A9798229E92D870066F7C7 /* Main.storyboard */ = {

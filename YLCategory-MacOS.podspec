@@ -157,6 +157,11 @@ end
 s.subspec 'YLAppleReview' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLAppleReview/*.{h,m}'
 end
+
+s.subspec 'YLFileAccess' do |ss|
+ss.source_files  =   'YLCategory-MacOS/YLFileAccess/**/*.{h,m}'
+ss.resource      =   'YLCategory-MacOS/YLFileAccess/Resources/*'
+end
   
 end
 

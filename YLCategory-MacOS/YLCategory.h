@@ -48,5 +48,6 @@
 #import "YLWindowButton.h"
 #import "YLPermissionManager.h"
 #import "YLUpdateManager.h"
+#import "YLFileAccess.h"
 
 #endif /* YLCategory_h */

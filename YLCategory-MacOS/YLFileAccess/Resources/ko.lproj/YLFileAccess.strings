@@ -1,0 +1,12 @@
+/* 
+  YLFileAccess.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/31.
+  
+*/
+
+
+"File access title" = "파일 경로 권한 허용";
+"File access message" = "이 경로에 액세스하려면 %@ 에게 권한을 부여하세요";
+"File access prompt" = "권한 부여";

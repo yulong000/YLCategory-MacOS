@@ -1,0 +1,12 @@
+/* 
+  YLFileAccess.strings
+  YLCategory-MacOS
+
+  Created by 魏宇龙 on 2024/10/31.
+  
+*/
+
+
+"File access title" = "Permitir acceso a la ruta de archivos";
+"File access message" = "Autorice a %@ acceder a esta ruta";
+"File access prompt" = "Autorizar";
