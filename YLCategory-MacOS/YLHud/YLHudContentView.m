@@ -13,22 +13,10 @@
     if(self = [super initWithFrame:frameRect]) {
         self.wantsLayer = YES;
         self.layer.cornerRadius = 10;
+        self.layer.masksToBounds = NO;
         self.style = YLHudStyleBlack;
     }
     return self;
-}
-
-- (void)resetShadow {
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowBlurRadius = 3;
-    if(self.style == YLHudStyleBlack) {
-        self.layer.backgroundColor = [NSColor colorWithRed:0 green:0 blue:0 alpha:0.9].CGColor;
-        shadow.shadowColor = [NSColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    } else {
-        self.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.9].CGColor;
-        shadow.shadowColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.4];
-    }
-    self.shadow = shadow;
 }
 
 - (BOOL)isFlipped {
@@ -37,7 +25,11 @@
 
 - (void)setStyle:(YLHudStyle)style {
     _style = style;
-    [self resetShadow];
+    if(self.style == YLHudStyleBlack) {
+        self.layer.backgroundColor = [NSColor colorWithRed:0 green:0 blue:0 alpha:0.8].CGColor;
+    } else {
+        self.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.8].CGColor;
+    }
 }
 
 @end

@@ -111,13 +111,10 @@
         [self.hudView setFrameSize:NSMakeSize(hudWidth, hudHeight)];
         [self.textLabel setFrameOrigin:NSMakePoint(20, 20)];
     }
-    // 扩大window的size，给阴影留些显示的空间
-    hudWidth += 10;
-    hudHeight += 10;
     NSRect frame = NSMakeRect((windowWidth - hudWidth) / 2 + windowX, (windowHeight - hudHeight) / 2 + windowY, hudWidth, hudHeight);
     [self setFrame:frame display:YES];
     // hud居中
-    [self.hudView setFrameOrigin:NSMakePoint(5, 5)];
+    [self.hudView setFrameOrigin:NSZeroPoint];
 }
 
 #pragma mark - 显示成功
