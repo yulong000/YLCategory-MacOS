@@ -22,7 +22,6 @@
         
         self.visualEffectView = [[NSVisualEffectView alloc] init];
         self.visualEffectView.state = NSVisualEffectStateActive;
-        self.visualEffectView.material = NSVisualEffectMaterialContentBackground;
         self.visualEffectView.blendingMode = NSVisualEffectBlendingModeWithinWindow;
         [self addSubview:self.visualEffectView];
         
@@ -42,7 +41,7 @@
 
 - (void)setStyle:(YLHudStyle)style {
     _style = style;
-    self.visualEffectView.appearance = [NSAppearance appearanceNamed:style == YLHudStyleBlack ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua];
+    self.visualEffectView.appearance = [NSAppearance appearanceNamed:style == YLHudStyleBlack ? NSAppearanceNameVibrantDark : NSAppearanceNameVibrantLight];
 }
 
 @end
