@@ -35,7 +35,6 @@
 
 - (void)mouseDown:(NSEvent *)event {
     [super mouseDown:event];
-
 }
 
 @end

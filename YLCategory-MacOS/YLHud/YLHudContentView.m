@@ -7,16 +7,33 @@
 
 #import "YLHudContentView.h"
 
+@interface YLHudContentView ()
+
+@property (nonatomic, strong) NSVisualEffectView *visualEffectView;
+
+@end
+
 @implementation YLHudContentView
 
 - (instancetype)initWithFrame:(NSRect)frameRect {
     if(self = [super initWithFrame:frameRect]) {
         self.wantsLayer = YES;
         self.layer.cornerRadius = 10;
-        self.layer.masksToBounds = NO;
+        
+        self.visualEffectView = [[NSVisualEffectView alloc] init];
+        self.visualEffectView.state = NSVisualEffectStateActive;
+        self.visualEffectView.material = NSVisualEffectMaterialContentBackground;
+        self.visualEffectView.blendingMode = NSVisualEffectBlendingModeWithinWindow;
+        [self addSubview:self.visualEffectView];
+        
         self.style = YLHudStyleBlack;
     }
     return self;
+}
+
+- (void)layout {
+    [super layout];
+    self.visualEffectView.frame = self.bounds;
 }
 
 - (BOOL)isFlipped {
@@ -25,11 +42,7 @@
 
 - (void)setStyle:(YLHudStyle)style {
     _style = style;
-    if(self.style == YLHudStyleBlack) {
-        self.layer.backgroundColor = [NSColor colorWithRed:0 green:0 blue:0 alpha:0.8].CGColor;
-    } else {
-        self.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.8].CGColor;
-    }
+    self.visualEffectView.appearance = [NSAppearance appearanceNamed:style == YLHudStyleBlack ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua];
 }
 
 @end
