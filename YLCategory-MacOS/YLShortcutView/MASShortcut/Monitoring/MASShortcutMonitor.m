@@ -6,6 +6,11 @@
 static OSStatus MASCarbonEventCallback(EventHandlerCallRef, EventRef, void*);
 static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon);
 
+// CGEventFlags 转换成 NSEventModifierFlags
+NSEventModifierFlags NSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags);
+// 比较 CGEventFlags 和 NSEventModifierFlags 是否相同
+BOOL ModifierFlagsEqual(CGEventFlags cgFlags, NSEventModifierFlags nsFlags);
+
 // 提示音音量
 static CGFloat volumeValue = 0;
 // 是否更改了提示音音量
@@ -16,8 +21,10 @@ float system_volume_get(void);
 void system_volume_set(Float32 volume);
 
 @interface MASShortcutMonitor ()
+
 @property(assign) EventHandlerRef eventHandlerRef;
 @property(strong) NSMutableDictionary *hotKeys;
+
 // 暂时忽略的快捷键
 @property (nonatomic, strong) NSMutableArray *ignoreHotKeyArr;
 
@@ -87,7 +94,8 @@ void system_volume_set(Float32 volume);
         [_hotKeys setObject:hotKey forKey:shortcut];
         return YES;
     } else {
-        if((shortcut.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption) {
+        if((shortcut.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption ||
+           (shortcut.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == (NSEventModifierFlagOption | NSEventModifierFlagShift)) {
             // 设置的是option + key, 在macos15上失效
             if(@available(macOS 15.0, *)) {
                 // 请求辅助功能权限
@@ -139,7 +147,12 @@ void system_volume_set(Float32 volume);
 - (void) unregisterShortcut: (MASShortcut*) shortcut
 {
     if (shortcut) {
-        [_hotKeys removeObjectForKey:shortcut];
+        for (MASShortcut *obj in _hotKeys.allKeys) {
+            if(obj.carbonFlags == shortcut.carbonFlags && obj.carbonKeyCode == shortcut.carbonKeyCode) {
+                [_hotKeys removeObjectForKey:obj];
+                return;
+            }
+        }
     }
 }
 
@@ -150,7 +163,12 @@ void system_volume_set(Float32 volume);
 
 - (BOOL) isShortcutRegistered: (MASShortcut*) shortcut
 {
-    return !![_hotKeys objectForKey:shortcut];
+    for (MASShortcut *obj in _hotKeys.allKeys) {
+        if(obj.carbonFlags == shortcut.carbonFlags && obj.carbonKeyCode == shortcut.carbonKeyCode) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 
@@ -217,28 +235,30 @@ void system_volume_set(Float32 volume);
     }];
 }
 
-- (void) handleOptionWithKeyCode:(CGKeyCode)keyCode {
+- (void) handleOptionFlags:(CGEventFlags)flags withKeyCode:(CGKeyCode)keyCode {
     [_hotKeys enumerateKeysAndObjectsUsingBlock:^(MASShortcut *shortcut, MASHotKey *hotKey, BOOL *stop) {
-        if (keyCode == shortcut.keyCode && (shortcut.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption) {
-            BOOL flag = NO;
-            for (MASShortcut *obj in _ignoreHotKeyArr) {
-                if(obj.carbonFlags == shortcut.carbonFlags && obj.carbonKeyCode == shortcut.carbonKeyCode) {
-                    flag = YES;
-                    break;
-                }
-            }
-            if (flag == NO && [hotKey action]) {
-                // 关闭提示音
-                if(volumeChanged == NO) {
-                    volumeValue = system_volume_get();
-                    if(volumeValue > 0) {
-                        system_volume_set(0);
-                        volumeChanged = YES;
+        if (keyCode == shortcut.keyCode) {
+            if(ModifierFlagsEqual(flags, shortcut.modifierFlags)) {
+                BOOL flag = NO;
+                for (MASShortcut *obj in _ignoreHotKeyArr) {
+                    if(obj.carbonFlags == shortcut.carbonFlags && obj.carbonKeyCode == shortcut.carbonKeyCode) {
+                        flag = YES;
+                        break;
                     }
                 }
-                dispatch_async(dispatch_get_main_queue(), [hotKey action]);
+                if (flag == NO && [hotKey action]) {
+                    // 关闭提示音
+                    if(volumeChanged == NO) {
+                        volumeValue = system_volume_get();
+                        if(volumeValue > 0) {
+                            system_volume_set(0);
+                            volumeChanged = YES;
+                        }
+                    }
+                    dispatch_async(dispatch_get_main_queue(), [hotKey action]);
+                }
+                *stop = YES;
             }
-            *stop = YES;
         }
     }];
 }
@@ -269,7 +289,11 @@ static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType typ
             CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
             if(flags == (kCGEventFlagMaskAlternate | kCGEventFlagMaskNonCoalesced | 0x20)) {
                 // 按下了 Option + keyCode
-                [dispatcher handleOptionWithKeyCode:keyCode];
+                [dispatcher handleOptionFlags:flags withKeyCode:keyCode];
+            } else if ((flags & (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) ==
+                       (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) {
+                // 按下了Option + Shift + keyCode
+                [dispatcher handleOptionFlags:flags withKeyCode:keyCode];
             }
         }
             break;
@@ -277,6 +301,32 @@ static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType typ
             break;
     }
     return event;
+}
+
+NSEventModifierFlags NSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags) {
+    NSEventModifierFlags nsFlags = 0;
+    
+    if (cgFlags & kCGEventFlagMaskShift) {
+        nsFlags |= NSEventModifierFlagShift;
+    }
+    if (cgFlags & kCGEventFlagMaskControl) {
+        nsFlags |= NSEventModifierFlagControl;
+    }
+    if (cgFlags & kCGEventFlagMaskAlternate) {
+        nsFlags |= NSEventModifierFlagOption;
+    }
+    if (cgFlags & kCGEventFlagMaskCommand) {
+        nsFlags |= NSEventModifierFlagCommand;
+    }
+    return nsFlags;
+}
+
+// 比较 CGEventFlags 和 NSEventModifierFlags 是否相同
+BOOL ModifierFlagsEqual(CGEventFlags cgFlags, NSEventModifierFlags nsFlags) {
+    // 将 CGEventFlags 转换为 NSEventModifierFlags
+    NSEventModifierFlags convertedNSFlags = NSEventModifierFlagsFromCGEventFlags(cgFlags);
+    // 比较转换后的 NSEventModifierFlags 是否与原始的 NSEventModifierFlags 相等
+    return (convertedNSFlags == nsFlags);
 }
 
 

@@ -6,9 +6,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Shortcut.h"
+#import "YLShortcutManager.h"
 #import "YLShortcutConfig.h"
-
 
 NS_ASSUME_NONNULL_BEGIN
 

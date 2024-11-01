@@ -21,7 +21,7 @@ typedef void (^YLFileAccessHandler)(BOOL success);
 #pragma mark - 检查是否授权
 
 /// 是否有授权
-- (BOOL)checkAccessWithUrl:(NSURL *)url;
+- (BOOL)checkAccessWithFileUrl:(NSURL *)fileUrl;
 - (BOOL)checkAccessWithFilePath:(NSString *)filePath;
 
 #pragma mark - 请求授权
@@ -31,6 +31,11 @@ typedef void (^YLFileAccessHandler)(BOOL success);
 
 - (void)accessFileUrl:(NSURL *)fileUrl withHandler:(YLFileAccessHandler)handler;
 - (void)accessFileUrl:(NSURL *)fileUrl onceWithHandler:(YLFileAccessHandler)handler;
+
+#pragma mark - 取消授权
+
+- (void)cancelAccessFilePath:(NSString *)filePath;
+- (void)cancelAccessFileUrl:(NSURL *)fileUrl;
 
 @end
 

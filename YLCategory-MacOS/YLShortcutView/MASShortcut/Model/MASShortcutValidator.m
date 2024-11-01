@@ -51,6 +51,31 @@
     return NO;
 }
 
+- (BOOL)isShortcutValidWithOptionModifier:(MASShortcut *)shortcut {
+    if(@available(macOS 15.0, *)) {
+        NSEventModifierFlags flags = shortcut.modifierFlags;
+        if(((flags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption) ||
+           (flags & NSEventModifierFlagDeviceIndependentFlagsMask) == (NSEventModifierFlagOption | NSEventModifierFlagShift)) {
+            // Option + keyCode 或者  Option + Shift + keyCode
+            if(AXIsProcessTrusted() == NO) {
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
+
+- (BOOL)isShortcutsValidWithOptionModifier:(NSArray<MASShortcut *> *)shortcuts {
+    BOOL valid = YES;
+    for (MASShortcut *shortcut in shortcuts) {
+        if([self isShortcutValidWithOptionModifier:shortcut] == NO) {
+            valid = NO;
+            break;
+        }
+    }
+    return valid;
+}
+
 - (BOOL) isShortcut: (MASShortcut*) shortcut alreadyTakenInMenu: (NSMenu*) menu explanation: (NSString**) explanation
 {
     if (self.allowOverridingServicesShortcut && menu == [NSApp servicesMenu]) {

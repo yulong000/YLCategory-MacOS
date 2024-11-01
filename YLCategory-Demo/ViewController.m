@@ -22,8 +22,8 @@
     
     YLShortcutView *shortcutView = [[YLShortcutView alloc] initWithFrame:NSMakeRect(20, 50, 150, 30)];
     shortcutView.changedHandler = ^(YLShortcutView * _Nonnull sender, MASShortcut * _Nullable shortcut) {
-        [[MASShortcutMonitor sharedMonitor] unregisterAllShortcuts];
-        BOOL success =[[MASShortcutMonitor sharedMonitor] registerShortcut:shortcut withAction:^{
+        [[YLShortcutManager share] unregisterAllShortcuts];
+        BOOL success = [[YLShortcutManager share] registerShortcut:shortcut withAction:^{
             [YLHud showText:@"成功" toWindow:self.view.window];
         }];
         if(success == NO) {

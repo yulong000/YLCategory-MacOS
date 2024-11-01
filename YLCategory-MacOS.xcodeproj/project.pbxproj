@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0001BAE42CD4B09500656EA5 /* YLShortcutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0001BAE32CD4B09500656EA5 /* YLShortcutManager.m */; };
 		0009D7C32BB176F00093D24E /* NSArray+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009D7C22BB176F00093D24E /* NSArray+category.m */; };
 		000C7B172BC39DF0003ABB1A /* YLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C7B162BC39DF0003ABB1A /* YLUtility.m */; };
 		000D0DA32B05E58F00CF6C32 /* YLCFNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */; };
@@ -90,6 +91,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0001BAE22CD4B09500656EA5 /* YLShortcutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLShortcutManager.h; sourceTree = "<group>"; };
+		0001BAE32CD4B09500656EA5 /* YLShortcutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLShortcutManager.m; sourceTree = "<group>"; };
 		0009D7C12BB176F00093D24E /* NSArray+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+category.h"; sourceTree = "<group>"; };
 		0009D7C22BB176F00093D24E /* NSArray+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+category.m"; sourceTree = "<group>"; };
 		000C7B152BC39DF0003ABB1A /* YLUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLUtility.h; sourceTree = "<group>"; };
@@ -497,6 +500,8 @@
 			isa = PBXGroup;
 			children = (
 				00F662692CCE09B900EF1D93 /* MASShortcut */,
+				0001BAE22CD4B09500656EA5 /* YLShortcutManager.h */,
+				0001BAE32CD4B09500656EA5 /* YLShortcutManager.m */,
 				006AA1582A9F26F20084F02F /* YLShortcutView.h */,
 				006AA1572A9F26F20084F02F /* YLShortcutView.m */,
 				009DA80D2CCF501A00F4BADA /* YLShortcutConfig.h */,
@@ -992,6 +997,7 @@
 				00F662532CCE04F800EF1D93 /* MASShortcutMonitor.m in Sources */,
 				00F6625E2CCE050A00EF1D93 /* MASShortcutViewButtonCell.m in Sources */,
 				00F6625F2CCE050A00EF1D93 /* MASLocalization.m in Sources */,
+				0001BAE42CD4B09500656EA5 /* YLShortcutManager.m in Sources */,
 				00F662602CCE050A00EF1D93 /* MASShortcutView+Bindings.m in Sources */,
 				00F662612CCE050A00EF1D93 /* MASShortcutView.m in Sources */,
 				00F662542CCE04F800EF1D93 /* MASHotKey.m in Sources */,

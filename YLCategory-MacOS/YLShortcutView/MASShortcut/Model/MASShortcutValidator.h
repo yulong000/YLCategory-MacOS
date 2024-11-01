@@ -36,5 +36,7 @@
 - (BOOL) isShortcutValid: (MASShortcut*) shortcut;
 - (BOOL) isShortcut: (MASShortcut*) shortcut alreadyTakenInMenu: (NSMenu*) menu explanation: (NSString**) explanation;
 - (BOOL) isShortcutAlreadyTakenBySystem: (MASShortcut*) shortcut explanation: (NSString**) explanation;
+- (BOOL) isShortcutValidWithOptionModifier:(MASShortcut *)shortcut;
+- (BOOL) isShortcutsValidWithOptionModifier:(NSArray <MASShortcut *> *)shortcuts;
 
 @end

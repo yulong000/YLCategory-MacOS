@@ -49,24 +49,24 @@ NSString *YLFileAccessLocalizeString(NSString *key){
 
 #pragma mark - 检查授权
 
-- (BOOL)checkAccessWithUrl:(NSURL *)url {
-    if(url == nil || ![url isKindOfClass:[NSURL class]] || url.path.length == 0) {
-        NSLog(@"%s 传入的路径为空", __FUNCTION__);
+- (BOOL)checkAccessWithFileUrl:(NSURL *)fileUrl {
+    if(fileUrl == nil || ![fileUrl isKindOfClass:[NSURL class]] || fileUrl.path.length == 0) {
+        NSLog(@"%s 传入的路径不正确", __FUNCTION__);
         return NO;
     }
-    NSURL *fileURL = [[url URLByStandardizingPath] URLByResolvingSymlinksInPath];
+    NSURL *fileURL = [[fileUrl URLByStandardizingPath] URLByResolvingSymlinksInPath];
     NSData *bookmarkData = [self.fileAccess.bookmarkPersistanceDelegate bookmarkDataForURL:fileURL];
     if (bookmarkData) {
         BOOL bookmarkDataIsStale;
         NSURL *allowedURL = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithSecurityScope|NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:&bookmarkDataIsStale error:NULL];
         if(allowedURL == nil) {
-            NSLog(@"%s 该路径未授权: %@", __FUNCTION__, url.path);
+            NSLog(@"%s 该路径未授权: %@", __FUNCTION__, fileUrl.path);
             return NO;
         }
         if (bookmarkDataIsStale) {
             // 过期
             [self.fileAccess.bookmarkPersistanceDelegate clearBookmarkDataForURL:fileURL];
-            NSLog(@"%s 授权已过期：%@", __FUNCTION__, url.path);
+            NSLog(@"%s 授权已过期：%@", __FUNCTION__, fileUrl.path);
             return NO;
         }
         [allowedURL startAccessingSecurityScopedResource];
@@ -80,7 +80,7 @@ NSString *YLFileAccessLocalizeString(NSString *key){
         NSLog(@"%s 传入的路径不正确", __FUNCTION__);
         return NO;
     }
-    return [self checkAccessWithUrl:[NSURL fileURLWithPath:filePath]];
+    return [self checkAccessWithFileUrl:[NSURL fileURLWithPath:filePath]];
 }
 
 #pragma mark - 请求授权
@@ -111,7 +111,7 @@ NSString *YLFileAccessLocalizeString(NSString *key){
 
 - (void)accessFileUrl:(NSURL *)fileUrl persistPermission:(BOOL)persist withHandler:(YLFileAccessHandler)handler {
     if(fileUrl == nil || ![fileUrl isKindOfClass:[NSURL class]] || fileUrl.path.length == 0) {
-        NSLog(@"%s 传入的路径为空", __FUNCTION__);
+        NSLog(@"%s 传入的路径不正确", __FUNCTION__);
         return;
     }
     BOOL success = [self.fileAccess accessFileURL:fileUrl persistPermission:persist withBlock:^{
@@ -121,6 +121,25 @@ NSString *YLFileAccessLocalizeString(NSString *key){
     if(handler) {
         handler(success);
     }
+}
+
+#pragma mark - 取消授权
+
+- (void)cancelAccessFilePath:(NSString *)filePath {
+    if(filePath == nil || ![filePath isKindOfClass:[NSString class]] || filePath.length == 0) {
+        NSLog(@"%s 传入的路径不正确", __FUNCTION__);
+        return;
+    }
+    [self cancelAccessFileUrl:[NSURL fileURLWithPath:filePath]];
+}
+
+- (void)cancelAccessFileUrl:(NSURL *)fileUrl {
+    if(fileUrl == nil || ![fileUrl isKindOfClass:[NSURL class]] || fileUrl.path.length == 0) {
+        NSLog(@"%s 传入的路径不正确", __FUNCTION__);
+        return;
+    }
+    NSURL *fileURL = [[fileUrl URLByStandardizingPath] URLByResolvingSymlinksInPath];
+    [self.fileAccess.bookmarkPersistanceDelegate clearBookmarkDataForURL:fileURL];
 }
 
 @end

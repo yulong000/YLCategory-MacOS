@@ -29,8 +29,6 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
 @property (nonatomic, strong) NSMutableArray *monitorArr;
 /// 是否正在编辑中
 @property (nonatomic, assign, getter=isRecording) BOOL recording;
-/// 快捷键校验
-@property (nonatomic, strong) MASShortcutValidator *validator;
 
 @end
 
@@ -56,8 +54,6 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
     [self addSubview:self.clearBtn];
     [self addObserver:self forKeyPath:@"titleString" options:NSKeyValueObservingOptionNew context:nil];
     [NSApp addObserver:self forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionNew context:nil];
-    self.validator = [MASShortcutValidator sharedValidator];
-    self.validator.allowAnyShortcutWithOptionModifier = YES;
     self.titleFont = [NSFont systemFontOfSize:13];
     [self setBtnsImage];
     self.recording = NO;
@@ -182,14 +178,38 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
                     [weakSelf recoverShortcut];
                 } else if(shortcut.keyCodeString.length > 0) {
                     // 字母键已按下
-                    if([weakSelf.validator isShortcutValid:shortcut]) {
+                    if([YLShortcutManager.share isShortcutValid:shortcut]) {
                         // 有效
                         NSString *explanation = nil;
-                        if([weakSelf.validator isShortcutAlreadyTakenBySystem:shortcut explanation:&explanation]) {
+                        if([YLShortcutManager.share isShortcutAlreadyTakenBySystem:shortcut explanation:&explanation]) {
                             // 已经注册过了
                             NSBeep();
                             NSLog(@"%@", explanation);
                             [YLHud showError:YLShortcutLocalizeString(@"Shortcut has been registered by system", @"") toWindow:weakSelf.window];
+                        } else if ([YLShortcutManager.share isShortcutValidWithOptionModifier:shortcut] == NO) {
+                            // 含有Option,且在当前系统无效，需要打开辅助功能权限
+                            event = nil;
+                            weakSelf.recording = NO;
+                            [NSApp activateIgnoringOtherApps:YES];
+                            NSAlert *alert = [[NSAlert alloc] init];
+                            alert.alertStyle = NSAlertStyleWarning;
+                            alert.messageText = MASLocalizedString(@"Kind tips", @"");
+                            alert.informativeText = MASLocalizedString(@"Accessibility Tips", @"");
+                            [alert addButtonWithTitle:MASLocalizedString(@"To Authorize", @"")];
+                            [alert addButtonWithTitle:MASLocalizedString(@"Cancel", @"")];
+                            if([alert runModal] == NSAlertFirstButtonReturn) {
+                                // 模拟鼠标抬起，请求辅助功能权限
+                                CGEventRef eventRef = CGEventCreate(NULL);
+                                NSPoint point = CGEventGetLocation(eventRef);
+                                CFRelease(eventRef);
+                                CGEventRef mouseEventRef = CGEventCreateMouseEvent(NULL, kCGEventLeftMouseUp, point, kCGMouseButtonLeft);
+                                CGEventPost(kCGHIDEventTap, mouseEventRef);
+                                CFRelease(mouseEventRef);
+                                
+                                // 打开辅助功能权限设置页面
+                                NSString *setting = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
+                                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:setting]];
+                            }
                         } else {
                             event = nil;
                             weakSelf.shortcut = shortcut;

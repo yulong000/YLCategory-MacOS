@@ -7,3 +7,4 @@
 #import "MASShortcutView.h"
 #import "MASShortcutView+Bindings.h"
 #import "MASShortcutViewButtonCell.h"
+#import "MASLocalization.h"
