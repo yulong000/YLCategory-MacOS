@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Użyj starego skrótu";
 
 "Kind tips" = "Pomocne wskazówki";
-"Accessibility Tips" = "Aby zarejestrować Option jako klawisz modyfikujący, wymagane jest zezwolenie na dostęp do funkcji ułatwień dostępu";
+"Accessibility Tips" = "Aby zarejestrować klawisz Option jako klawisz modyfikatora, wymagane są uprawnienia dostępu. Jeśli zostały już przyznane, usuń je i dodaj ponownie.";
 "To Authorize" = "Autoryzować";

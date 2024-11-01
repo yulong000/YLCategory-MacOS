@@ -235,7 +235,8 @@ void system_volume_set(Float32 volume);
     }];
 }
 
-- (void) handleOptionFlags:(CGEventFlags)flags withKeyCode:(CGKeyCode)keyCode {
+- (BOOL) handleOptionFlags:(CGEventFlags)flags withKeyCode:(CGKeyCode)keyCode {
+    __block BOOL valid = NO;
     [_hotKeys enumerateKeysAndObjectsUsingBlock:^(MASShortcut *shortcut, MASHotKey *hotKey, BOOL *stop) {
         if (keyCode == shortcut.keyCode) {
             if(ModifierFlagsEqual(flags, shortcut.modifierFlags)) {
@@ -255,12 +256,14 @@ void system_volume_set(Float32 volume);
                             volumeChanged = YES;
                         }
                     }
+                    valid = YES;
                     dispatch_async(dispatch_get_main_queue(), [hotKey action]);
                 }
                 *stop = YES;
             }
         }
     }];
+    return valid;
 }
 
 #pragma mark - 警告音
@@ -289,13 +292,17 @@ static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType typ
             CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
             if(flags == (kCGEventFlagMaskAlternate | kCGEventFlagMaskNonCoalesced | 0x20)) {
                 // 按下了 Option + keyCode
-                [dispatcher handleOptionFlags:flags withKeyCode:keyCode];
-                return nil;
+                if([dispatcher handleOptionFlags:flags withKeyCode:keyCode]) {
+                    // 有快捷键响应，忽略事件
+                    return nil;
+                }
             } else if ((flags & (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) ==
                        (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) {
                 // 按下了Option + Shift + keyCode
-                [dispatcher handleOptionFlags:flags withKeyCode:keyCode];
-                return nil;
+                if([dispatcher handleOptionFlags:flags withKeyCode:keyCode]) {
+                    // 有快捷键响应，忽略事件
+                    return nil;
+                }
             }
         }
             break;

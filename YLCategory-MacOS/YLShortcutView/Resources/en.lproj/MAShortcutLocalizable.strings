@@ -48,5 +48,5 @@
 
 
 "Kind tips" = "Kind tips";
-"Accessibility Tips" = "To register Option as a modifier key, accessibility permissions are required";
+"Accessibility Tips" = "To register Option as a modifier key, accessibility permissions are required. If permissions are already granted, please remove and re-add them.";
 "To Authorize" = "Authorize";

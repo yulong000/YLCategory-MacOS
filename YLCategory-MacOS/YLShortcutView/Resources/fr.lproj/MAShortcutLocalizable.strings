@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Revenir au raccourci précédent";
 
 "Kind tips" = "Conseils utiles";
-"Accessibility Tips" = "Pour enregistrer la touche Option comme touche de modification, vous devez autoriser l'accès aux fonctionnalités d'accessibilité";
+"Accessibility Tips" = "Pour enregistrer la touche Option comme touche de modification, les autorisations d’accessibilité sont requises. Si elles sont déjà accordées, veuillez les supprimer et les ajouter à nouveau.";
 "To Authorize" = "Autoriser";

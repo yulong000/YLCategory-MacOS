@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Usar una función rápida previa";
 
 "Kind tips" = "Consejos amables";
-"Accessibility Tips" = "Para registrar la tecla Opción como tecla modificadora, necesita autorizar el acceso a la función de accesibilidad";
+"Accessibility Tips" = "Para registrar la tecla Opción como tecla modificadora, se requieren permisos de accesibilidad. Si ya están otorgados, elimínelos y vuelva a agregarlos.";
 "To Authorize" = "Autorizar";

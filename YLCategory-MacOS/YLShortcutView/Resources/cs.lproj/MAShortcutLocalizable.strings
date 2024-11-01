@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Vrátit se k původní";
 
 "Kind tips" = "Vřelé tipy";
-"Accessibility Tips" = "Pro registraci klávesy Option jako modifikační klávesy je nutné autorizovat přístup k funkci zpřístupnění";
+"Accessibility Tips" = "Chcete-li zaregistrovat klávesu Option jako modifikační klávesu, je nutné povolit přístup k funkcím usnadnění. Pokud je již povolen, odeberte a znovu přidejte oprávnění.";
 "To Authorize" = "Autorizovat";

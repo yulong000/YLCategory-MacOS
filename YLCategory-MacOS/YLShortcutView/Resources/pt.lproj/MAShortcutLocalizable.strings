@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Usar atalho antigo";
 
 "Kind tips" = "Dicas úteis";
-"Accessibility Tips" = "Para registrar a tecla Option como uma tecla modificadora, é necessário autorizar o acesso às funcionalidades de acessibilidade";
+"Accessibility Tips" = "Para registrar a tecla Option como tecla modificadora, são necessárias permissões de acessibilidade. Se já estiverem concedidas, remova e adicione novamente.";
 "To Authorize" = "Autorizar";

@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "还原快捷键";
  
 "Kind tips" = "温馨提示";
-"Accessibility Tips" = "注册 Option 作为修饰键，需要授权辅助功能权限";
+"Accessibility Tips" = "注册 Option 作为修饰键，需要授权辅助功能权限，如果显示您已授权，请删除后重新添加";
 "To Authorize" = "去授权";

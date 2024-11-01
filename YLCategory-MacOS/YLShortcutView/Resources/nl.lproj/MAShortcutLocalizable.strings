@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Gebruik Oude Sneltoets";
 
 "Kind tips" = "Handige tips";
-"Accessibility Tips" = "Om de Option-toets als functietoets te registreren, moet u toegang tot toegankelijkheidsfuncties autoriseren";
+"Accessibility Tips" = "Om Option als modifier-toets te registreren, zijn toegankelijkheidsrechten vereist. Als de rechten al zijn verleend, verwijder deze dan en voeg ze opnieuw toe.";
 "To Authorize" = "Autoriseren";

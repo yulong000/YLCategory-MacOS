@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "還原快速鍵";
 
 "Kind tips" = "溫馨提示";
-"Accessibility Tips" = "註冊 Option 作為修飾鍵，需要授權輔助功能權限";
+"Accessibility Tips" = "註冊 Option 作為修飾鍵，需要授權輔助功能權限，如果顯示您已授權，請刪除後重新添加";
 "To Authorize" = "去授權";

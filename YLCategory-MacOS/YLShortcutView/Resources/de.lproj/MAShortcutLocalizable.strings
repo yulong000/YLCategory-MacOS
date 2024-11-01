@@ -48,5 +48,5 @@
 
 
 "Kind tips" = "Kindertipps";
-"Accessibility Tips" = "Um Option als Modifikatortaste zu registrieren, muss der Zugriff auf die Bedienungshilfen autorisiert werden";
+"Accessibility Tips" = "Um die Option-Taste als Modifikatortaste zu registrieren, ist der Zugriff auf Bedienungshilfen erforderlich. Wenn der Zugriff bereits gewährt wurde, entfernen Sie die Berechtigung und fügen Sie sie erneut hinzu.";
 "To Authorize" = "Autorisieren";

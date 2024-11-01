@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "오래된 단축키를 사용";
 
 "Kind tips" = "친절한 팁";
-"Accessibility Tips" = "옵션을 수정 키로 등록하려면 접근성 권한이 필요합니다";
+"Accessibility Tips" = "Option 키를 수정 키로 등록하려면 접근성 권한이 필요합니다. 이미 권한이 부여된 경우, 제거한 후 다시 추가해 주세요.";
 "To Authorize" = "권한 부여";

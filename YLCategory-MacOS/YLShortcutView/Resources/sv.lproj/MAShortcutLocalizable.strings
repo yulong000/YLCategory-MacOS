@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Använd Gammal Kortkommando";
 
 "Kind tips" = "Goda råd";
-"Accessibility Tips" = "För att registrera Option som modifieringstangent krävs godkännande av tillgänglighetsfunktioner";
+"Accessibility Tips" = "För att registrera Option som en modifieringstangent krävs tillgänglighetsbehörigheter. Om behörigheter redan har beviljats, ta bort dem och lägg till dem igen.";
 "To Authorize" = "Godkänn";

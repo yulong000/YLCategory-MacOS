@@ -47,5 +47,5 @@
 "Use Old Shortcut" = "Usa abbreviazione precedente";
 
 "Kind tips" = "Suggerimenti utili";
-"Accessibility Tips" = "Per registrare Opzione come tasto modificatore, è necessario autorizzare l'accesso alle funzionalità di accessibilità";
+"Accessibility Tips" = "Per registrare Opzione come tasto modificatore, sono necessari i permessi di accessibilità. Se i permessi sono già concessi, rimuoverli e aggiungerli di nuovo.";
 "To Authorize" = "Autorizzare";
