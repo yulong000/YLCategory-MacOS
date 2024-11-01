@@ -101,7 +101,7 @@ void system_volume_set(Float32 volume);
                 // 请求辅助功能权限
                 if(AXIsProcessTrusted()) {
                     if(_runloopSourceRef == nil) {
-                        _tap = CGEventTapCreate(kCGAnnotatedSessionEventTap, kCGTailAppendEventTap, kCGEventTapOptionListenOnly, CGEventMaskBit(kCGEventKeyDown), MASKeyDownEventCallBack, (__bridge void*)self);
+                        _tap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, CGEventMaskBit(kCGEventKeyDown), MASKeyDownEventCallBack, (__bridge void*)self);
                         if(_tap == nil) {
                             return NO;
                         }
@@ -290,10 +290,12 @@ static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType typ
             if(flags == (kCGEventFlagMaskAlternate | kCGEventFlagMaskNonCoalesced | 0x20)) {
                 // 按下了 Option + keyCode
                 [dispatcher handleOptionFlags:flags withKeyCode:keyCode];
+                return nil;
             } else if ((flags & (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) ==
                        (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) {
                 // 按下了Option + Shift + keyCode
                 [dispatcher handleOptionFlags:flags withKeyCode:keyCode];
+                return nil;
             }
         }
             break;
