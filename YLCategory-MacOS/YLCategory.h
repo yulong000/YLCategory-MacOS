@@ -46,7 +46,7 @@
 #import "YLPermissionManager.h"
 #import "YLLanguage.h"
 #import "YLWindowButton.h"
-#import "YLPermissionManager.h"
+#import "YLAppRating.h"
 #import "YLUpdateManager.h"
 #import "YLFileAccess.h"
 
