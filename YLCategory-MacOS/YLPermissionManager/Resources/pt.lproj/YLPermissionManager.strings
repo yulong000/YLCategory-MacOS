@@ -18,9 +18,9 @@
 "Skip" = "Pular";
 
 "Kind tips" = "Dicas gentis";
-"Accessibility Tips" = "O %@ requer que você conceda permissão de 'Acessibilidade', por favor, autorize antes de usar. (Se ainda estiver sendo solicitado após a autorização, desmarque e marque novamente a permissão)";
-"ScreenCapture Tips" = "O %@ requer que você conceda permissão de 'Gravação de Tela', por favor, autorize antes de usar. (Se ainda estiver sendo solicitado após a autorização, desmarque e marque novamente a permissão)";
-"Full disk access Tips" = "O %@ requer que você conceda permissão de 'Acesso Total ao Disco', por favor, autorize antes de usar. (Se ainda estiver sendo solicitado após a autorização, desmarque e marque novamente a permissão)";
+"Accessibility Tips" = "O %@ requer que você conceda permissão de 'Acessibilidade', por favor, autorize antes de usar. (Se já estiverem concedidas, remova e adicione novamente.)";
+"ScreenCapture Tips" = "O %@ requer que você conceda permissão de 'Gravação de Tela', por favor, autorize antes de usar. (Se já estiverem concedidas, remova e adicione novamente.)";
+"Full disk access Tips" = "O %@ requer que você conceda permissão de 'Acesso Total ao Disco', por favor, autorize antes de usar. (Se já estiverem concedidas, remova e adicione novamente.)";
 "To Authorize" = "Autorizar";
 "Cancel" = "Cancelar";
 "Sure" = "Confirmar";

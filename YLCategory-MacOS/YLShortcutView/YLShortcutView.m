@@ -249,7 +249,7 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
     [self.monitorArr addObject:mouseMouseMonitor];
     [self.monitorArr addObject:globalMouseMonitor];
     if(self.shortcut) {
-        [[MASShortcutMonitor sharedMonitor] pauseMonitorShortcuts:@[self.shortcut]];
+        [YLShortcutManager.share pauseMonitorShortcuts:@[self.shortcut]];
     }
 }
 
@@ -260,7 +260,7 @@ NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
     }];
     [self.monitorArr removeAllObjects];
     if(self.shortcut) {
-        [[MASShortcutMonitor sharedMonitor] continueMonitorAllShortcuts];
+        [YLShortcutManager.share continueMonitorAllShortcuts];
     }
 }
 

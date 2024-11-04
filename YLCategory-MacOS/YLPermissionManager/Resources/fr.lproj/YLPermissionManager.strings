@@ -18,9 +18,9 @@
 "Skip" = "Passer";
 
 "Kind tips" = "Conseils bienveillants";
-"Accessibility Tips" = "%@ nécessite l'autorisation d'accessibilité, veuillez autoriser l'accès. (Si vous êtes toujours averti après autorisation, décochez puis cochez à nouveau les autorisations)";
-"ScreenCapture Tips" = "%@ nécessite l'autorisation d'enregistrement d'écran, veuillez autoriser l'accès. (Si vous êtes toujours averti après autorisation, décochez puis cochez à nouveau les autorisations)";
-"Full disk access Tips" = "%@ nécessite l'autorisation d'accès complet au disque, veuillez autoriser l'accès. (Si vous êtes toujours averti après autorisation, décochez puis cochez à nouveau les autorisations)";
+"Accessibility Tips" = "%@ nécessite l'autorisation d'accessibilité, veuillez autoriser l'accès. (Si elles sont déjà accordées, veuillez les supprimer et les ajouter à nouveau.)";
+"ScreenCapture Tips" = "%@ nécessite l'autorisation d'enregistrement d'écran, veuillez autoriser l'accès. (Si elles sont déjà accordées, veuillez les supprimer et les ajouter à nouveau.)";
+"Full disk access Tips" = "%@ nécessite l'autorisation d'accès complet au disque, veuillez autoriser l'accès. (Si elles sont déjà accordées, veuillez les supprimer et les ajouter à nouveau.)";
 "To Authorize" = "Autoriser";
 "Cancel" = "Annuler";
 "Sure" = "D'accord";
