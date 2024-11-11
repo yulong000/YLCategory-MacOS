@@ -14,6 +14,7 @@
 @property (nonatomic, strong) YLPermissionWindowController *permissionWC;
 @property (nonatomic, strong) NSArray <YLPermissionModel *> *authTypes;
 @property (nonatomic, strong) NSTimer *monitorTimer;
+@property (nonatomic, assign) BOOL skipped;
 
 @end
 
@@ -107,6 +108,7 @@
     // 不再需要定时器了，释放
     [self.monitorTimer invalidate];
     self.monitorTimer = nil;
+    self.skipped = YES;
 }
 
 #pragma mark - 检查某个权限是否开启

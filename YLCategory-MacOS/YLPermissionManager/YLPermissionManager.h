@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 是否所有权限都已授权
 @property (readonly) BOOL allAuthPassed;
+/// 是否跳过了授权
+@property (readonly, getter=isSkipped) BOOL skipped;
 
 /// 教学视频链接，不设置则不显示 观看权限设置教学>> 按钮
 @property (nonatomic, copy, nullable)   NSString *tutorialLink;
