@@ -77,6 +77,11 @@
                     }
                     [weakSelf.permissionWC.window orderFrontRegardless];
                     second = 0;
+                } else {
+                    // 都已授权
+                    if(weakSelf.permissionWC) {
+                        [weakSelf passAuth];
+                    }
                 }
             } else if (weakSelf.permissionWC) {
                 // 如果授权窗口在，每秒刷新一次状态
