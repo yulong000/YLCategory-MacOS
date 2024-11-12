@@ -41,6 +41,9 @@
             if([weakSelf allAuthPassed]) {
                 [weakSelf.monitorTimer invalidate];
                 weakSelf.monitorTimer = nil;
+                if(weakSelf.permissionWC) {
+                    [weakSelf passAuth];
+                }
                 return;
             }
             // 有权限未授权，弹出授权窗口
