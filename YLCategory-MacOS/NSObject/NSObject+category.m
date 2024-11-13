@@ -9,6 +9,7 @@
 @property (nonatomic, strong) NSMutableDictionary *yl_noteDict;
 @property (nonatomic, strong) NSMutableDictionary *yl_distributedNoteDict;
 @property (nonatomic, strong) NSMutableDictionary *yl_workspaceNoteDict;
+@property (nonatomic, copy)   YLPropertyValueChangedHandler yl_propertyValueChangedHandler;
 
 @end
 
@@ -211,6 +212,69 @@
 
 - (void)setYl_workspaceNoteDict:(NSMutableDictionary *)yl_workspaceNoteDict {
     objc_setAssociatedObject(self, @selector(yl_workspaceNoteDict), yl_workspaceNoteDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark - 监听属性值变化
+
+- (YLPropertyValueChangedHandler)yl_propertyValueChangedHandler {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setYl_propertyValueChangedHandler:(YLPropertyValueChangedHandler)yl_propertyValueChangedHandler {
+    objc_setAssociatedObject(self, @selector(yl_propertyValueChangedHandler), yl_propertyValueChangedHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void)startKvoWithHandler:(YLPropertyValueChangedHandler)handler {
+    self.yl_propertyValueChangedHandler = handler;
+    [self kvo:YES];
+}
+
+- (void)stopKvo {
+    self.yl_propertyValueChangedHandler = nil;
+    [self kvo:NO];
+}
+
+- (void)kvo:(BOOL)begin {
+    NSArray *allPropertyArr = [self getAllProperty:[self class]];
+    for (NSString *property in allPropertyArr) {
+        if(begin) {
+            [self addObserver:self forKeyPath:property options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        } else {
+            [self removeObserver:self forKeyPath:property];
+        }
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    NSArray *allPropertyArr = [self getAllProperty:[self class]];
+    if([allPropertyArr containsObject:keyPath]) {
+        NSLog(@"%@ 属性值 %@ 发生变化：%@ -> %@", NSStringFromClass([self class]), keyPath, change[NSKeyValueChangeOldKey], change[NSKeyValueChangeNewKey]);
+        if(self.yl_propertyValueChangedHandler) {
+            self.yl_propertyValueChangedHandler(keyPath, change[NSKeyValueChangeNewKey], change[NSKeyValueChangeOldKey]);
+        }
+    }
+}
+
+#pragma mark 获取所有的属性
+- (NSArray *)getAllProperty:(Class)class {
+    if(class == NSObject.class) {
+        return @[];
+    }
+    NSMutableArray *arr = [NSMutableArray array];
+    unsigned int numIvars = 0;
+    Ivar *vars = class_copyIvarList(class, &numIvars);
+    for (int i = 0; i < numIvars; i ++) {
+        Ivar var = vars[i];
+        NSString *key = [NSString stringWithUTF8String:ivar_getName(var)];
+        if(key.length > 0) {
+            key = [key substringFromIndex:1];
+        }
+        [arr addObject:key];
+    }
+    free(vars);
+    // 查找父类的属性
+    [arr addObjectsFromArray:[self getAllProperty:[class superclass]]];
+    return arr;
 }
 
 @end

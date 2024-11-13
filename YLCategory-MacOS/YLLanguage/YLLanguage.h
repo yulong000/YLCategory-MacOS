@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 所有的语言
 + (NSArray <YLLanguageModel *> *)allLanguages;
 
+/// 获取app当前的语言
++ (AppLanguageType)getCurrentLanguageType;
+
 /// 设置app的语言
 /// - Parameters:
 ///   - language: 目标语言

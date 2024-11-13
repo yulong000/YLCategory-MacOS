@@ -3,11 +3,17 @@
 
 /// 通知回调
 typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
+/// 自身属性值发生变化
+typedef void (^YLPropertyValueChangedHandler)(NSString * _Nonnull propertyName, id _Nullable newVal, id _Nullable oldVal);
 
 @interface NSObject (category)
 
+#pragma mark - 其他
+
 /**  长度不为0的字符串  */
 - (BOOL)isValidString;
+
+#pragma mark - 通知
 
 /// 发送通知
 - (void)postNotificationWithName:(NSString * _Nonnull)name;
@@ -39,6 +45,7 @@ typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
 /// 移除某个系统监听通知
 - (void)removeWorkspaceNotificationName:(NSString * _Nonnull)name;
 
+#pragma mark - 事件监听
 
 /// 添加事件监听, 自动调用 addMonitor:
 - (void)addGlobalEventMonitor:(NSEventMask)mask handler:(void (^ _Nullable)(NSEvent * _Nonnull event))block;
@@ -55,5 +62,12 @@ typedef void (^YLNotificationHandler)(NSNotification * _Nonnull note);
 - (void)removeAllMonitors;
 /// 移除某个监听
 - (void)removeMonitor:(id _Nonnull)monitor;
+
+#pragma mark - kvo监听属性变化   ⚠️：多用于模型类，对于UI组件的属性值，不支持KVO
+
+/// 开始监听自己的所有属性，有变更时回调
+- (void)startKvoWithHandler:(_Nonnull YLPropertyValueChangedHandler)handler;
+/// 停止监听
+- (void)stopKvo;
 
 @end

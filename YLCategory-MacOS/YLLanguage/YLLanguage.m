@@ -25,6 +25,18 @@
     ];
 }
 
++ (AppLanguageType)getCurrentLanguageType {
+    AppLanguageType languageType = AppLanguageTypeSystem;
+    NSString *currentLanguage = [[NSBundle mainBundle] preferredLocalizations].firstObject;
+    for (YLLanguageModel *model in [YLLanguage allLanguages]) {
+        if([model.code isEqualToString:currentLanguage]) {
+            languageType = model.type;
+            break;
+        }
+    }
+    return languageType;
+}
+
 + (void)setAppLanguage:(YLLanguageModel *)language fromLanguageType:(AppLanguageType)languageType completionHandler:(void (^)(void))completionHandler  {
     if(language.type == languageType) {
         return;

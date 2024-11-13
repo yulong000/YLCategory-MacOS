@@ -31,6 +31,7 @@
         }
     };
     [self.view addSubview:shortcutView];
+    
 }
 
 - (void)mouseDown:(NSEvent *)event {
