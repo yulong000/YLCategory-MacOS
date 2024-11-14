@@ -7,9 +7,9 @@ static OSStatus MASCarbonEventCallback(EventHandlerCallRef, EventRef, void*);
 static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon);
 
 // CGEventFlags 转换成 NSEventModifierFlags
-NSEventModifierFlags NSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags);
+NSEventModifierFlags MASNSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags);
 // 比较 CGEventFlags 和 NSEventModifierFlags 是否相同
-BOOL ModifierFlagsEqual(CGEventFlags cgFlags, NSEventModifierFlags nsFlags);
+BOOL MASModifierFlagsEqual(CGEventFlags cgFlags, NSEventModifierFlags nsFlags);
 
 // 提示音音量
 static CGFloat volumeValue = 0;
@@ -239,7 +239,7 @@ void system_volume_set(Float32 volume);
     __block BOOL valid = NO;
     [_hotKeys enumerateKeysAndObjectsUsingBlock:^(MASShortcut *shortcut, MASHotKey *hotKey, BOOL *stop) {
         if (keyCode == shortcut.keyCode) {
-            if(ModifierFlagsEqual(flags, shortcut.modifierFlags)) {
+            if(MASModifierFlagsEqual(flags, shortcut.modifierFlags)) {
                 BOOL flag = NO;
                 for (MASShortcut *obj in _ignoreHotKeyArr) {
                     if(obj.carbonFlags == shortcut.carbonFlags && obj.carbonKeyCode == shortcut.carbonKeyCode) {
@@ -288,16 +288,16 @@ static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType typ
     MASShortcutMonitor *dispatcher = (__bridge id)refcon;
     switch (type) {
         case kCGEventKeyDown: {
-            CGEventFlags flags = CGEventGetFlags(event);
+            CGEventFlags flags = CGEventGetFlags(event) & ~(kCGEventFlagMaskNonCoalesced | 0x20);
             CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
-            if(flags == (kCGEventFlagMaskAlternate | kCGEventFlagMaskNonCoalesced | 0x20)) {
+            if((flags & kCGEventFlagMaskAlternate) == kCGEventFlagMaskAlternate ) {
                 // 按下了 Option + keyCode
                 if([dispatcher handleOptionFlags:flags withKeyCode:keyCode]) {
                     // 有快捷键响应，忽略事件
                     return nil;
                 }
-            } else if ((flags & (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) ==
-                       (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift | kCGEventFlagMaskNonCoalesced | 0x20)) {
+            } else if ((flags & (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift)) ==
+                       (kCGEventFlagMaskAlternate | kCGEventFlagMaskShift)) {
                 // 按下了Option + Shift + keyCode
                 if([dispatcher handleOptionFlags:flags withKeyCode:keyCode]) {
                     // 有快捷键响应，忽略事件
@@ -312,7 +312,7 @@ static CGEventRef MASKeyDownEventCallBack(CGEventTapProxy proxy, CGEventType typ
     return event;
 }
 
-NSEventModifierFlags NSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags) {
+NSEventModifierFlags MASNSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags) {
     NSEventModifierFlags nsFlags = 0;
     
     if (cgFlags & kCGEventFlagMaskShift) {
@@ -331,11 +331,11 @@ NSEventModifierFlags NSEventModifierFlagsFromCGEventFlags(CGEventFlags cgFlags) 
 }
 
 // 比较 CGEventFlags 和 NSEventModifierFlags 是否相同
-BOOL ModifierFlagsEqual(CGEventFlags cgFlags, NSEventModifierFlags nsFlags) {
+BOOL MASModifierFlagsEqual(CGEventFlags cgFlags, NSEventModifierFlags nsFlags) {
     // 将 CGEventFlags 转换为 NSEventModifierFlags
-    NSEventModifierFlags convertedNSFlags = NSEventModifierFlagsFromCGEventFlags(cgFlags);
+    NSEventModifierFlags convertedNSFlags = MASNSEventModifierFlagsFromCGEventFlags(cgFlags);
     // 比较转换后的 NSEventModifierFlags 是否与原始的 NSEventModifierFlags 相等
-    return (convertedNSFlags == nsFlags);
+    return convertedNSFlags == nsFlags;
 }
 
 
