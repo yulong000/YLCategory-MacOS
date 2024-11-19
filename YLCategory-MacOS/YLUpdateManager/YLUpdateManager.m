@@ -180,8 +180,9 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
 
 - (void)setAppID:(NSString *)appID {
     _appID = [appID copy];
+    NSString *countryCode = [[NSLocale currentLocale].countryCode lowercaseString] ?: @"";
     [YLUpdateManager share].appStoreUrl = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@", appID];
-    [YLUpdateManager share].appUpdateUrl = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", appID];
+    [YLUpdateManager share].appUpdateUrl = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@&country=%@", appID, countryCode];
     [YLUpdateManager share].appIntroduceUrl = [NSString stringWithFormat:@"https://apps.apple.com/cn/app/id%@", appID];
 }
 
