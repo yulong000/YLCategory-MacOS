@@ -65,6 +65,7 @@
     if([YLUpdateManager share].appStoreUrl) {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[YLUpdateManager share].appStoreUrl]];
     }
+    [self.view.window close];
 }
 
 #pragma mark - lazy load
