@@ -32,6 +32,9 @@ void system_volume_set(Float32 volume);
 @property(assign) CFRunLoopSourceRef runloopSourceRef;
 @property(assign) CFMachPortRef tap;
 
+/// 监听辅助功能权限
+@property (nonatomic, strong) dispatch_source_t timer;
+
 @end
 
 @implementation MASShortcutMonitor
@@ -49,6 +52,8 @@ void system_volume_set(Float32 volume);
     if (status != noErr) {
         return nil;
     }
+    // 监听辅助功能权限
+    [self monitorAccessibilityPermissionDidChanged];
     // 监听错误提示音播放
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemBeepNotification) name:@"com.apple.systemBeep" object:nil];
     
@@ -62,15 +67,12 @@ void system_volume_set(Float32 volume);
         _eventHandlerRef = NULL;
     }
     
-    if (_runloopSourceRef) {
-        CFRunLoopRemoveSource(CFRunLoopGetCurrent(), _runloopSourceRef, kCFRunLoopCommonModes);
-        CFRelease(_runloopSourceRef);
-        _runloopSourceRef = NULL;
+    if(_timer) {
+        dispatch_source_cancel(_timer);
+        _timer = nil;
     }
     
-    if(_tap) {
-        CFRelease(_tap);
-    }
+    [self unregisterKeyDownSourceRef];
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -82,6 +84,57 @@ void system_volume_set(Float32 volume);
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
+}
+
+#pragma mark 监听辅助功能权限的变化
+- (void)monitorAccessibilityPermissionDidChanged {
+    if(@available(macOS 15.0, *)) {
+        if(_timer == nil) {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+            dispatch_source_set_timer(_timer, dispatch_time(DISPATCH_TIME_NOW, 0), 1 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
+            dispatch_source_set_event_handler(_timer, ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    BOOL trusted = AXIsProcessTrusted();
+                    if(trusted == NO) {
+                        // 辅助功能已关闭，注销keydown监听，防止卡系统
+                        [self unregisterKeyDownSourceRef];
+                    } else {
+                        [self registerKeyDownSourceRef];
+                    }
+                });
+            });
+            dispatch_resume(_timer);
+        }
+    }
+}
+
+- (BOOL)registerKeyDownSourceRef {
+    if(_runloopSourceRef == nil) {
+        _tap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, CGEventMaskBit(kCGEventKeyDown), MASKeyDownEventCallBack, (__bridge void*)self);
+        if(_tap == nil) {
+            return NO;
+        }
+        _runloopSourceRef = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, _tap, 0);
+        if(_runloopSourceRef == nil) {
+            return NO;
+        }
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), _runloopSourceRef, kCFRunLoopCommonModes);
+    }
+    return YES;
+}
+
+- (void)unregisterKeyDownSourceRef {
+    if (_runloopSourceRef) {
+        CFRunLoopRemoveSource(CFRunLoopGetCurrent(), _runloopSourceRef, kCFRunLoopCommonModes);
+        CFRelease(_runloopSourceRef);
+        _runloopSourceRef = NULL;
+    }
+    
+    if(_tap) {
+        CFRelease(_tap);
+        _tap = nil;
+    }
 }
 
 #pragma mark Registration
@@ -100,16 +153,8 @@ void system_volume_set(Float32 volume);
             if(@available(macOS 15.0, *)) {
                 // 请求辅助功能权限
                 if(AXIsProcessTrusted()) {
-                    if(_runloopSourceRef == nil) {
-                        _tap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, CGEventMaskBit(kCGEventKeyDown), MASKeyDownEventCallBack, (__bridge void*)self);
-                        if(_tap == nil) {
-                            return NO;
-                        }
-                        _runloopSourceRef = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, _tap, 0);
-                        if(_runloopSourceRef == nil) {
-                            return NO;
-                        }
-                        CFRunLoopAddSource(CFRunLoopGetCurrent(), _runloopSourceRef, kCFRunLoopCommonModes);
+                    if([self registerKeyDownSourceRef] == NO) {
+                        return NO;
                     }
                     hotKey = [MASHotKey registeredOptionHotKeyWithShortcut:shortcut];
                     [hotKey setAction:action];
