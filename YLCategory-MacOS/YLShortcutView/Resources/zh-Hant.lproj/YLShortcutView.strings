@@ -15,3 +15,8 @@
 "End editing" = "取消編輯";
 "Shortcut has been registered by system" = "快捷鍵已被系統註冊";
 "Control keys are unavailable" = "控制鍵不可用";
+
+"Kind tips" = "溫馨提示";
+"Option Modifier Tips" = "您使用了'Option +'作為快捷鍵，當前系統需要輔助功能權限才能使用";
+"Auth Accessibility" = "授權輔助功能權限";
+"Clear Option Shortcuts" = "清空'Option +'快捷鍵";

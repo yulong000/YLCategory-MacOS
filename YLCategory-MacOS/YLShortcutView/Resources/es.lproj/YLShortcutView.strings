@@ -15,3 +15,8 @@
 "End editing" = "Terminar edición";
 "Shortcut has been registered by system" = "El atajo ha sido registrado por el sistema";
 "Control keys are unavailable" = "Las teclas de control no están disponibles";
+
+"Kind tips" = "Consejos Amables";
+"Option Modifier Tips" = "Está usando 'Option +' como un acceso directo, y el sistema requiere permisos de accesibilidad para usarlo";
+"Auth Accessibility" = "Otorgar permisos de accesibilidad";
+"Clear Option Shortcuts" = "Borrar el acceso directo 'Option +'";

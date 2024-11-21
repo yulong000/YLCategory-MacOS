@@ -15,3 +15,8 @@
 "End editing" = "編集を終了";
 "Shortcut has been registered by system" = "ショートカットはシステムによって登録されています";
 "Control keys are unavailable" = "コントロールキーは利用できません";
+
+"Kind tips" = "親切なヒント";
+"Option Modifier Tips" = "「Option +」をショートカットとして使用しています。システムがアクセシビリティの許可を必要としています";
+"Auth Accessibility" = "アクセシビリティ権限を付与する";
+"Clear Option Shortcuts" = "「Option +」ショートカットをクリア";

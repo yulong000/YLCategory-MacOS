@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString *YLShortcutLocalizeString(NSString *key, NSString *comment);
+
 @interface YLShortcutManager : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -50,6 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isShortcut:(MASShortcut *)shortcut alreadyTakenInMenu:(NSMenu *) menu explanation:(NSString * _Nullable * _Nullable)explanation;
 /// 快捷键是否被系统占用，包含了菜单栏
 - (BOOL)isShortcutAlreadyTakenBySystem:(MASShortcut *)shortcut explanation:(NSString * _Nullable * _Nullable)explanation;
+
+/// 弹窗提醒，因Option无法使用，需授权辅助功能权限，点击授权，会退出app并打开授权页面，点了清空，会回调
+- (void)showAuthAccessbilityAlertForOptionModifierWithClearHandler:(dispatch_block_t)clearHandler;
 
 @end
 

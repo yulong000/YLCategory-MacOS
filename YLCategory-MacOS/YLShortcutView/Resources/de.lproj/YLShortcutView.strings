@@ -15,3 +15,8 @@
 "End editing" = "Bearbeitung beenden";
 "Shortcut has been registered by system" = "Die Verknüpfung wurde vom System registriert";
 "Control keys are unavailable" = "Steuerungstasten sind nicht verfügbar";
+
+"Kind tips" = "Hinweis";
+"Option Modifier Tips" = "Sie verwenden 'Option +' als Shortcut, und das System erfordert Zugriffsrechte, um es zu verwenden";
+"Auth Accessibility" = "Zugriffserlaubnis erteilen";
+"Clear Option Shortcuts" = "Option+'-Shortcut löschen";

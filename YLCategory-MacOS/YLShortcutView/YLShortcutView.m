@@ -8,15 +8,6 @@
 #import "YLShortcutView.h"
 #import "YLHud.h"
 
-NSString *YLShortcutLocalizeString(NSString *key, NSString *comment) {
-    static NSBundle *bundle = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleForClass:[YLShortcutView class]];
-    });
-    return [bundle localizedStringForKey:key value:@"" table:@"YLShortcutView"];
-}
-
 @interface YLShortcutView ()
 
 @property (nonatomic, strong) NSButton *shortcutBtn;

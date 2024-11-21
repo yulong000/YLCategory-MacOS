@@ -15,3 +15,8 @@
 "End editing" = "편집 종료";
 "Shortcut has been registered by system" = "단축키가 시스템에 의해 등록되었습니다";
 "Control keys are unavailable" = "컨트롤 키를 사용할 수 없습니다";
+
+"Kind tips" = "친절한 안내";
+"Option Modifier Tips" = "'Option +'을(를) 단축키로 사용하고 있습니다. 시스템에서 접근성 권한이 필요합니다";
+"Auth Accessibility" = "접근성 권한 부여";
+"Clear Option Shortcuts" = "'Option +' 단축키 지우기";
