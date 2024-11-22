@@ -1,5 +1,6 @@
 #import "MASShortcutValidator.h"
 #import "MASLocalization.h"
+#import "MASHotKey.h"
 
 @implementation MASShortcutValidator
 
@@ -57,7 +58,7 @@
         if(((flags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption) ||
            (flags & NSEventModifierFlagDeviceIndependentFlagsMask) == (NSEventModifierFlagOption | NSEventModifierFlagShift)) {
             // Option + keyCode 或者  Option + Shift + keyCode
-            if(AXIsProcessTrusted() == NO) {
+            if(shortcut.keyCode != kVK_Space && AXIsProcessTrusted() == NO) {
                 return NO;
             }
         }
