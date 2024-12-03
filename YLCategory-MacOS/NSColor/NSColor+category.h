@@ -25,6 +25,8 @@ typedef NSColor * _Nonnull (^NSColorAlphaHanlder)(CGFloat alpha);
 
 /// 转成16进制字符串 #FFFFFF或者#FFFFFFAA
 - (NSString *)hexString;
+- (NSString *)hexStringWithAlpha;
+- (NSString *)hexStringWithoutAlpha;
 
 /// 将16进制字符串转换成NSColor
 /// - Parameter hexStr: 16进制字符串，适配 

@@ -16,34 +16,34 @@ typedef void (^YLPropertyValueChangedHandler)(NSString * _Nonnull propertyName, 
 #pragma mark - 通知
 
 /// 发送通知
-- (void)postNotificationWithName:(NSString * _Nonnull)name;
-- (void)postNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
+- (void)postNotificationWithName:(NSNotificationName _Nonnull)name;
+- (void)postNotificationWithName:(NSNotificationName _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
 /// 监听通知
-- (void)addNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
+- (void)addNotificationName:(NSNotificationName _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
 /// 移除所有监听通知
 - (void)removeAllNotifications;
 /// 移除某个监听通知
-- (void)removeNotificationName:(NSString * _Nonnull)name;
+- (void)removeNotificationName:(NSNotificationName _Nonnull)name;
 
 /// 发送分布式通知
-- (void)postDistributedNotificationWithName:(NSString * _Nonnull)name;
-- (void)postDistributedNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
+- (void)postDistributedNotificationWithName:(NSNotificationName _Nonnull)name;
+- (void)postDistributedNotificationWithName:(NSNotificationName _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
 /// 监听分布式通知
-- (void)addDistributedNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
+- (void)addDistributedNotificationName:(NSNotificationName _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
 /// 移除所有分布式监听通知
 - (void)removeAllDistributedNotifications;
 /// 移除某个分布式监听通知
-- (void)removeDistributedNotificationName:(NSString * _Nonnull)name;
+- (void)removeDistributedNotificationName:(NSNotificationName _Nonnull)name;
 
 /// 发送系统通知
-- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name;
-- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
+- (void)postWorkspaceNotificationWithName:(NSNotificationName _Nonnull)name;
+- (void)postWorkspaceNotificationWithName:(NSNotificationName _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo;
 /// 监听系统通知
-- (void)addWorkspaceNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
+- (void)addWorkspaceNotificationName:(NSNotificationName _Nonnull)name handler:(YLNotificationHandler _Nullable)handler;
 /// 移除所有系统监听通知
 - (void)removeAllWorkspaceNotifications;
 /// 移除某个系统监听通知
-- (void)removeWorkspaceNotificationName:(NSString * _Nonnull)name;
+- (void)removeWorkspaceNotificationName:(NSNotificationName _Nonnull)name;
 
 #pragma mark - 事件监听
 

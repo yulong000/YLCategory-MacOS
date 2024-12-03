@@ -40,6 +40,22 @@
     return [NSString stringWithFormat:@"#%02X%02X%02X%02X", r, g, b, a];
 }
 
+- (NSString *)hexStringWithAlpha {
+    unsigned r = (unsigned)(self.redComponent * 255);
+    unsigned g = (unsigned)(self.greenComponent * 255);
+    unsigned b = (unsigned)(self.blueComponent * 255);
+    unsigned a = (unsigned)(self.alphaComponent * 255);
+    return [NSString stringWithFormat:@"#%02X%02X%02X%02X", r, g, b, a];
+}
+
+- (NSString *)hexStringWithoutAlpha {
+    unsigned r = (unsigned)(self.redComponent * 255);
+    unsigned g = (unsigned)(self.greenComponent * 255);
+    unsigned b = (unsigned)(self.blueComponent * 255);
+    unsigned a = (unsigned)(self.alphaComponent * 255);
+    return [NSString stringWithFormat:@"#%02X%02X%02X", r, g, b];
+}
+
 + (NSColor *)colorWithHexString:(NSString *)hexStr {
     if([hexStr isKindOfClass:[NSString class]] == NO || hexStr.length < 3 || hexStr.length > 9) {
         NSLog(@"%s 传入的字符串格式不正确", __FUNCTION__);

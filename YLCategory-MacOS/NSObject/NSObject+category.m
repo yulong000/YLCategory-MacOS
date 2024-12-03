@@ -84,15 +84,15 @@
 
 #pragma mark - 通知事件
 
-- (void)postNotificationWithName:(NSString *)name {
+- (void)postNotificationWithName:(NSNotificationName)name {
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:nil];
 }
 
-- (void)postNotificationWithName:(NSString *)name userInfo:(NSDictionary *)userInfo {
+- (void)postNotificationWithName:(NSNotificationName)name userInfo:(NSDictionary *)userInfo {
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo];
 }
 
-- (void)addNotificationName:(NSString *)name handler:(YLNotificationHandler)handler {
+- (void)addNotificationName:(NSNotificationName)name handler:(YLNotificationHandler)handler {
     if(name.isValidString == NO || handler == nil)  return;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yl_notificationMsg:) name:name object:nil];
     if(self.yl_noteDict == nil) {
@@ -108,7 +108,7 @@
     }
 }
 
-- (void)removeNotificationName:(NSString *)name {
+- (void)removeNotificationName:(NSNotificationName)name {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
     [self.yl_noteDict removeObjectForKey:name];
 }
@@ -128,15 +128,15 @@
 
 #pragma mark - 分布式通知事件
 
-- (void)postDistributedNotificationWithName:(NSString *)name {
+- (void)postDistributedNotificationWithName:(NSNotificationName)name {
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:nil deliverImmediately:YES];
 }
 
-- (void)postDistributedNotificationWithName:(NSString *)name userInfo:(NSDictionary *)userInfo {
+- (void)postDistributedNotificationWithName:(NSNotificationName)name userInfo:(NSDictionary *)userInfo {
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo deliverImmediately:YES];
 }
 
-- (void)addDistributedNotificationName:(NSString *)name handler:(YLNotificationHandler)handler {
+- (void)addDistributedNotificationName:(NSNotificationName)name handler:(YLNotificationHandler)handler {
     if(name.isValidString == NO || handler == nil)  return;
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(yl_DistributedNotificationMsg:) name:name object:nil suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
     if(self.yl_distributedNoteDict == nil) {
@@ -152,7 +152,7 @@
     }
 }
 
-- (void)removeDistributedNotificationName:(NSString *)name {
+- (void)removeDistributedNotificationName:(NSNotificationName)name {
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
     [self.yl_distributedNoteDict removeObjectForKey:name];
 }
@@ -172,15 +172,15 @@
 
 
 #pragma mark - 系统通知
-- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name {
+- (void)postWorkspaceNotificationWithName:(NSNotificationName _Nonnull)name {
     [[NSWorkspace sharedWorkspace].notificationCenter postNotificationName:name object:nil];
 }
 
-- (void)postWorkspaceNotificationWithName:(NSString * _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo {
+- (void)postWorkspaceNotificationWithName:(NSNotificationName _Nonnull)name userInfo:(NSDictionary * _Nullable)userInfo {
     [[NSWorkspace sharedWorkspace].notificationCenter postNotificationName:name object:nil userInfo:userInfo];
 }
 
-- (void)addWorkspaceNotificationName:(NSString * _Nonnull)name handler:(YLNotificationHandler _Nullable)handler {
+- (void)addWorkspaceNotificationName:(NSNotificationName _Nonnull)name handler:(YLNotificationHandler _Nullable)handler {
     if(name.isValidString == NO || handler == nil)  return;
     [[NSWorkspace sharedWorkspace].notificationCenter addObserver:self selector:@selector(yl_workspaceNotificationMsg:) name:name object:nil];
     if(self.yl_workspaceNoteDict == nil) {
@@ -201,7 +201,7 @@
     [self.yl_workspaceNoteDict removeAllObjects];
 }
 
-- (void)removeWorkspaceNotificationName:(NSString * _Nonnull)name {
+- (void)removeWorkspaceNotificationName:(NSNotificationName _Nonnull)name {
     [[NSWorkspace sharedWorkspace].notificationCenter removeObserver:self name:name object:nil];
     [self.yl_workspaceNoteDict removeObjectForKey:name];
 }
