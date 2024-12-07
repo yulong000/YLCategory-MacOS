@@ -11,6 +11,8 @@
 "Click to download" = "Cliquez pour télécharger";
 "OS Expire Tips" = "%@ n'est pas compatible avec la version actuelle du système. Veuillez mettre à jour vers la dernière version pour l'utiliser normalement.";
 "Click to update" = "Cliquez pour mettre à jour";
+"Quit" = "Quitter";
+"Force Update Tips" = "La version actuelle de l'application est trop basse, veuillez mettre à jour vers la dernière version";
 
 "Kind tips" = "Conseils gentils";
 "Sure" = "Sûr";

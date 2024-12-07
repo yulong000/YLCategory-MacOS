@@ -11,6 +11,8 @@
 "Click to download" = "點此下載";
 "OS Expire Tips" = "%@與當前系統版本不適配，需要更新到最新版本方可正常使用。";
 "Click to update" = "點此更新";
+"Quit" = "退出";
+"Force Update Tips" = "當前App版本過低，請更新到最新版";
 
 "Kind tips" = "溫馨提示";
 "Sure" = "確定";

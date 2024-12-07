@@ -11,6 +11,8 @@
 "Click to download" = "다운로드하려면 클릭";
 "OS Expire Tips" = "%@는 현재 시스템 버전과 호환되지 않습니다. 정상적으로 사용하려면 최신 버전으로 업데이트하십시오.";
 "Click to update" = "업데이트하려면 클릭";
+"Quit" = "종료";
+"Force Update Tips" = "현재 앱 버전이 너무 낮습니다. 최신 버전으로 업데이트하세요.";
 
 "Kind tips" = "친절한 안내";
 "Sure" = "확인";

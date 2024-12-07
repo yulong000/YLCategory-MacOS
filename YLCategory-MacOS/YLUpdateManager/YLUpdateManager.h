@@ -15,8 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// app ID（app store版）
 @property (nonatomic, copy, readwrite)   NSString *appID;
+/// 强制更新地址（app store版）
+@property (nonatomic, copy, readwrite, nullable)   NSString *forceUpdateUrl;
 /// 下载地址（线下版）
-@property (nonatomic, copy, readwrite)   NSString *offlineDownloadUrl;
+@property (nonatomic, copy, readwrite, nullable)   NSString *offlineDownloadUrl;
 
 /// app store 版本，根据app ID生成的链接
 /// app应用商店地址
