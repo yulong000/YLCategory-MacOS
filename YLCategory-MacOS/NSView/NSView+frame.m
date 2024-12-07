@@ -305,7 +305,7 @@
     };
 }
 
-- (YLEqualToSuperView)right_equalToSuper{
+- (YLEqualToSuperView)right_equalToSuper {
     __weak typeof(self) weakSelf = self;
     return ^ {
         weakSelf.right = weakSelf.superview.width;
@@ -412,10 +412,12 @@
 
 - (YLEdgeToSuperView)edgeToSuper {
     __weak typeof(self) weakSelf = self;
-    return ^ (NSEdgeInsets insets) {
-        weakSelf.size = NSMakeSize(weakSelf.superview.width - insets.left - insets.right, weakSelf.superview.height - insets.top - insets.bottom);
-        weakSelf.left = insets.left;
-        weakSelf.top = insets.top;
+    return ^ (CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+        NSRect frame = NSZeroRect;
+        frame.size = NSMakeSize(weakSelf.superview.width - left - right, weakSelf.superview.height - top - bottom);
+        frame.origin.x = left;
+        frame.origin.y = top;
+        weakSelf.frame = frame;
         return weakSelf;
     };
 }
