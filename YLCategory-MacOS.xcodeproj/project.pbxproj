@@ -185,6 +185,7 @@
 		0080A52A2D07091200EEFEA2 /* Macro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
 		0080A52B2D07091200EEFEA2 /* YLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YLLog.swift; sourceTree = "<group>"; };
 		0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extension.swift"; sourceTree = "<group>"; };
+		0080A5352D07407C00EEFEA2 /* YLCategory-MacOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YLCategory-MacOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		008AFE832CD32D45007C460F /* YLFileAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLFileAccess.h; sourceTree = "<group>"; };
 		008AFE842CD32D45007C460F /* YLFileAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLFileAccess.m; sourceTree = "<group>"; };
 		008AFE872CD32D6C007C460F /* AppSandboxFileAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSandboxFileAccess.h; sourceTree = "<group>"; };
@@ -557,6 +558,7 @@
 		0080A5292D0708FC00EEFEA2 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				0080A5352D07407C00EEFEA2 /* YLCategory-MacOS-Bridging-Header.h */,
 				0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */,
 				0080A52A2D07091200EEFEA2 /* Macro.swift */,
 				0080A52B2D07091200EEFEA2 /* YLLog.swift */,
@@ -1334,6 +1336,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Swift/YLCategory-MacOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1366,6 +1369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Swift/YLCategory-MacOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

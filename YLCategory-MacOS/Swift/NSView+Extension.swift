@@ -8,7 +8,7 @@
 import Cocoa
 
 public extension NSView {
-    
+    /*
     /// x值
     var x: CGFloat {
         set {
@@ -172,6 +172,8 @@ public extension NSView {
         return NSMakePoint(self.width / 2, self.height / 2)
     }
     
+     */
+     
     /// 设置x值
     @discardableResult
     func x(is value: CGFloat) -> NSView {

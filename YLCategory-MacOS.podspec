@@ -165,7 +165,8 @@ ss.resource      =   'YLCategory-MacOS/YLFileAccess/Resources/*'
 end
 
 s.subspec 'Swift' do |ss|
-ss.source_files  =   'YLCategory-MacOS/**/*.{h,m,swift}'
+ss.source_files  =   'YLCategory-MacOS/Swift/*.{h,m,swift}'
+ss.dependency        'YLCategory-MacOS/NSView'
 end
   
 end
