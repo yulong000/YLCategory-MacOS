@@ -555,17 +555,6 @@
 			path = YLCollectionView;
 			sourceTree = "<group>";
 		};
-		0080A5292D0708FC00EEFEA2 /* Swift */ = {
-			isa = PBXGroup;
-			children = (
-				0080A5352D07407C00EEFEA2 /* YLCategory-MacOS-Bridging-Header.h */,
-				0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */,
-				0080A52A2D07091200EEFEA2 /* Macro.swift */,
-				0080A52B2D07091200EEFEA2 /* YLLog.swift */,
-			);
-			path = Swift;
-			sourceTree = "<group>";
-		};
 		008AFE822CD32D22007C460F /* YLFileAccess */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,7 +608,6 @@
 			isa = PBXGroup;
 			children = (
 				00A979AC29E92D870066F7C7 /* YLCategory.h */,
-				0080A5292D0708FC00EEFEA2 /* Swift */,
 				008AFE822CD32D22007C460F /* YLFileAccess */,
 				004C1E6D2CD235AE00890A67 /* YLUpdateManager */,
 				004C1E692CD233B400890A67 /* YLAppRating */,
@@ -682,6 +670,10 @@
 		00A9799229E92D870066F7C7 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0080A5352D07407C00EEFEA2 /* YLCategory-MacOS-Bridging-Header.h */,
+				0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */,
+				0080A52A2D07091200EEFEA2 /* Macro.swift */,
+				0080A52B2D07091200EEFEA2 /* YLLog.swift */,
 				00E8C0CA2BA163BE00C37E97 /* XcodeLog.m */,
 				00A9799329E92D870066F7C7 /* Macro.h */,
 			);
@@ -1336,7 +1328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Swift/YLCategory-MacOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Other/YLCategory-MacOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1369,7 +1361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Swift/YLCategory-MacOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Other/YLCategory-MacOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

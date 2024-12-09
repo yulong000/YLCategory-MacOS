@@ -21,7 +21,8 @@ s.requires_arc          = true
 s.swift_version         = ['5.0']
 
 s.subspec 'Other' do |ss|
-ss.source_files  =   'YLCategory-MacOS/Other/*.{h,m}'
+ss.source_files  =   'YLCategory-MacOS/Other/**/*.{h,m,swift}'
+ss.dependency        'YLCategory-MacOS/NSView'
 end
 
 s.subspec 'NSArray' do |ss|
@@ -162,11 +163,6 @@ end
 s.subspec 'YLFileAccess' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLFileAccess/**/*.{h,m}'
 ss.resource      =   'YLCategory-MacOS/YLFileAccess/Resources/*'
-end
-
-s.subspec 'Swift' do |ss|
-ss.source_files  =   'YLCategory-MacOS/Swift/*.{h,m,swift}'
-ss.dependency        'YLCategory-MacOS/NSView'
 end
   
 end
