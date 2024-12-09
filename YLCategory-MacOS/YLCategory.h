@@ -11,7 +11,9 @@
 #import "Macro.h"
 #import "NSButton+category.h"
 #import "NSTextField+category.h"
+#ifdef __OBJC__
 #import "NSView+frame.h"
+#endif
 #import "NSView+category.h"
 #import "NSView+gesture.h"
 #import "NSControl+category.h"

@@ -52,7 +52,6 @@
     unsigned r = (unsigned)(self.redComponent * 255);
     unsigned g = (unsigned)(self.greenComponent * 255);
     unsigned b = (unsigned)(self.blueComponent * 255);
-    unsigned a = (unsigned)(self.alphaComponent * 255);
     return [NSString stringWithFormat:@"#%02X%02X%02X", r, g, b];
 }
 

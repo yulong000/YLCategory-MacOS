@@ -198,7 +198,7 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
     } else if ([self.currentElement isEqualToString:@"MiniVersion"]) {
         self.update.MiniVersion = string;
     } else if ([self.currentElement isEqualToString:@"ForceUpdateToTheLastest"]) {
-        self.update.ForceUpdateToTheLastest = string;
+        self.update.ForceUpdateToTheLastest = [string boolValue];
     }
 }
 

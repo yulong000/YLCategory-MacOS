@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = "YLCategory-MacOS"
-s.version               = "1.1.5"
+s.version               = "1.1.6"
 s.summary               = "macos app开发常用分类"
 s.homepage              = "https://github.com/yulong000/YLCategory-MacOS"
 s.license               = { :type => 'MIT', :file => 'LICENSE'}
@@ -18,6 +18,7 @@ s.platform              = :macos, "10.14"
 s.source                = { :git => "https://github.com/yulong000/YLCategory-MacOS.git", :tag => "#{s.version}" }
 s.source_files          = "YLCategory-MacOS/YLCategory.h"
 s.requires_arc          = true
+s.swift_version         = ['5.0']
 
 s.subspec 'Other' do |ss|
 ss.source_files  =   'YLCategory-MacOS/Other/*.{h,m}'
@@ -162,6 +163,10 @@ s.subspec 'YLFileAccess' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLFileAccess/**/*.{h,m}'
 ss.resource      =   'YLCategory-MacOS/YLFileAccess/Resources/*'
 end
+
+s.subspec 'Swift' do |ss|
+ss.source_files  =   'YLCategory-MacOS/**/*.{h,m,swift}'
+end
   
 end
 
@@ -170,7 +175,10 @@ end
 #        2.push tag
 #        3.pod trunk push YLCategory-MacOS.podspec --allow-warnings --use-libraries
 
-#        pod spec lint YLCategory-MacOS.podspec --use-libraries  验证podspec文件
+#        pod spec lint YLCategory-MacOS.podspec --use-libraries  验证远端的podspec文件
+#        pod lib lint YLCategory-MacOS.podspec --use-libraries   验证本地的podspec文件
 #        --use-libraries 有第三方库依赖，添加该参数
 
 #        pod trunk delete YLCategory-MacOS x.x.x  删除已发布的某个版本
+
+
