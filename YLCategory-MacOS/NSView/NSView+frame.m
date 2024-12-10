@@ -412,11 +412,11 @@
 
 - (YLEdgeToSuperView)edgeToSuper {
     __weak typeof(self) weakSelf = self;
-    return ^ (CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+    return ^ (NSEdgeInsets insets) {
         NSRect frame = NSZeroRect;
-        frame.size = NSMakeSize(weakSelf.superview.width - left - right, weakSelf.superview.height - top - bottom);
-        frame.origin.x = left;
-        frame.origin.y = top;
+        frame.size = NSMakeSize(weakSelf.superview.width - insets.left - insets.right, weakSelf.superview.height - insets.top - insets.bottom);
+        frame.origin.x = insets.left;
+        frame.origin.y = insets.top;
         weakSelf.frame = frame;
         return weakSelf;
     };

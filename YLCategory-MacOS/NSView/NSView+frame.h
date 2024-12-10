@@ -17,7 +17,7 @@ typedef NSView * _Nonnull (^YLEqualToViewWithOffset)(NSView *otherView, CGFloat 
 typedef NSView * _Nonnull (^YLSpaceToView)(NSView *otherView, CGFloat space);
 typedef NSView * _Nonnull (^YLEqualToSuperView)(void);
 typedef NSView * _Nonnull (^YLSpaceToSuperView)(CGFloat space);
-typedef NSView * _Nonnull (^YLEdgeToSuperView)(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+typedef NSView * _Nonnull (^YLEdgeToSuperView)(NSEdgeInsets insets);
 typedef NSView * _Nonnull (^YLOffset)(CGFloat offset);
 
 @interface NSView (frame)
