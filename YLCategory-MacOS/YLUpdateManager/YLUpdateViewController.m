@@ -98,6 +98,7 @@
 - (NSButton *)updateBtn {
     if(_updateBtn == nil) {
         _updateBtn = [NSButton buttonWithTitle:YLUpdateManagerLocalizeString(@"Update") target:self action:@selector(update:)];
+        _updateBtn.bezelColor = NSColor.controlAccentColor;
     }
     return _updateBtn;
 }

@@ -41,9 +41,6 @@
 		006AA1A22A9F34F80084F02F /* YLUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A12A9F34F80084F02F /* YLUserDefaults.m */; };
 		006AA1A62A9F3A970084F02F /* YLWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A52A9F3A970084F02F /* YLWeakTimer.m */; };
 		006AA1AA2A9F3B190084F02F /* YLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006AA1A82A9F3B190084F02F /* YLCollectionView.m */; };
-		0080A52C2D07091200EEFEA2 /* YLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0080A52B2D07091200EEFEA2 /* YLLog.swift */; };
-		0080A52D2D07091200EEFEA2 /* Macro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0080A52A2D07091200EEFEA2 /* Macro.swift */; };
-		0080A5302D07093000EEFEA2 /* NSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */; };
 		008AFE852CD32D45007C460F /* YLFileAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE842CD32D45007C460F /* YLFileAccess.m */; };
 		008AFE8E2CD32D6C007C460F /* AppSandboxFileAccessPersist.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE8C2CD32D6C007C460F /* AppSandboxFileAccessPersist.m */; };
 		008AFE8F2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AFE8A2CD32D6C007C460F /* AppSandboxFileAccessOpenSavePanelDelegate.m */; };
@@ -182,10 +179,6 @@
 		006AA1A52A9F3A970084F02F /* YLWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLWeakTimer.m; sourceTree = "<group>"; };
 		006AA1A82A9F3B190084F02F /* YLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionView.m; sourceTree = "<group>"; };
 		006AA1A92A9F3B190084F02F /* YLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionView.h; sourceTree = "<group>"; };
-		0080A52A2D07091200EEFEA2 /* Macro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
-		0080A52B2D07091200EEFEA2 /* YLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YLLog.swift; sourceTree = "<group>"; };
-		0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extension.swift"; sourceTree = "<group>"; };
-		0080A5352D07407C00EEFEA2 /* YLCategory-MacOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YLCategory-MacOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		008AFE832CD32D45007C460F /* YLFileAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLFileAccess.h; sourceTree = "<group>"; };
 		008AFE842CD32D45007C460F /* YLFileAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLFileAccess.m; sourceTree = "<group>"; };
 		008AFE872CD32D6C007C460F /* AppSandboxFileAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSandboxFileAccess.h; sourceTree = "<group>"; };
@@ -670,10 +663,6 @@
 		00A9799229E92D870066F7C7 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				0080A5352D07407C00EEFEA2 /* YLCategory-MacOS-Bridging-Header.h */,
-				0080A52F2D07093000EEFEA2 /* NSView+Extension.swift */,
-				0080A52A2D07091200EEFEA2 /* Macro.swift */,
-				0080A52B2D07091200EEFEA2 /* YLLog.swift */,
 				00E8C0CA2BA163BE00C37E97 /* XcodeLog.m */,
 				00A9799329E92D870066F7C7 /* Macro.h */,
 			);
@@ -990,7 +979,6 @@
 				004C1E242CD22A4200890A67 /* YLPermissionWindowController.m in Sources */,
 				00F662682CCE052F00EF1D93 /* MASDictionaryTransformer.m in Sources */,
 				004C1E552CD22F5D00890A67 /* YLWindowButton.m in Sources */,
-				0080A5302D07093000EEFEA2 /* NSView+Extension.swift in Sources */,
 				00A979CA29E92D870066F7C7 /* NSButton+category.m in Sources */,
 				004C1E452CD22E1400890A67 /* YLLanguageModel.m in Sources */,
 				008AFE8E2CD32D6C007C460F /* AppSandboxFileAccessPersist.m in Sources */,
@@ -1011,8 +999,6 @@
 				00F6625E2CCE050A00EF1D93 /* MASShortcutViewButtonCell.m in Sources */,
 				00F6625F2CCE050A00EF1D93 /* MASLocalization.m in Sources */,
 				0001BAE42CD4B09500656EA5 /* YLShortcutManager.m in Sources */,
-				0080A52C2D07091200EEFEA2 /* YLLog.swift in Sources */,
-				0080A52D2D07091200EEFEA2 /* Macro.swift in Sources */,
 				00F662602CCE050A00EF1D93 /* MASShortcutView+Bindings.m in Sources */,
 				00F662612CCE050A00EF1D93 /* MASShortcutView.m in Sources */,
 				00F662542CCE04F800EF1D93 /* MASHotKey.m in Sources */,
@@ -1328,7 +1314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Other/YLCategory-MacOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1361,7 +1347,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wyl.YLCategory-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/YLCategory-MacOS/Other/YLCategory-MacOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
