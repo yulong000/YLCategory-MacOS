@@ -64,9 +64,15 @@
             [weakSelf.permissionWC.window orderFrontRegardless];
         } else {
             static int second = 0;
+            static int retryCount = 0; // 如果获取到有权限未授权，重新获取，超过一定次数，则判断为未全部授权，防止系统问题引起的授权窗口弹出
             if(++second >= repeatSeconds) {
+                second = 0;
                 // 达到了设置的间隔秒数
                 if([weakSelf allAuthPassed] == NO) {
+                    if (++retryCount < 3) {
+                        return;
+                    }
+                    retryCount = 0;
                     // 有权限未授权，弹出授权窗口
                     if(weakSelf.permissionWC == nil) {
                         weakSelf.permissionWC = [[YLPermissionWindowController alloc] init];
@@ -79,7 +85,6 @@
                         weakSelf.permissionWC.permissionVc.authTypes = authTypes;
                     }
                     [weakSelf.permissionWC.window orderFrontRegardless];
-                    second = 0;
                 } else {
                     // 都已授权
                     if(weakSelf.permissionWC) {
