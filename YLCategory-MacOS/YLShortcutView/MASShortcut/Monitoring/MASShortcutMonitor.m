@@ -32,7 +32,7 @@ void system_volume_set(Float32 volume);
 @property(assign) CFRunLoopSourceRef runloopSourceRef;
 @property(assign) CFMachPortRef tap;
 
-/// 监听辅助功能权限
+// 监听辅助功能权限
 @property (nonatomic, strong) dispatch_source_t timer;
 
 @end
@@ -52,11 +52,14 @@ void system_volume_set(Float32 volume);
     if (status != noErr) {
         return nil;
     }
-    // 监听辅助功能权限
-    [self monitorAccessibilityPermissionDidChanged];
-    // 监听错误提示音播放
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemBeepNotification) name:@"com.apple.systemBeep" object:nil];
     
+    if ([self optionModifierInvalidInCurrentSystem]) {
+        // 监听辅助功能权限
+        [self monitorAccessibilityPermissionDidChanged];
+        // 监听错误提示音播放
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemBeepNotification) name:@"com.apple.systemBeep" object:nil];
+    }
+   
     return self;
 }
 
@@ -72,8 +75,10 @@ void system_volume_set(Float32 volume);
         _timer = nil;
     }
     
-    [self unregisterKeyDownSourceRef];
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+    if ([self optionModifierInvalidInCurrentSystem]) {
+        [self unregisterKeyDownSourceRef];
+        [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 + (instancetype) sharedMonitor
@@ -86,17 +91,24 @@ void system_volume_set(Float32 volume);
     return sharedInstance;
 }
 
+
+#pragma mark 含有option的修饰键在该系统版本下是否失效
+- (BOOL)optionModifierInvalidInCurrentSystem {
+    if (@available(macOS 15.3, *))  return NO;
+    if (@available(macOS 15.0, *))  return YES;
+    return NO;
+}
+
 #pragma mark 监听辅助功能权限的变化
 - (void)monitorAccessibilityPermissionDidChanged {
-    if(@available(macOS 15.0, *)) {
+    if ([self optionModifierInvalidInCurrentSystem]) {
         if(_timer == nil) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
             dispatch_source_set_timer(_timer, dispatch_time(DISPATCH_TIME_NOW, 0), 1 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
             dispatch_source_set_event_handler(_timer, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    BOOL trusted = AXIsProcessTrusted();
-                    if(trusted == NO) {
+                    if([self accessibilityIsEnabled] == NO) {
                         // 辅助功能已关闭，注销keydown监听，防止卡系统
                         [self unregisterKeyDownSourceRef];
                     } else {
@@ -109,9 +121,14 @@ void system_volume_set(Float32 volume);
     }
 }
 
+#pragma mark 请求辅助功能权限
+- (BOOL)accessibilityIsEnabled {
+    return AXIsProcessTrusted();
+}
+
 - (BOOL)registerKeyDownSourceRef {
     if(_runloopSourceRef == nil) {
-        _tap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, CGEventMaskBit(kCGEventKeyDown), MASKeyDownEventCallBack, (__bridge void*)self);
+        _tap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, CGEventMaskBit(kCGEventKeyDown), MASKeyDownEventCallBack, (__bridge void *)self);
         if(_tap == nil) {
             return NO;
         }
@@ -150,9 +167,9 @@ void system_volume_set(Float32 volume);
         if((shortcut.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption ||
            (shortcut.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == (NSEventModifierFlagOption | NSEventModifierFlagShift)) {
             // 设置的是option + key, 在macos15上失效
-            if(@available(macOS 15.0, *)) {
+            if([self optionModifierInvalidInCurrentSystem]) {
                 // 请求辅助功能权限
-                if(AXIsProcessTrusted()) {
+                if([self accessibilityIsEnabled]) {
                     if([self registerKeyDownSourceRef] == NO) {
                         return NO;
                     }
@@ -204,6 +221,7 @@ void system_volume_set(Float32 volume);
 - (void) unregisterAllShortcuts
 {
     [_hotKeys removeAllObjects];
+    [_ignoreHotKeyArr removeAllObjects];
 }
 
 - (BOOL) isShortcutRegistered: (MASShortcut*) shortcut

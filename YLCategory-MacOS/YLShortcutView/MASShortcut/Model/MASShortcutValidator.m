@@ -1,6 +1,7 @@
 #import "MASShortcutValidator.h"
 #import "MASLocalization.h"
 #import "MASHotKey.h"
+#import "MASShortcutMonitor.h"
 
 @implementation MASShortcutValidator
 
@@ -53,12 +54,12 @@
 }
 
 - (BOOL)isShortcutValidWithOptionModifier:(MASShortcut *)shortcut {
-    if(@available(macOS 15.0, *)) {
+    if([[MASShortcutMonitor sharedMonitor] optionModifierInvalidInCurrentSystem]) {
         NSEventModifierFlags flags = shortcut.modifierFlags;
         if(((flags & NSEventModifierFlagDeviceIndependentFlagsMask) == NSEventModifierFlagOption) ||
            (flags & NSEventModifierFlagDeviceIndependentFlagsMask) == (NSEventModifierFlagOption | NSEventModifierFlagShift)) {
             // Option + keyCode 或者  Option + Shift + keyCode
-            if(shortcut.keyCode != kVK_Space && AXIsProcessTrusted() == NO) {
+            if(shortcut.keyCode != kVK_Space && [MASShortcutMonitor sharedMonitor].accessibilityIsEnabled == NO) {
                 return NO;
             }
         }

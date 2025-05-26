@@ -24,6 +24,9 @@
 - (void) unregisterShortcut: (MASShortcut*) shortcut;
 - (void) unregisterAllShortcuts;
 
+- (BOOL)optionModifierInvalidInCurrentSystem;
+- (BOOL)accessibilityIsEnabled;
+
 /// 暂停监控某个快捷键
 - (void)pauseMonitorShortcut:(MASShortcut *)shortcut;
 /// 继续监听某个快捷键

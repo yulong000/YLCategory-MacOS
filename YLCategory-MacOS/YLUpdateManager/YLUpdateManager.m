@@ -21,141 +21,6 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
    return [bundle localizedStringForKey:key value:@"" table:@"YLUpdateManager"];
 }
 
-#if OFFLINE
-#import <Sparkle/Sparkle.h>
-
-@interface YLUpdateManager () <SPUUpdaterDelegate, SPUStandardUserDriverDelegate>
-
-@property (nonatomic, strong) SPUStandardUpdaterController *updateController;
-
-@end
-
-@implementation YLUpdateManager
-
-+ (instancetype)share {
-    static YLUpdateManager *manager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        manager = [[YLUpdateManager alloc] init];
-    });
-    return manager;
-}
-
-- (instancetype)init {
-    if(self = [super init]) {
-        self.updateController = [[SPUStandardUpdaterController alloc] initWithStartingUpdater:YES updaterDelegate:self userDriverDelegate:self];
-        self.updateController.updater.automaticallyChecksForUpdates = YES;
-    }
-    return self;
-}
-
-- (void)checkForUpdatesInBackground {
-    [self.updateController.updater checkForUpdatesInBackground];
-}
-
-- (IBAction)checkForUpdates:(nullable id)sender {
-    [self.updateController checkForUpdates:sender];
-}
-
-#pragma mark - 根据日期和系统版本判断试用到期
-- (void)judgeAppExpireWithDate:(NSString *)dateString andOSVersion:(NSString *)osVersion {
-    if([self judgeAppExpireWithDate:dateString] == NO) {
-        [self judgeAppExpireWithOSVersion:osVersion];
-    }
-}
-
-#pragma mark  根据日期判断试用到期
-- (BOOL)judgeAppExpireWithDate:(NSString *)dateString {
-    if([YLUpdateManager share].offlineDownloadUrl == nil) {
-        return NO;
-    }
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *date = [formatter dateFromString:dateString];
-    if([[NSDate date] timeIntervalSinceDate:date] > 0) {
-        // 过期了
-        [NSApp activateIgnoringOtherApps:YES];
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.alertStyle = NSAlertStyleWarning;
-        alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
-        alert.informativeText = [NSString stringWithFormat:YLUpdateManagerLocalizeString(@"Expire Tips"), kAPP_Name];
-        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to download")];
-        NSModalResponse returnCode = [alert runModal];
-        if(returnCode == NSAlertFirstButtonReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[YLUpdateManager share].offlineDownloadUrl]];
-            [NSApp terminate:nil];
-        }
-        return YES;
-    }
-    return NO;
-}
-
-#pragma mark 根据系统版本判断试用到期
-- (BOOL)judgeAppExpireWithOSVersion:(NSString *)osVersion {
-    if([YLUpdateManager share].offlineDownloadUrl == nil) {
-        return NO;
-    }
-    NSOperatingSystemVersion sv = [NSProcessInfo processInfo].operatingSystemVersion;
-    NSString *sysVersion = [NSString stringWithFormat:@"%ld.%ld.%ld", sv.majorVersion, sv.minorVersion, sv.patchVersion];
-    if([sysVersion compare:osVersion options:NSNumericSearch] != NSOrderedAscending) {
-        // 大于等于设置的系统版本
-        [NSApp activateIgnoringOtherApps:YES];
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.alertStyle = NSAlertStyleWarning;
-        alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
-        alert.informativeText = [NSString stringWithFormat:YLUpdateManagerLocalizeString(@"OS Expire Tips"), kAPP_Name];
-        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to update")];
-        NSModalResponse returnCode = [alert runModal];
-        if(returnCode == NSAlertFirstButtonReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[YLUpdateManager share].offlineDownloadUrl]];
-            [NSApp terminate:nil];
-        }
-        return YES;
-    }
-    return NO;
-}
-
-#pragma mark - delegate
-
-- (void)updater:(SPUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast {
-    NSLog(@"%s 获取xml文件成功: %@", __FUNCTION__, [appcast.items.firstObject propertiesDictionary]);
-}
-
-- (void)updaterDidNotFindUpdate:(SPUUpdater *)updater {
-    NSLog(@"%s 暂无更新", __FUNCTION__);
-}
-
-- (void)updater:(SPUUpdater *)updater didFindValidUpdate:(nonnull SUAppcastItem *)item {
-    NSLog(@"%s 有可用升级: \nVersion: %@ \nBuild number: %@ \nUrl:%@ \nNote:%@", __FUNCTION__, item.displayVersionString, item.versionString, item.fileURL.absoluteString, item.itemDescription);
-}
-
-- (void)updater:(SPUUpdater *)updater userDidMakeChoice:(SPUUserUpdateChoice)choice forUpdate:(SUAppcastItem *)updateItem state:(SPUUserUpdateState *)state {
-    switch (choice) {
-        case SPUUserUpdateChoiceSkip: {
-            // 跳过
-            NSLog(@"%s 用户点击 跳过这个版本", __FUNCTION__);
-        }
-            break;
-        case SPUUserUpdateChoiceInstall: {
-            // 安装
-            NSLog(@"%s 用户点击 安装更新", __FUNCTION__);
-        }
-            break;
-        case SPUUserUpdateChoiceDismiss: {
-            // 稍后提醒
-            NSLog(@"%s 用户点击 稍后提醒", __FUNCTION__);
-        }
-            break;
-        default:
-            break;
-    }
-}
-
-@end
-
-#else
-
 #pragma mark - xml解析
 
 @interface YLUpdateModel : NSObject
@@ -167,7 +32,11 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
 /// 支持最小版本号，小于该版本号的，强制升级
 @property (nonatomic, copy)   NSString *MiniVersion;
 /// 有新版本，就强制升级
-@property (nonatomic, assign) BOOL ForceUpdateToTheLastest;
+@property (nonatomic, assign) BOOL ForceUpdateToTheLatest;
+/// 过期时间
+@property (nonatomic, copy)   NSString *ExpiredDate;
+/// 过期的系统版本号
+@property (nonatomic, copy)   NSString *ExpiredOSVersion;
 
 @end
 
@@ -197,8 +66,12 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
         self.update.BundleId = string;
     } else if ([self.currentElement isEqualToString:@"MiniVersion"]) {
         self.update.MiniVersion = string;
-    } else if ([self.currentElement isEqualToString:@"ForceUpdateToTheLastest"]) {
-        self.update.ForceUpdateToTheLastest = [string boolValue];
+    } else if ([self.currentElement isEqualToString:@"ForceUpdateToTheLatest"]) {
+        self.update.ForceUpdateToTheLatest = [string boolValue];
+    } else if ([self.currentElement isEqualToString:@"ExpiredDate"]) {
+        self.update.ExpiredDate = string;
+    } else if ([self.currentElement isEqualToString:@"ExpiredOSVersion"]) {
+        self.update.ExpiredOSVersion = string;
     }
 }
 
@@ -274,68 +147,22 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
             if(resp) {
                 int resultCount = [resp[@"resultCount"] intValue];
                 if(resultCount > 0) {
-                    NSString *version = resp[@"results"][0][@"version"]; //线上最新版本
+                    NSString *latestVersion = resp[@"results"][0][@"version"]; //线上最新版本
                     NSString *info = resp[@"results"][0][@"releaseNotes"]; // 升级内容
                     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        if([version compare:appVersion options:NSNumericSearch] == NSOrderedDescending) {
+                        if([latestVersion compare:appVersion options:NSNumericSearch] == NSOrderedDescending) {
                             // 有新版本
                             if(self.forceUpdateUrl && self.forceUpdateUrl.length > 0) {
                                 // 有强制更新的链接
-                                NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:self.forceUpdateUrl] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        if(data && !error) {
-                                            // 解析xml
-                                            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-                                            parser.delegate = self.xmlDelegate;
-                                            [parser parse];
-                                            YLUpdateModel *update = self.xmlDelegate.update;
-                                            if(update) {
-                                                if([update.BundleId isEqualToString:[NSBundle mainBundle].bundleIdentifier]) {
-                                                    if(update.ForceUpdateToTheLastest || [update.MiniVersion compare:appVersion options:NSNumericSearch] == NSOrderedDescending) {
-                                                        // 强制升级到最新版
-                                                        [NSApp activateIgnoringOtherApps:YES];
-                                                        NSAlert *alert = [[NSAlert alloc] init];
-                                                        alert.alertStyle = NSAlertStyleWarning;
-                                                        alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
-                                                        alert.informativeText = YLUpdateManagerLocalizeString(@"Force Update Tips");
-                                                        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to update")];
-                                                        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Quit")];
-                                                        NSModalResponse response = [alert runModal];
-                                                        if(response == NSAlertFirstButtonReturn) {
-                                                            // 升级
-                                                            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
-                                                        }
-                                                        // 退出
-                                                        [NSApp terminate:nil];
-                                                        return;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        YLUpdateWindowController *wc = [[YLUpdateWindowController alloc] init];
-                                        [wc showNewVersion:version info:info];
-                                        [wc.window makeKeyAndOrderFront:nil];
-                                        [NSApp activateIgnoringOtherApps:YES];
-                                    });
-                                }];
-                                [dataTask resume];
+                                [self requestServerForUpdateWayWithUrl:[NSURL URLWithString:self.forceUpdateUrl] currentVersion:appVersion appStoreVersion:latestVersion updateInfo:info];
                             } else {
-                                YLUpdateWindowController *wc = [[YLUpdateWindowController alloc] init];
-                                [wc showNewVersion:version info:info];
-                                [wc.window makeKeyAndOrderFront:nil];
-                                [NSApp activateIgnoringOtherApps:YES];
+                                [self showNewVersion:latestVersion info:info];
                             }
                         } else {
                             // 已是最新
                             if(show) {
-                                [NSApp activateIgnoringOtherApps:YES];
-                                NSAlert *alert = [[NSAlert alloc] init];
-                                alert.alertStyle = NSAlertStyleWarning;
-                                alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
-                                alert.informativeText = YLUpdateManagerLocalizeString(@"Latest version");
-                                [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Sure")];
-                                [alert runModal];
+                                [self showCurrentVersionIsLatestAlert];
                             }
                         }
                     });
@@ -348,61 +175,128 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
     [task resume];
 }
 
-#pragma mark - 根据日期和系统版本判断试用到期
-- (void)judgeAppExpireWithDate:(NSString *)dateString andOSVersion:(NSString *)osVersion {
-    if([self judgeAppExpireWithDate:dateString] == NO) {
-        [self judgeAppExpireWithOSVersion:osVersion];
-    }
+#pragma mark 请求服务器，判断如何升级
+- (void)requestServerForUpdateWayWithUrl:(NSURL *)url currentVersion:(NSString *)currentVersion appStoreVersion:(NSString *)appStoreVersion updateInfo:(NSString *)updateInfo {
+    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(data && !error) {
+                // 解析xml
+                NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+                parser.delegate = self.xmlDelegate;
+                [parser parse];
+                YLUpdateModel *update = self.xmlDelegate.update;
+                if (update && [update.BundleId isEqualToString:[NSBundle mainBundle].bundleIdentifier]) {
+                    if(update.ForceUpdateToTheLatest) {
+                        // 强制升级到最新版
+                        [self showForceUpdateAlert];
+                        return;
+                    }
+                    if (update.MiniVersion && update.MiniVersion.length > 0 && [update.MiniVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+                        // 低于最小版本号
+                        [self showForceUpdateAlert];
+                        return;
+                    }
+                    if (update.ExpiredDate && update.ExpiredDate.length > 0) {
+                        // 设置了过期时间
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier: @"en_US_POSIX"];
+                        formatter.dateFormat = @"yyyy-MM-dd";
+                        formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+                        NSDate *date = [formatter dateFromString:update.ExpiredDate];
+                        if ([[NSDate date] timeIntervalSinceDate:date] > 0) {
+                            [self showDateExpiredAlert];
+                            return;
+                        }
+                    }
+                    if (update.ExpiredOSVersion && update.ExpiredOSVersion.length > 0) {
+                        // 设置了过期系统版本
+                        NSOperatingSystemVersion sv = [[NSProcessInfo processInfo] operatingSystemVersion];
+                        NSString *sysVersion = [NSString stringWithFormat:@"%ld.%ld.%ld", sv.majorVersion, sv.minorVersion, sv.patchVersion];
+                        if ([sysVersion compare:update.ExpiredOSVersion options:NSNumericSearch] != NSOrderedAscending) {
+                            [self showOSVersionExpiredAlert];
+                            return;
+                        }
+                    }
+                }
+            }
+            [self showNewVersion:appStoreVersion info:updateInfo];
+        });
+    }];
+    [dataTask resume];
 }
 
-#pragma mark 根据日期判断试用到期
-- (BOOL)judgeAppExpireWithDate:(NSString *)dateString {
-    if(self.appID == nil) return NO;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *date = [formatter dateFromString:dateString];
-    if([[NSDate date] timeIntervalSinceDate:date] > 0) {
-        // 过期了
-        [NSApp activateIgnoringOtherApps:YES];
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.alertStyle = NSAlertStyleWarning;
-        alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
-        alert.informativeText = [NSString stringWithFormat:YLUpdateManagerLocalizeString(@"Expire Tips"), kAPP_Name];
-        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to download")];
-        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Quit")];
-        NSModalResponse returnCode = [alert runModal];
-        if(returnCode == NSAlertFirstButtonReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
-        }
-        [NSApp terminate:nil];
-        return YES;
-    }
-    return NO;
+#pragma mark 显示有新版本提示
+- (void)showNewVersion:(NSString *)version info:(NSString *)info {
+    YLUpdateWindowController *wc = [[YLUpdateWindowController alloc] init];
+    [wc showNewVersion:version info:info];
+    [wc.window center];
+    [wc.window makeKeyAndOrderFront:nil];
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
-#pragma mark 根据系统版本判断试用到期
-- (BOOL)judgeAppExpireWithOSVersion:(NSString *)osVersion {
-    if(self.appID == nil)  return NO;
-    NSOperatingSystemVersion sv = [NSProcessInfo processInfo].operatingSystemVersion;
-    NSString *sysVersion = [NSString stringWithFormat:@"%ld.%ld.%ld", sv.majorVersion, sv.minorVersion, sv.patchVersion];
-    if([sysVersion compare:osVersion options:NSNumericSearch] != NSOrderedAscending) {
-        // 大于等于设置的系统版本
-        [NSApp activateIgnoringOtherApps:YES];
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.alertStyle = NSAlertStyleWarning;
-        alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
-        alert.informativeText = [NSString stringWithFormat:YLUpdateManagerLocalizeString(@"OS Expire Tips"), kAPP_Name];
-        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to update")];
-        [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Quit")];
-        NSModalResponse returnCode = [alert runModal];
-        if(returnCode == NSAlertFirstButtonReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
-        }
-        [NSApp terminate:nil];
-        return YES;
+#pragma mark 显示当前是最新版本
+- (void)showCurrentVersionIsLatestAlert {
+    [NSApp activateIgnoringOtherApps:YES];
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleWarning;
+    alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
+    NSString *appVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+    if ([appVersion isKindOfClass:[NSString class]] && appVersion.length > 0) {
+        alert.informativeText = [NSString stringWithFormat:@"%@ %@", appVersion, YLUpdateManagerLocalizeString(@"Latest version")];
+    } else {
+        alert.informativeText = YLUpdateManagerLocalizeString(@"Latest version");
     }
-    return NO;
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Sure")];
+    [alert runModal];
+}
+
+#pragma mark 显示强制升级
+- (void)showForceUpdateAlert {
+    [NSApp activateIgnoringOtherApps:YES];
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleWarning;
+    alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
+    alert.informativeText = YLUpdateManagerLocalizeString(@"Force Update Tips");
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to update")];
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Quit")];
+    NSModalResponse returnCode = [alert runModal];
+    if(returnCode == NSAlertFirstButtonReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
+    }
+    [NSApp terminate:nil];
+}
+
+#pragma mark 显示日期过期的alert弹窗
+- (void)showDateExpiredAlert {
+    [NSApp activateIgnoringOtherApps:YES];
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleWarning;
+    alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
+    alert.informativeText = [NSString stringWithFormat:YLUpdateManagerLocalizeString(@"Expire Tips"), kAPP_Name];
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to download")];
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Quit")];
+    NSModalResponse returnCode = [alert runModal];
+    if(returnCode == NSAlertFirstButtonReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
+    }
+    [NSApp terminate:nil];
+}
+
+#pragma mark 显示系统版本过期的alert弹窗
+- (void)showOSVersionExpiredAlert {
+    // 大于等于设置的系统版本
+    [NSApp activateIgnoringOtherApps:YES];
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleWarning;
+    alert.messageText = YLUpdateManagerLocalizeString(@"Kind tips");
+    alert.informativeText = [NSString stringWithFormat:YLUpdateManagerLocalizeString(@"OS Expire Tips"), kAPP_Name];
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Click to update")];
+    [alert addButtonWithTitle:YLUpdateManagerLocalizeString(@"Quit")];
+    NSModalResponse returnCode = [alert runModal];
+    if(returnCode == NSAlertFirstButtonReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
+    }
+    [NSApp terminate:nil];
 }
 
 #pragma mark - lazy load
@@ -415,5 +309,3 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
 }
 
 @end
-
-#endif

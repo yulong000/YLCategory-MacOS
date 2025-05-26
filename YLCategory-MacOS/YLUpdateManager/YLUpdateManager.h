@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite)   NSString *appID;
 /// 强制更新地址（app store版）
 @property (nonatomic, copy, readwrite, nullable)   NSString *forceUpdateUrl;
-/// 下载地址（线下版）
-@property (nonatomic, copy, readwrite, nullable)   NSString *offlineDownloadUrl;
 
 /// app store 版本，根据app ID生成的链接
 /// app应用商店地址
@@ -32,14 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)checkForUpdatesInBackground;
 /// 检测新版本（xib连线 ）
 - (IBAction)checkForUpdates:(nullable id)sender;
-
-/// 根据日期判断试用到期 ( 格式：yyyy-MM-dd )
-- (BOOL)judgeAppExpireWithDate:(NSString *)dateString;
-/// 根据系统版本判断试用到期
-- (BOOL)judgeAppExpireWithOSVersion:(NSString *)osVersion;
-
-/// 根据日期和系统版本,判断试用到期
-- (void)judgeAppExpireWithDate:(NSString *)dateString andOSVersion:(NSString *)osVersion;
 
 @end
 

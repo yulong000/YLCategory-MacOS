@@ -12,6 +12,7 @@
 		000C7B172BC39DF0003ABB1A /* YLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C7B162BC39DF0003ABB1A /* YLUtility.m */; };
 		000D0DA32B05E58F00CF6C32 /* YLCFNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */; };
 		000D0DA72B05E81B00CF6C32 /* NSScreen+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA62B05E81B00CF6C32 /* NSScreen+category.m */; };
+		0037DECD2D2D13170061136D /* PowerAdapterObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0037DECC2D2D13170061136D /* PowerAdapterObserver.m */; };
 		004C1E1D2CD2297A00890A67 /* YLAppleReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 004C1E1C2CD2297A00890A67 /* YLAppleReview.m */; };
 		004C1E212CD229EC00890A67 /* YLPermissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 004C1E202CD229EC00890A67 /* YLPermissionManager.m */; };
 		004C1E242CD22A4200890A67 /* YLPermissionWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004C1E232CD22A4200890A67 /* YLPermissionWindowController.m */; };
@@ -102,6 +103,8 @@
 		000D0DA52B05E81B00CF6C32 /* NSScreen+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScreen+category.h"; sourceTree = "<group>"; };
 		000D0DA62B05E81B00CF6C32 /* NSScreen+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSScreen+category.m"; sourceTree = "<group>"; };
 		001F8D5528C8829B007A6F0F /* YLCategory-MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YLCategory-MacOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0037DECB2D2D13170061136D /* PowerAdapterObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerAdapterObserver.h; sourceTree = "<group>"; };
+		0037DECC2D2D13170061136D /* PowerAdapterObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerAdapterObserver.m; sourceTree = "<group>"; };
 		004C1E1B2CD2297A00890A67 /* YLAppleReview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLAppleReview.h; sourceTree = "<group>"; };
 		004C1E1C2CD2297A00890A67 /* YLAppleReview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLAppleReview.m; sourceTree = "<group>"; };
 		004C1E1F2CD229EC00890A67 /* YLPermissionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLPermissionManager.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				00A9798529E92D870066F7C7 /* AppDelegate.m */,
 				00A9798629E92D870066F7C7 /* ViewController.h */,
 				00A9798029E92D870066F7C7 /* ViewController.m */,
+				0037DECB2D2D13170061136D /* PowerAdapterObserver.h */,
+				0037DECC2D2D13170061136D /* PowerAdapterObserver.m */,
 				00B6B3EB2A08FD4A00457886 /* SecondViewController.h */,
 				00B6B3EC2A08FD4A00457886 /* SecondViewController.m */,
 				00A9798129E92D870066F7C7 /* YLCategory_MacOS.entitlements */,
@@ -995,6 +1000,7 @@
 				00A979BE29E92D870066F7C7 /* main.m in Sources */,
 				00A979CE29E92D870066F7C7 /* NSImage+category.m in Sources */,
 				004C1E2A2CD22A6C00890A67 /* YLPermissionItem.m in Sources */,
+				0037DECD2D2D13170061136D /* PowerAdapterObserver.m in Sources */,
 				00F662532CCE04F800EF1D93 /* MASShortcutMonitor.m in Sources */,
 				00F6625E2CCE050A00EF1D93 /* MASShortcutViewButtonCell.m in Sources */,
 				00F6625F2CCE050A00EF1D93 /* MASLocalization.m in Sources */,
@@ -1297,7 +1303,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025010201;
+				CURRENT_PROJECT_VERSION = 2025052601;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 87LJF62PN6;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1330,7 +1336,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025010201;
+				CURRENT_PROJECT_VERSION = 2025052601;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 87LJF62PN6;
 				ENABLE_HARDENED_RUNTIME = YES;
