@@ -67,7 +67,7 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
     } else if ([self.currentElement isEqualToString:@"MiniVersion"]) {
         self.update.MiniVersion = string;
     } else if ([self.currentElement isEqualToString:@"ForceUpdateToTheLatest"]) {
-        self.update.ForceUpdateToTheLatest = [string boolValue];
+        self.update.ForceUpdateToTheLatest = [string.lowercaseString isEqualToString:@"true"] || [string.lowercaseString isEqualToString:@"yes"] || [string boolValue];
     } else if ([self.currentElement isEqualToString:@"ExpiredDate"]) {
         self.update.ExpiredDate = string;
     } else if ([self.currentElement isEqualToString:@"ExpiredOSVersion"]) {
