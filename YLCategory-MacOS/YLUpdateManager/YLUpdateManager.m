@@ -38,9 +38,22 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
 /// 过期的系统版本号
 @property (nonatomic, copy)   NSString *ExpiredOSVersion;
 
+- (NSDictionary *)toJson;
+
 @end
 
 @implementation YLUpdateModel
+
+- (NSDictionary *)toJson {
+    return @{
+        @"Name" : self.Name ?: @"",
+        @"BundleId" : self.BundleId ?: @"",
+        @"MiniVersion" : self.MiniVersion ?: @"",
+        @"ForceUpdateToTheLatest" : @(self.ForceUpdateToTheLatest),
+        @"ExpiredDate" : self.ExpiredDate ?: @"",
+        @"ExpiredOSVersion" : self.ExpiredOSVersion ?: @""
+    };
+}
 
 @end
 
@@ -185,6 +198,9 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
                 parser.delegate = self.xmlDelegate;
                 [parser parse];
                 YLUpdateModel *update = self.xmlDelegate.update;
+#if DEBUG
+                NSLog(@"强制更新信息: %@", [update toJson]);
+#endif
                 if (update && [update.BundleId isEqualToString:[NSBundle mainBundle].bundleIdentifier]) {
                     if(update.ForceUpdateToTheLatest) {
                         // 强制升级到最新版
