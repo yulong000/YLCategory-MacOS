@@ -43,21 +43,27 @@
     [userDefaults setInteger:count forKey:kAppRateExecCount];
     if(count < minExecCount) {
         [userDefaults synchronize];
+#if DEBUG
         NSLog(@"app评分 - 当前执行次数：%zd 未达到%zd次, 直接返回", count, minExecCount);
+#endif
         return;
     }
     NSTimeInterval current = [[NSDate date] timeIntervalSince1970];
     // 从第一次执行，间隔n天，才会真正执行弹窗代码
     if(current - first < 60 * 60 * 24 * daysSinceFirstLaunch) {
         [userDefaults synchronize];
+#if DEBUG
         NSLog(@"app评分 - 从第一次执行至今，已经%.1f天，未超过%zd天，直接返回", (current - first) / (24.0 * 60 * 60), daysSinceFirstLaunch);
+#endif
         return;
     }
     // 从上一次执行后，间隔n天，执行下一次弹窗代码
     double last = [userDefaults doubleForKey:kAppRateLastShowTime];
     if(last > 0 && current - last < 60 * 60 * 24 * daysSinceLastPrompt) {
         [userDefaults synchronize];
+#if DEBUG
         NSLog(@"app评分 - 从上一次执行评分弹窗至今，已经%.1f天，未超过%zd天，直接返回", (current - last) / (24.0 * 60 * 60), daysSinceLastPrompt);
+#endif
         return;
     }
     // 开始执行代码
@@ -73,7 +79,9 @@
             NSString *appStoreReviewPath = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review", appID];
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:appStoreReviewPath]];
         }
+#if DEBUG
         NSLog(@"app评分 - 执行了弹窗评分");
+#endif
     });
 }
 

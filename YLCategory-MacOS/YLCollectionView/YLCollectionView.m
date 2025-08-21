@@ -289,6 +289,7 @@
         _scrollView.borderType = NSNoBorder;
         _scrollView.contentInsets = NSEdgeInsetsZero;
         _scrollView.drawsBackground = NO;
+        _scrollView.scrollerStyle = NSScrollerStyleOverlay;
         [_scrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     }
     return _scrollView;
