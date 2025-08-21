@@ -18,6 +18,12 @@ typedef void (^YLFileAccessHandler)(BOOL success);
 
 @property (readonly) AppSandboxFileAccess *fileAccess;
 
+#pragma mark - 加载授权
+
+- (void)loadAllAccessPath;
+- (void)loadAccessWithFilePath:(NSString *)filePath;
+- (void)loadAccessWithFileUrl:(NSURL *)fileUrl;
+
 #pragma mark - 检查是否授权
 
 /// 是否有授权

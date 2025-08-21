@@ -47,6 +47,34 @@ NSString *YLFileAccessLocalizeString(NSString *key){
     return self;
 }
 
+#pragma mark - 加载授权
+
+- (void)loadAccessWithFileUrl:(NSURL *)fileUrl {
+    [self loadAccessWithFilePath:fileUrl.path];
+}
+
+- (void)loadAccessWithFilePath:(NSString *)filePath {
+    [self checkAccessWithFilePath:filePath];
+}
+
+- (void)loadAllAccessPath {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *keys = defaults.dictionaryRepresentation.allKeys;
+    for (NSString *key in keys) {
+        if ([key hasPrefix:@"bd_file://"]) {
+            NSData *data = [defaults objectForKey:key];
+            if ([data isKindOfClass:[NSData class]]) {
+                BOOL bookmarkDataIsStale;
+                NSURL *allowedURL = [NSURL URLByResolvingBookmarkData:data options:NSURLBookmarkResolutionWithSecurityScope|NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:&bookmarkDataIsStale error:NULL];
+                if(allowedURL == nil || bookmarkDataIsStale) {
+                    continue;;
+                }
+                [allowedURL startAccessingSecurityScopedResource];
+            }
+        }
+    }
+}
+
 #pragma mark - 检查授权
 
 - (BOOL)checkAccessWithFileUrl:(NSURL *)fileUrl {
