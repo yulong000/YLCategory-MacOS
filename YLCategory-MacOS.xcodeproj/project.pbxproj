@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0001BAE42CD4B09500656EA5 /* YLShortcutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0001BAE32CD4B09500656EA5 /* YLShortcutManager.m */; };
+		00053F182E6BCCF8001F981B /* NSView+smoothCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 00053F172E6BCCF8001F981B /* NSView+smoothCorner.m */; };
+		00053F282E6BE9D5001F981B /* YLCategory-MacOS.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 00053F272E6BE9D5001F981B /* YLCategory-MacOS.podspec */; };
 		0009D7C32BB176F00093D24E /* NSArray+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009D7C22BB176F00093D24E /* NSArray+category.m */; };
 		000C7B172BC39DF0003ABB1A /* YLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C7B162BC39DF0003ABB1A /* YLUtility.m */; };
 		000D0DA32B05E58F00CF6C32 /* YLCFNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000D0DA12B05E58F00CF6C32 /* YLCFNotificationManager.m */; };
@@ -94,6 +96,9 @@
 /* Begin PBXFileReference section */
 		0001BAE22CD4B09500656EA5 /* YLShortcutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLShortcutManager.h; sourceTree = "<group>"; };
 		0001BAE32CD4B09500656EA5 /* YLShortcutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLShortcutManager.m; sourceTree = "<group>"; };
+		00053F162E6BCCF8001F981B /* NSView+smoothCorner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+smoothCorner.h"; sourceTree = "<group>"; };
+		00053F172E6BCCF8001F981B /* NSView+smoothCorner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+smoothCorner.m"; sourceTree = "<group>"; };
+		00053F272E6BE9D5001F981B /* YLCategory-MacOS.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "YLCategory-MacOS.podspec"; sourceTree = SOURCE_ROOT; };
 		0009D7C12BB176F00093D24E /* NSArray+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+category.h"; sourceTree = "<group>"; };
 		0009D7C22BB176F00093D24E /* NSArray+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+category.m"; sourceTree = "<group>"; };
 		000C7B152BC39DF0003ABB1A /* YLUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLUtility.h; sourceTree = "<group>"; };
@@ -594,6 +599,7 @@
 				0037DECC2D2D13170061136D /* PowerAdapterObserver.m */,
 				00B6B3EB2A08FD4A00457886 /* SecondViewController.h */,
 				00B6B3EC2A08FD4A00457886 /* SecondViewController.m */,
+				00053F272E6BE9D5001F981B /* YLCategory-MacOS.podspec */,
 				00A9798129E92D870066F7C7 /* YLCategory_MacOS.entitlements */,
 				00A9797F29E92D870066F7C7 /* Assets.xcassets */,
 				00A9798229E92D870066F7C7 /* Main.storyboard */,
@@ -652,6 +658,8 @@
 				00A9798E29E92D870066F7C7 /* NSView+category.m */,
 				00A9798A29E92D870066F7C7 /* NSView+gesture.h */,
 				00A9798C29E92D870066F7C7 /* NSView+gesture.m */,
+				00053F162E6BCCF8001F981B /* NSView+smoothCorner.h */,
+				00053F172E6BCCF8001F981B /* NSView+smoothCorner.m */,
 			);
 			path = NSView;
 			sourceTree = "<group>";
@@ -964,6 +972,7 @@
 				00A979BB29E92D870066F7C7 /* Assets.xcassets in Resources */,
 				004C1E332CD22CA700890A67 /* YLPermissionManager.strings in Resources */,
 				00F6627C2CCE0C0A00EF1D93 /* MAShortcutLocalizable.strings in Resources */,
+				00053F282E6BE9D5001F981B /* YLCategory-MacOS.podspec in Resources */,
 				004C1E682CD2310200890A67 /* YLHud.bundle in Resources */,
 				00A979BD29E92D870066F7C7 /* Main.storyboard in Resources */,
 				006AA1612A9F26F20084F02F /* YLShortcutView.strings in Resources */,
@@ -1049,6 +1058,7 @@
 				00B6B3EA2A08DD7B00457886 /* NSResponder+category.m in Sources */,
 				00A979CC29E92D870066F7C7 /* NSObject+category.m in Sources */,
 				004C1E702CD235C700890A67 /* YLUpdateManager.m in Sources */,
+				00053F182E6BCCF8001F981B /* NSView+smoothCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

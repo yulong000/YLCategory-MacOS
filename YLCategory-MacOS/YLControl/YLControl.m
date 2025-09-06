@@ -6,6 +6,7 @@
 //
 
 #import "YLControl.h"
+#import "NSView+smoothCorner.h"
 
 @implementation YLControl
 
@@ -34,6 +35,11 @@
 
 - (BOOL)isFlipped {
     return YES;
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+    [self drawSmoothCorner];
 }
 
 @end

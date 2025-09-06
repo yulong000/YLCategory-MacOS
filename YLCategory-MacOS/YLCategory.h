@@ -14,6 +14,7 @@
 #import "NSView+frame.h"
 #import "NSView+category.h"
 #import "NSView+gesture.h"
+#import "NSView+smoothCorner.h"
 #import "NSControl+category.h"
 #import "NSString+bounds.h"
 #import "NSString+secret.h"

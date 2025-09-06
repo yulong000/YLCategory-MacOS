@@ -6,12 +6,18 @@
 //
 
 #import "YLFlipView.h"
+#import "NSView+smoothCorner.h"
 
 @implementation YLFlipView
 @synthesize tag = _tag;
 
 - (BOOL)isFlipped {
     return YES;
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+    [self drawSmoothCorner];
 }
 
 @end
