@@ -9,9 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^YLViewThemeChangedHandler)(id view, BOOL dark);
+
 @interface NSView (category)
 
+/// 背景颜色
 @property (nonatomic, strong, nullable) NSColor *backgroundColor;
+
+/// 自己的主题色发生变化
+@property (nonatomic, copy)   YLViewThemeChangedHandler themeChangedHandler;
 
 /**  移除所有的子控件  */
 - (void)removeAllSubviews;
@@ -62,6 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSWindowController *)wc;
 /// 所在的屏幕
 - (NSScreen *)screen;
+
+/// 自己显示是暗色还是亮色
+- (BOOL)isDark;
 
 @end
 

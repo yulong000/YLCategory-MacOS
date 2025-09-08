@@ -32,19 +32,11 @@
         }
     };
     [self.view addSubview:shortcutView];
-    
-    NSView *sub = [[NSView alloc] initWithFrame:NSMakeRect(20, 200, 100, 100)];
-    [sub setSmoothCornerWithTopLeft:20 topRight:30 bottomRight:40 bottomLeft:10];
-    sub.backgroundColor = GreenColor;
-    [self.view addSubview:sub];
-    self.sub = sub;
 }
 
 - (void)mouseDown:(NSEvent *)event {
     [super mouseDown:event];
-    [self.sub setSmoothCorner:20];
-    [self.sub setSmoothCornerBorderColor:RedColor borderWidth:2];
-    self.sub.backgroundColor = BlueColor;
+    
 }
 
 @end

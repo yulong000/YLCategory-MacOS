@@ -23,9 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置平滑圆角的边框颜色和宽度
 - (void)setSmoothCornerBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth;
 
-/// 绘制平滑圆角
-- (void)drawSmoothCorner;
-
 @end
 
 NS_ASSUME_NONNULL_END

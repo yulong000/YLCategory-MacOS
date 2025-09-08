@@ -38,20 +38,9 @@
                         handler:(NSControlClickedHandler _Nullable)handler {
     NSButton *btn = [[self alloc] init];
     btn.bordered = NO;
-    if(title) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        if(font) {
-            params[NSFontAttributeName] = font;
-        }
-        if(textColor) {
-            params[NSForegroundColorAttributeName] = textColor;
-        }
-        if(params.allKeys.count > 0) {
-            btn.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:params];
-        } else {
-            btn.title = title;
-        }
-    }
+    btn.title = title ?: @"";
+    btn.font = font;
+    btn.contentTintColor = textColor;
     if(image) {
         btn.image = image;
         btn.imageScaling = NSImageScaleProportionallyUpOrDown;

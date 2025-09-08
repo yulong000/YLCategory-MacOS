@@ -37,9 +37,4 @@
     return YES;
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    [self drawSmoothCorner];
-}
-
 @end

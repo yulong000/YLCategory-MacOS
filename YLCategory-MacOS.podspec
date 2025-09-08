@@ -119,7 +119,6 @@ end
 
 s.subspec 'YLFlipView' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLFlipView/*.{h,m}'
-ss.dependency        'YLCategory-MacOS/NSView'
 end
 
 s.subspec 'YLCFNotificationManager' do |ss|
@@ -128,7 +127,6 @@ end
 
 s.subspec 'YLControl' do |ss|
 ss.source_files  =   'YLCategory-MacOS/YLControl/*.{h,m}'
-ss.dependency        'YLCategory-MacOS/NSView'
 end
 
 s.subspec 'YLUtility' do |ss|

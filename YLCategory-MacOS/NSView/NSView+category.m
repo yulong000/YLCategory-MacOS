@@ -143,4 +143,43 @@
     return self.window.screen;
 }
 
+#pragma mark 判断自己要显示的是亮色还是暗色
+- (BOOL)isDark {
+    if (@available(macOS 14.0, *)) {
+        return [self.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]] == NSAppearanceNameDarkAqua;
+    }
+    return NO;
+}
+
+- (YLViewThemeChangedHandler)themeChangedHandler {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setThemeChangedHandler:(YLViewThemeChangedHandler)themeChangedHandler {
+    objc_setAssociatedObject(self, @selector(themeChangedHandler), themeChangedHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    if (themeChangedHandler) {
+        themeChangedHandler(self, self.isDark);
+        [self.class swizzleViewDidChangeEffectiveAppearance];
+    }
+}
+
+static BOOL themeChangeDidSwizzle = NO;
++ (void)swizzleViewDidChangeEffectiveAppearance {
+    if (themeChangeDidSwizzle) return;
+    Method originalMethod = class_getInstanceMethod(self.class, @selector(viewDidChangeEffectiveAppearance));
+    Method swizzledMethod = class_getInstanceMethod(self.class, @selector(themeChange_viewDidChangeEffectiveAppearance));
+    
+    if (originalMethod && swizzledMethod) {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+        themeChangeDidSwizzle = YES;
+    }
+}
+
+- (void)themeChange_viewDidChangeEffectiveAppearance {
+    [self themeChange_viewDidChangeEffectiveAppearance];
+    if (self.themeChangedHandler) {
+        self.themeChangedHandler(self, self.isDark);
+    }
+}
+
 @end
