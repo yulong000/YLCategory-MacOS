@@ -6,7 +6,6 @@
 //
 
 #import "YLControl.h"
-#import "NSView+smoothCorner.h"
 
 @implementation YLControl
 

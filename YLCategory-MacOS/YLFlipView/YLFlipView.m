@@ -6,7 +6,6 @@
 //
 
 #import "YLFlipView.h"
-#import "NSView+smoothCorner.h"
 
 @implementation YLFlipView
 @synthesize tag = _tag;
