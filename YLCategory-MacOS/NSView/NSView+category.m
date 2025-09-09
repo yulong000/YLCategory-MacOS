@@ -159,7 +159,7 @@
     objc_setAssociatedObject(self, @selector(themeChangedHandler), themeChangedHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
     if (themeChangedHandler) {
         themeChangedHandler(self, self.isDark);
-        [self.class swizzleViewDidChangeEffectiveAppearance];
+        [NSView swizzleViewDidChangeEffectiveAppearance];
     }
 }
 

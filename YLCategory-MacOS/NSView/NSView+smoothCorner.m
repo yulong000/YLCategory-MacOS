@@ -217,10 +217,12 @@ static const char kBorderLayerKey = '\0';
                        bottomRight:(CGFloat)bottomRight
                         bottomLeft:(CGFloat)bottomLeft {
     if (topLeft > 0 || topRight > 0 || bottomRight > 0 || bottomLeft > 0) {
-        [self.class swizzleLayout];
-        self.smoothCornerMaskCorner = [[NSViewMaskCorner alloc] initWithTopLeft:topLeft topRight:topRight bottomRight:bottomRight bottomLeft:bottomLeft];
-        self.smoothCornerMaskLayer = [CAShapeLayer layer];
+        [NSView swizzleWillDraw];
         self.wantsLayer = YES;
+        self.smoothCornerMaskCorner = [[NSViewMaskCorner alloc] initWithTopLeft:topLeft topRight:topRight bottomRight:bottomRight bottomLeft:bottomLeft];
+        if (self.smoothCornerMaskLayer == nil) {
+            self.smoothCornerMaskLayer = [CAShapeLayer layer];
+        }
     } else {
         self.smoothCornerMaskCorner = nil;
         self.smoothCornerMaskLayer = nil;
@@ -232,11 +234,10 @@ static const char kBorderLayerKey = '\0';
 #pragma mark 设置平滑圆角边框的线宽和颜色
 - (void)setSmoothCornerBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth {
     if (borderWidth > 0) {
-        [self.class swizzleLayout];
+        [NSView swizzleWillDraw];
+        self.wantsLayer = YES;
         if (self.smoothCornerBorderLayer == nil) {
             self.smoothCornerBorderLayer = [CAShapeLayer layer];
-            self.wantsLayer = YES;
-            [self.layer insertSublayer:self.smoothCornerBorderLayer atIndex:0];
         }
         self.smoothCornerBorderLayer.lineWidth = borderWidth * 2;
         self.smoothCornerBorderLayer.strokeColor = [borderColor CGColor];
@@ -249,7 +250,7 @@ static const char kBorderLayerKey = '\0';
 
 #pragma mark - Drawing
 
-- (void)drawSmoothCorner {
+- (void)drawSmoothCornerAndBorder {
     CALayer *layer = self.layer;
     CAShapeLayer *maskLayer = self.smoothCornerMaskLayer;
     NSViewMaskCorner *corner = self.smoothCornerMaskCorner;
@@ -274,20 +275,21 @@ static const char kBorderLayerKey = '\0';
 
 #pragma mark - Swizzling
 
-static BOOL smoothCornerLayoutDidSwizzle = NO;
-+ (void)swizzleLayout {
-    if (smoothCornerLayoutDidSwizzle)   return;
-    Method originalLayout = class_getInstanceMethod(self, @selector(layout));
-    Method swizzledLayout = class_getInstanceMethod(self, @selector(smoothCorner_layout));
-    if (originalLayout && swizzledLayout) {
-        method_exchangeImplementations(originalLayout, swizzledLayout);
-        smoothCornerLayoutDidSwizzle = YES;
+static BOOL smoothCornerWillDrawDidSwizzle = NO;
++ (void)swizzleWillDraw {
+    if (smoothCornerWillDrawDidSwizzle)   return;
+
+    Method originalWillDraw = class_getInstanceMethod(self, @selector(viewWillDraw));
+    Method swizzledWillDraw = class_getInstanceMethod(self, @selector(smoothCorner_viewWillDraw));
+    if (originalWillDraw && swizzledWillDraw) {
+        method_exchangeImplementations(originalWillDraw, swizzledWillDraw);
+        smoothCornerWillDrawDidSwizzle = YES;
     }
 }
 
-- (void)smoothCorner_layout {
-    [self smoothCorner_layout];
-    [self drawSmoothCorner];
+- (void)smoothCorner_viewWillDraw {
+    [self smoothCorner_viewWillDraw];
+    [self drawSmoothCornerAndBorder];
 }
 
 #pragma mark - Associated Objects
