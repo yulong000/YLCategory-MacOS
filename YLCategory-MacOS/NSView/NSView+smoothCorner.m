@@ -198,10 +198,6 @@
 
 #pragma mark - 平滑圆角
 
-static const char kMaskLayerKey = '\0';
-static const char kMaskCornerKey = '\0';
-static const char kBorderLayerKey = '\0';
-
 @implementation NSView (smoothCorner)
 
 #pragma mark - Public
@@ -217,7 +213,7 @@ static const char kBorderLayerKey = '\0';
                        bottomRight:(CGFloat)bottomRight
                         bottomLeft:(CGFloat)bottomLeft {
     if (topLeft > 0 || topRight > 0 || bottomRight > 0 || bottomLeft > 0) {
-        [NSView swizzleWillDraw];
+        [NSView swizzleSmoothCornerMethods];
         self.wantsLayer = YES;
         self.smoothCornerMaskCorner = [[NSViewMaskCorner alloc] initWithTopLeft:topLeft topRight:topRight bottomRight:bottomRight bottomLeft:bottomLeft];
         if (self.smoothCornerMaskLayer == nil) {
@@ -234,7 +230,7 @@ static const char kBorderLayerKey = '\0';
 #pragma mark 设置平滑圆角边框的线宽和颜色
 - (void)setSmoothCornerBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth {
     if (borderWidth > 0) {
-        [NSView swizzleWillDraw];
+        [NSView swizzleSmoothCornerMethods];
         self.wantsLayer = YES;
         if (self.smoothCornerBorderLayer == nil) {
             self.smoothCornerBorderLayer = [CAShapeLayer layer];
@@ -261,7 +257,9 @@ static const char kBorderLayerKey = '\0';
     if (@available(macOS 14.0, *)) {
         maskLayer.path = bezierPath.CGPath;
     } else {
-        maskLayer.path = bezierPath.cgPath;
+        CGPathRef path = bezierPath.cgPath;
+        maskLayer.path = path;
+        CGPathRelease(path);
     }
     layer.mask = maskLayer;
     
@@ -269,22 +267,36 @@ static const char kBorderLayerKey = '\0';
         self.smoothCornerBorderLayer.frame = layer.bounds;
         self.smoothCornerBorderLayer.fillColor = NSColor.clearColor.CGColor;
         self.smoothCornerBorderLayer.path = maskLayer.path;
-        [self.layer insertSublayer:self.smoothCornerBorderLayer atIndex:0];
+        if (self.smoothCornerBorderLayer.superlayer != self.layer) {
+            [self.layer insertSublayer:self.smoothCornerBorderLayer atIndex:0];
+        }
     }
 }
 
 #pragma mark - Swizzling
 
-static BOOL smoothCornerWillDrawDidSwizzle = NO;
-+ (void)swizzleWillDraw {
-    if (smoothCornerWillDrawDidSwizzle)   return;
+static BOOL smoothCornerMethodsDidSwizzle = NO;
++ (void)swizzleSmoothCornerMethods {
+    if (smoothCornerMethodsDidSwizzle)   return;
+    
+    Method originalLayout = class_getInstanceMethod(self, @selector(layout));
+    Method swizzledLayout = class_getInstanceMethod(self, @selector(smoothCorner_layout));
+    if (originalLayout && swizzledLayout) {
+        method_exchangeImplementations(originalLayout, swizzledLayout);
+    }
 
     Method originalWillDraw = class_getInstanceMethod(self, @selector(viewWillDraw));
     Method swizzledWillDraw = class_getInstanceMethod(self, @selector(smoothCorner_viewWillDraw));
     if (originalWillDraw && swizzledWillDraw) {
         method_exchangeImplementations(originalWillDraw, swizzledWillDraw);
-        smoothCornerWillDrawDidSwizzle = YES;
     }
+    
+    smoothCornerMethodsDidSwizzle = YES;
+}
+
+- (void)smoothCorner_layout {
+    [self smoothCorner_layout];
+    [self drawSmoothCornerAndBorder];
 }
 
 - (void)smoothCorner_viewWillDraw {
@@ -295,24 +307,24 @@ static BOOL smoothCornerWillDrawDidSwizzle = NO;
 #pragma mark - Associated Objects
 
 - (CAShapeLayer *)smoothCornerMaskLayer {
-    return objc_getAssociatedObject(self, &kMaskLayerKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
-- (void)setSmoothCornerMaskLayer:(CAShapeLayer *)layer {
-    objc_setAssociatedObject(self, &kMaskLayerKey, layer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setSmoothCornerMaskLayer:(CAShapeLayer *)smoothCornerMaskLayer {
+    objc_setAssociatedObject(self, @selector(smoothCornerMaskLayer), smoothCornerMaskLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSViewMaskCorner *)smoothCornerMaskCorner {
-    return objc_getAssociatedObject(self, &kMaskCornerKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
-- (void)setSmoothCornerMaskCorner:(NSViewMaskCorner *)corner {
-    objc_setAssociatedObject(self, &kMaskCornerKey, corner, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setSmoothCornerMaskCorner:(NSViewMaskCorner *)smoothCornerMaskCorner {
+    objc_setAssociatedObject(self, @selector(smoothCornerMaskCorner), smoothCornerMaskCorner, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (CAShapeLayer *)smoothCornerBorderLayer {
-    return objc_getAssociatedObject(self, &kBorderLayerKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
-- (void)setSmoothCornerBorderLayer:(CAShapeLayer *)layer {
-    objc_setAssociatedObject(self, &kBorderLayerKey, layer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setSmoothCornerBorderLayer:(CAShapeLayer *)smoothCornerBorderLayer {
+    objc_setAssociatedObject(self, @selector(smoothCornerBorderLayer), smoothCornerBorderLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 
