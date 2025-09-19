@@ -94,11 +94,9 @@
 #define StretchImageName(imageName)     [[NSImage imageNamed:imageName] \
                                         stretchableImageWithLeftCapWidth:ImageWithName(imageName).size.width * 0.5 \
                                         topCapHeight:ImageWithName(imageName).size.height * 0.5]
-#define StretchImage(image)             [image stretchableImageWithLeftCapWidth:image.size.width * 0.5 \
-                                        topCapHeight:image.size.height * 0.5]
+#define StretchImage(image)             [image stretchableImageWithLeftCapWidth:image.size.width * 0.5 topCapHeight:image.size.height * 0.5]
 // 从指定位置拉伸图片
-#define StretchImageNameWith(imageName, left, top)  [[NSImage imageNamed:imageName] \
-                                                    stretchableImageWithLeftCapWidth:left topCapHeight:top]
+#define StretchImageNameWith(imageName, left, top)  [[NSImage imageNamed:imageName] stretchableImageWithLeftCapWidth:left topCapHeight:top]
 #define StretchImageWith(image, left, top)          [image stretchableImageWithLeftCapWidth:left topCapHeight:top]
 
 // 系统当前是否是深色模式
@@ -132,5 +130,12 @@
 
 // 判断2个CF字符串是否相等
 #define CFStringEqual(str1, str2)       (CFStringCompare(str1, str2, 0) == kCFCompareEqualTo)
+
+// 判断系统是否是macOS 26.0及以后
+#define kIs26AndLater                                   \
+^BOOL{                                                  \
+    if (@available(macOS 26.0, *)) { return YES; }      \
+    return NO;                                          \
+}()
 
 #endif /* Marco_h */

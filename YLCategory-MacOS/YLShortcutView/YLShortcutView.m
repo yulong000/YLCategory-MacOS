@@ -64,7 +64,11 @@
     self.recoverBtn.frame = recoverFrame;
     self.clearBtn.frame = clearFrame;
     // NSButton 高度固定 32
-    self.shortcutBtn.frame = NSMakeRect(-6, (height - self.shortcutBtn.frame.size.height) / 2, width + 12, self.shortcutBtn.frame.size.height);
+    if (@available(macOS 26.0, *)) {
+        self.shortcutBtn.frame = NSMakeRect(0, (height - self.shortcutBtn.frame.size.height) / 2, width, self.shortcutBtn.frame.size.height);
+    } else {
+        self.shortcutBtn.frame = NSMakeRect(-6, (height - self.shortcutBtn.frame.size.height) / 2, width + 12, self.shortcutBtn.frame.size.height);
+    }
 }
 
 - (void)dealloc {
