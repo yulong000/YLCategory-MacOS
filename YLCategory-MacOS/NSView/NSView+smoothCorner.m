@@ -279,6 +279,12 @@ static BOOL smoothCornerMethodsDidSwizzle = NO;
 + (void)swizzleSmoothCornerMethods {
     if (smoothCornerMethodsDidSwizzle)   return;
     
+    Method originalSetFrame = class_getInstanceMethod(self, @selector(setFrame:));
+    Method swizzledSetFrame = class_getInstanceMethod(self, @selector(smoothCorner_setFrame:));
+    if (originalSetFrame && swizzledSetFrame) {
+        method_exchangeImplementations(originalSetFrame, swizzledSetFrame);
+    }
+    
     Method originalLayout = class_getInstanceMethod(self, @selector(layout));
     Method swizzledLayout = class_getInstanceMethod(self, @selector(smoothCorner_layout));
     if (originalLayout && swizzledLayout) {
@@ -292,6 +298,11 @@ static BOOL smoothCornerMethodsDidSwizzle = NO;
     }
     
     smoothCornerMethodsDidSwizzle = YES;
+}
+
+- (void)smoothCorner_setFrame:(CGRect)frame {
+    [self smoothCorner_setFrame:frame];
+    [self drawSmoothCornerAndBorder];
 }
 
 - (void)smoothCorner_layout {
