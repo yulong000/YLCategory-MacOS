@@ -59,14 +59,15 @@
 
 - (void)setInfo:(NSString *)info {
     _info = [info copy] ?: @"";
-    self.infoView.string = _info ?: @"";
-    CGFloat height = [self.infoView.string boundingRectWithSize:NSMakeSize(460, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.infoView.font}].size.height;
+    self.infoView.string = _info;
+    CGFloat height = [_info boundingRectWithSize:NSMakeSize(460, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.infoView.font}].size.height;
     if (@available(macOS 26.0, *)) {
         height += 85;
     } else {
         height += 100;
     }
     [self.view.window setFrame:NSMakeRect(0, 0, 500, height) display:YES];
+    [self.view setNeedsLayout:YES];
     [self.view.window center];
 }
 
