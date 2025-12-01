@@ -18,5 +18,6 @@
 "Sure" = "確定";
 "New version found" = "發現新版本";
 "Latest version" = "已經是最新版本";
-"Skip" = "跳過";
+"Skip This Version" = "跳过该版本";
 "Update" = "更新";
+"Cancel" = "取消";

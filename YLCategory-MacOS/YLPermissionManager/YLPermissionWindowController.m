@@ -25,6 +25,7 @@
         [self.window standardWindowButton:NSWindowZoomButton].hidden = YES;
         self.window.opaque = NO;
         self.window.movableByWindowBackground = YES;
+        self.window.level = NSFloatingWindowLevel;
         self.window.contentViewController = self.permissionVc;
         [self.window center];
     }

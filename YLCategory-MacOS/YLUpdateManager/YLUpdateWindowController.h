@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YLUpdateWindowController : NSWindowController
 
-- (void)showNewVersion:(NSString *)newVersion info:(NSString *)info;
+- (void)showNewVersion:(NSString *)newVersion info:(NSString *)info skipEnable:(BOOL)isSkipEnable;
 
 @end
 

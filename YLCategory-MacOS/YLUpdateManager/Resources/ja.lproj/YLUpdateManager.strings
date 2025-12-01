@@ -18,5 +18,6 @@
 "Sure" = "はい";
 "New version found" = "新しいバージョンが見つかりました";
 "Latest version" = "すでに最新バージョンです";
-"Skip" = "スキップ";
+"Skip This Version" = "このバージョンをスキップ";
 "Update" = "更新";
+"Cancel" = "キャンセル";

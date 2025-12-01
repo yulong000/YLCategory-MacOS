@@ -18,5 +18,6 @@
 "Sure" = "Sure";
 "New version found" = "New version found";
 "Latest version" = "Already the latest version";
-"Skip" = "Skip";
+"Skip This Version" = "Skip This Version";
 "Update" = "Update";
+"Cancel" = "Cancel";

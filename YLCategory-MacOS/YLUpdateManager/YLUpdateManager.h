@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite)   NSString *appID;
 /// 强制更新地址（app store版）
 @property (nonatomic, copy, readwrite, nullable)   NSString *forceUpdateUrl;
+/// 是否可以跳过当前更新版本（默认YES）
+@property (nonatomic, assign, readwrite, getter=isSkipEnable) BOOL skipEnable;
 
 /// app store 版本，根据app ID生成的链接
 /// app应用商店地址

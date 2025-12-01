@@ -37,9 +37,11 @@
     return _vc;
 }
 
-- (void)showNewVersion:(NSString *)newVersion info:(NSString *)info {
+- (void)showNewVersion:(NSString *)newVersion info:(NSString *)info skipEnable:(BOOL)isSkipEnable {
     self.window.title = [NSString stringWithFormat:@"%@ : %@", YLUpdateManagerLocalizeString(@"New version found"), newVersion];
     self.vc.info = info;
+    self.vc.showSkipButton = isSkipEnable;
+    self.vc.lastVersion = newVersion;
 }
 
 @end

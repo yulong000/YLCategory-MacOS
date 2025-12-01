@@ -18,5 +18,7 @@
 "Sure" = "Seguro";
 "New version found" = "Neue Version gefunden";
 "Latest version" = "Schon die neueste Version";
-"Skip" = "Überspringen";
+"Skip This Version" = "Diese Version überspringen";
 "Update" = "Aktualisieren";
+"Cancel" = "Abbrechen";
+

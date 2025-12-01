@@ -136,11 +136,18 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
     return manager;
 }
 
+- (instancetype)init {
+    if(self = [super init]) {
+        self.skipEnable = YES;
+    }
+    return self;
+}
+
 - (void)setAppID:(NSString *)appID {
     _appID = [appID copy];
     NSString *countryCode = [[NSLocale currentLocale].countryCode lowercaseString] ?: @"";
     [YLUpdateManager share].appStoreUrl = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@", appID];
-    [YLUpdateManager share].appUpdateUrl = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@&country=%@", appID, countryCode];
+    [YLUpdateManager share].appUpdateUrl = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@&country=%@&entity=desktopSoftware", appID, countryCode];
     [YLUpdateManager share].appIntroduceUrl = [NSString stringWithFormat:@"https://apps.apple.com/cn/app/id%@", appID];
 }
 
@@ -243,8 +250,16 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
 
 #pragma mark 显示有新版本提示
 - (void)showNewVersion:(NSString *)version info:(NSString *)info {
+    NSString *skipVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"YLUpdateSkipVersion"];
+    if ([skipVersion isKindOfClass:[NSString class]] && skipVersion.length > 0 && [skipVersion isEqualToString:version]) {
+        // 跳过该版本
+#if DEBUG
+        NSLog(@"设置了跳过该更新版本：%@", version);
+#endif
+        return;
+    }
     YLUpdateWindowController *wc = [[YLUpdateWindowController alloc] init];
-    [wc showNewVersion:version info:info];
+    [wc showNewVersion:version info:info skipEnable:self.isSkipEnable];
     [wc.window center];
     [wc.window makeKeyAndOrderFront:nil];
     [NSApp activateIgnoringOtherApps:YES];
