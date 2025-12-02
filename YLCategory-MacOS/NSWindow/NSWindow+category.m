@@ -12,6 +12,7 @@
 + (instancetype)windowWithClearBackground {
     NSWindow *window = [[NSWindow alloc] initWithContentRect:NSZeroRect styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskClosable backing:NSBackingStoreBuffered defer:YES];
     window.titlebarAppearsTransparent = YES;
+    window.titleVisibility = NSWindowTitleHidden;
     [window standardWindowButton:NSWindowMiniaturizeButton].hidden = YES;
     [window standardWindowButton:NSWindowCloseButton].hidden = YES;
     [window standardWindowButton:NSWindowZoomButton].hidden = YES;

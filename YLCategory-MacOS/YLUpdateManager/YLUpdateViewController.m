@@ -61,6 +61,7 @@
     _info = [info copy] ?: @"";
     self.infoView.string = _info;
     CGFloat height = [_info boundingRectWithSize:NSMakeSize(460, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.infoView.font}].size.height;
+    self.infoView.frame = NSMakeRect(0, 0, 460, height);
     if (@available(macOS 26.0, *)) {
         height += 85;
     } else {
