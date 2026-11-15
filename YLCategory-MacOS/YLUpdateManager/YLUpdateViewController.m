@@ -68,7 +68,6 @@
         height += 100;
     }
     [self.view.window setFrame:NSMakeRect(0, 0, 500, height) display:YES];
-    [self.view setNeedsLayout:YES];
     [self.view.window center];
 }
 

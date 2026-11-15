@@ -190,6 +190,7 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
             }
         } else if (error) {
             NSLog(@"check new version error : %@", error);
+            [self checkLocalExpiredDatePassed];
         }
     }];
     [task resume];
@@ -241,8 +242,12 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
                         }
                     }
                 }
+                [self showNewVersion:appStoreVersion info:updateInfo];
+            } else {
+                if ([self checkLocalExpiredDatePassed] == NO) {
+                    [self showNewVersion:appStoreVersion info:updateInfo];
+                }
             }
-            [self showNewVersion:appStoreVersion info:updateInfo];
         });
     }];
     [dataTask resume];
@@ -328,6 +333,26 @@ NSString *YLUpdateManagerLocalizeString(NSString *key){
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.appStoreUrl]];
     }
     [NSApp terminate:nil];
+}
+
+#pragma mark 检查本地过期时间
+- (BOOL)checkLocalExpiredDatePassed {
+    if (self.localExpiredDate == nil || self.localExpiredDate.length == 0) {
+        return NO;
+    }
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    NSDate *expiredDate = [formatter dateFromString:self.localExpiredDate];
+    if ([expiredDate timeIntervalSinceNow] <= 0 && self.appStoreUrl.length > 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showDateExpiredAlert];
+        });
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - lazy load
