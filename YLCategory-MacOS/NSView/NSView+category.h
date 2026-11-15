@@ -14,7 +14,7 @@ typedef void (^YLViewThemeChangedHandler)(id view, BOOL dark);
 @interface NSView (category)
 
 /// 背景颜色
-@property (nonatomic, strong, nullable) NSColor *backgroundColor;
+@property (nonatomic, strong, nullable) NSColor *bgColor;
 
 /// 自己的主题色发生变化
 @property (nonatomic, copy)   YLViewThemeChangedHandler themeChangedHandler;

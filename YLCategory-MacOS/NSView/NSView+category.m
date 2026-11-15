@@ -10,17 +10,17 @@
 
 @implementation NSView (category)
 
-- (void)setBackgroundColor:(NSColor *)backgroundColor {
-    if(backgroundColor == nil) {
+- (void)setBgColor:(NSColor *)bgColor {
+    if(bgColor == nil) {
         self.wantsLayer = NO;
         self.layer.backgroundColor = nil;
     } else {
         self.wantsLayer = YES;
-        self.layer.backgroundColor = backgroundColor.CGColor;
+        self.layer.backgroundColor = bgColor.CGColor;
     }
 }
 
-- (NSColor *)backgroundColor {
+- (NSColor *)bgColor {
     if(self.layer.backgroundColor) {
         return [NSColor colorWithCGColor:self.layer.backgroundColor];
     }
@@ -76,9 +76,8 @@
 
 #pragma mark 设置边框
 - (void)setBorderColor:(NSColor *)borderColor borderWidth:(CGFloat)borderWidth {
-    self.wantsLayer = YES;
-    self.layer.borderColor = borderColor.CGColor;
-    self.layer.borderWidth = borderWidth;
+    [self setBorderColor:borderColor];
+    [self setBorderWidth:borderWidth];
 }
 
 #pragma mark 设置圆角
@@ -86,6 +85,10 @@
     self.wantsLayer = YES;
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = cornerRadius;
+    self.layer.allowsEdgeAntialiasing = YES;
+    if (@available(macOS 10.15, *)) {
+        self.layer.cornerCurve = kCACornerCurveContinuous;
+    }
 }
 
 #pragma mark 设置边框宽度
@@ -108,10 +111,8 @@
 
 #pragma mark 设置指定位置的圆角
 - (void)setCornerRadius:(CGFloat)cornerRadius mask:(CACornerMask)mask {
-    self.wantsLayer = YES;
-    self.layer.masksToBounds = YES;
+    [self setCornerRadius:cornerRadius];
     self.layer.maskedCorners = mask;
-    self.layer.cornerRadius = cornerRadius;
 }
 
 + (instancetype)viewWithColor:(NSColor *)backgroundColor {
